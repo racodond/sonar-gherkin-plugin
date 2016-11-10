@@ -1,0 +1,16 @@
+<p>
+    For tags to be usable, the list of allowed tags should be properly defined. This rule raises an issue each time a
+    tag that is not in the whitelist is found.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+With default value "smoke,nrt":
+<pre>
+@non-regression-test
+</pre>
+
+<h2>Compliant Solution</h2>
+With default value "smoke,nrt":
+<pre>
+@nrt
+</pre>

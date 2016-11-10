@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>gherkin-custom-rules-profile</name>
+  <language>gherkin</language>
+  <rules>
+    <rule>
+      <repositoryKey>custom-gherkin</repositoryKey>
+      <key>forbidden-tag</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>custom-gherkin</repositoryKey>
+      <key>forbidden-name-content</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+  </rules>
+</profile>

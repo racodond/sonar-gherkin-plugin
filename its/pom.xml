@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
+    <artifactId>gherkin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>gherkin-its</artifactId>
+  <name>SonarQube Gherkin Analyzer :: Integration Tests</name>
+  <packaging>pom</packaging>
+
+  <description>Integration tests of the SonarQube Gherkin Analyzer</description>
+  <inceptionYear>2016</inceptionYear>
+  <organization>
+    <name>David RACODON</name>
+    <url>mailto:david.racodon@gmail.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>GNU LGPL 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>racodond</id>
+      <name>David RACODON</name>
+      <email>david.racodon@gmail.com</email>
+      <url>https://www.linkedin.com/pub/david-racodon/11/62/283</url>
+    </developer>
+  </developers>
+
+  <modules>
+    <module>plugin</module>
+    <module>ruling</module>
+  </modules>
+
+</project>
