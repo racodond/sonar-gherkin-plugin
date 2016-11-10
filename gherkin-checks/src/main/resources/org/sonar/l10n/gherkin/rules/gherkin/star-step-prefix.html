@@ -1,0 +1,20 @@
+<p>
+    In order to improve understandability, <code>Given/When/Then</code> step prefix should be used instead of
+    <code>*</code>.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario: Add product to cart
+  * I am a customer
+  * I add a product to my cart
+  * I should see the product in my cart
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario: Add product to cart
+  Given I am a customer
+  When I add a product to my cart
+  Then I should see the product in my cart
+</pre>

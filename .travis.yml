@@ -1,0 +1,23 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+addons:
+  sonarqube: true
+
+env:
+  global:
+    - secure: "CSzKqFmcrE0QC/wDQPirPPAWQBD0jsM8urbUjis/EEb00vjroI/uSNvDdzPyR0ZvMB6AaiZmYhyfXvVjw5doIyzEaI6pKiHFGvzoQAFfPI4Or1ST7AI3c2sD3mf1FQE3T+lvpoDmGj7gA+rLWsxzrqcfWiWbkggs7E3N2PxLhXGEu4o6gbkt8kiseIiRspIwZpg7ftqL7UGefWGaYFIlf9jX0Xd9ySpCBGbquWHK9+TdgKhhl+nBR7R1SbDgUABfJbhRyTQmR1oyuz+BxwZi5w6twoZsDYiCisIBdioBCmYZNShb+7EpMZLuKPMRkVhLvlJ6aI2taw+UPqlK7r14f9TDU57Hr2cEp/k4YDJZxkaOH8Cxc5OWY9CP1cuf9t0HoK9mwBTHjbxZ5Xm0+u4b0ydUsFq5h9lH7hh9/OHeXTPjBCW9hPyWoWa1JkYikk1WwunLV8TyA6jMBKQlHNjCSADoV7AeedldwCpfRIVOZYO+cewyMxfhBwqyJEOGjuEzpuoc7VyRJnpSoTf4TQkLbG5JeTp8cZOgCRwbEPcaVU0kwYBdXSm03WkTBEyCIC01h94yk3KczVUmbzopXs0uAGoFjXIs48RG38S3D3jKJ9vZN57iTf+8bw8ywUYfnbud5Hz/O9r/cTdsjNakdNeNTmzIpaZX87VGC3DItrbOfZg="
+    - secure: "mx3sD7v64/4HdNe9RCPkJun3JQ57cDVZv7tMgcb7x0RUZAjSkyGb6lenzC7MirBmjEEe2kYHtsJ/0P6qa8VeqrEhVAOHtssk9UZAc37E9Nj5x60DY7n2xG91kg9ih2li8IoKFM1ywuC2jOd0SgKXllfEN97Z3tsgL2AQdSypsasaNzKXZMZmVdHyBngBzWSlPVhnpHlD3UR60ikQyVn8UEX/28KUVap/Alg4upwC8R1RRHUfZ9W9gyg77lADJAKkd/7QIVdECVKHy9RdR091aUfx7OOhhJzRTw+O2G6Fb6lJEtQ3NqGEPUM3tQ2wp7y1P10V+DPCqZtQMVZTqPp5NJsASSYqbLEzURZzMPNMECgjd+bQbdmOQUeCsCXEWlRQA7AmX7vX9tqLsE2fbwVKuxSRwieitZ5MLp3hFZeu2m0TaREezOc6iYqf7ob5aYoCia7/LMoFa+R9w8679e3+ilveJKErhWFuEFb81oC4XDt8+Ztet249JcypwcInFyz29pITLjeAJiMWUzm7RqfSTlMXLAXd4Z+a9pH6+yocnPhGJRSQ+hXo4NZK4s8U04bU1ejF5FrNfEFfbLKbyt/Cwl7LT8L28BQK6nbPIUBAtD20RWOu+bbH8PUvYgeESmdh0YxugdFyhXqt8pSOji5yg/oP7w0ECPrqDw8x1q+Lhz8="
+  matrix:
+    - SQ_VERSION=LTS
+    - SQ_VERSION=LATEST_RELEASE
+    - SQ_VERSION=DEV
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+script: ./travis.sh

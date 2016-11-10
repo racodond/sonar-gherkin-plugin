@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<profile>
+  <name>allowed-tags-only-profile</name>
+  <language>gherkin</language>
+  <rules>
+    <rule>
+      <repositoryKey>gherkin</repositoryKey>
+      <key>allowed-tags</key>
+      <priority>MAJOR</priority>
+      <parameter>
+        <key>allowedTags</key>
+        <value>smoke,nrt</value>
+      </parameter>
+    </rule>
+  </rules>
+</profile>
