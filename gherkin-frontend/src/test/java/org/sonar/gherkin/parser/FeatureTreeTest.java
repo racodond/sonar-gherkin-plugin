@@ -81,6 +81,7 @@ public class FeatureTreeTest extends GherkinTreeTest {
         "And ...\n" +
         "\n" +
         "Scenario: name1\n" +
+        "Given ...\n" +
         "Scenario: name2\n" +
         "Given ...\n" +
         "And ...\n" +
