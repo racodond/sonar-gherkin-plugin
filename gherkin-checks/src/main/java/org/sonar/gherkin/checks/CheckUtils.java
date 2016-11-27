@@ -20,6 +20,7 @@
 package org.sonar.gherkin.checks;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.gherkin.api.GherkinCheck;
 
 public class CheckUtils {
 
@@ -28,9 +29,9 @@ public class CheckUtils {
   private CheckUtils() {
   }
 
-  public static String paramsErrorMessage(Class clazz, String message) {
-    return "Check gherkin:" + ((Rule) clazz.getAnnotation(Rule.class)).key()
-      + " (" + ((Rule) clazz.getAnnotation(Rule.class)).name() + "): "
+  public static String paramsErrorMessage(Class<? extends GherkinCheck> clazz, String message) {
+    return "Check gherkin:" + clazz.getAnnotation(Rule.class).key()
+      + " (" + clazz.getAnnotation(Rule.class).name() + "): "
       + message;
   }
 
