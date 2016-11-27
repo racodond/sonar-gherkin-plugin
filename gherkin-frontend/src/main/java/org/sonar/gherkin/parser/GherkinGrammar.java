@@ -59,7 +59,7 @@ public class GherkinGrammar {
         FEATURE_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
         NAME(),
-        b.optional(DESCRIPTION())));
+        b.optional(FEATURE_DESCRIPTION())));
   }
 
   public BackgroundTree BACKGROUND() {
@@ -67,7 +67,7 @@ public class GherkinGrammar {
       f.background(
         BACKGROUND_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
-        b.optional(DESCRIPTION()),
+        b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP())));
   }
 
@@ -78,7 +78,7 @@ public class GherkinGrammar {
         SCENARIO_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
         NAME(),
-        b.optional(DESCRIPTION()),
+        b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP())));
   }
 
@@ -89,7 +89,7 @@ public class GherkinGrammar {
         SCENARIO_OUTLINE_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
         NAME(),
-        b.optional(DESCRIPTION()),
+        b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP()),
         EXAMPLES()));
   }
@@ -100,7 +100,7 @@ public class GherkinGrammar {
         b.zeroOrMore(TAG()),
         EXAMPLES_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
-        b.optional(DESCRIPTION()),
+        b.optional(EXAMPLES_DESCRIPTION()),
         b.optional(TABLE())));
   }
 
@@ -122,10 +122,22 @@ public class GherkinGrammar {
         b.token(GherkinLexicalGrammar.TAG_LITERAL)));
   }
 
-  public DescriptionTree DESCRIPTION() {
-    return b.<DescriptionTree>nonterminal(GherkinLexicalGrammar.DESCRIPTION).is(
-      f.description(
-        b.oneOrMore(b.token(GherkinLexicalGrammar.DESCRIPTION_SENTENCE))));
+  public DescriptionTree FEATURE_DESCRIPTION() {
+    return b.<DescriptionTree>nonterminal(GherkinLexicalGrammar.FEATURE_DESCRIPTION).is(
+      f.featureDescription(
+        b.oneOrMore(b.token(GherkinLexicalGrammar.FEATURE_DESCRIPTION_SENTENCE))));
+  }
+
+  public DescriptionTree SCENARIO_DESCRIPTION() {
+    return b.<DescriptionTree>nonterminal(GherkinLexicalGrammar.SCENARIO_DESCRIPTION).is(
+      f.scenarioDescription(
+        b.oneOrMore(b.token(GherkinLexicalGrammar.SCENARIO_DESCRIPTION_SENTENCE))));
+  }
+
+  public DescriptionTree EXAMPLES_DESCRIPTION() {
+    return b.<DescriptionTree>nonterminal(GherkinLexicalGrammar.EXAMPLES_DESCRIPTION).is(
+      f.examplesDescription(
+        b.oneOrMore(b.token(GherkinLexicalGrammar.EXAMPLES_DESCRIPTION_SENTENCE))));
   }
 
   public FeaturePrefixTree FEATURE_PREFIX() {

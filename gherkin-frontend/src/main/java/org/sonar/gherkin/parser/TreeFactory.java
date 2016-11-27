@@ -63,7 +63,15 @@ public class TreeFactory {
     return new TagTreeImpl(prefix, value);
   }
 
-  public DescriptionTree description(List<SyntaxToken> descriptionLines) {
+  public DescriptionTree featureDescription(List<SyntaxToken> descriptionLines) {
+    return new DescriptionTreeImpl(descriptionLines);
+  }
+
+  public DescriptionTree scenarioDescription(List<SyntaxToken> descriptionLines) {
+    return new DescriptionTreeImpl(descriptionLines);
+  }
+
+  public DescriptionTree examplesDescription(List<SyntaxToken> descriptionLines) {
     return new DescriptionTreeImpl(descriptionLines);
   }
 

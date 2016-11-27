@@ -57,8 +57,12 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
   NAME,
   NAME_LITERAL,
 
-  DESCRIPTION,
-  DESCRIPTION_SENTENCE,
+  FEATURE_DESCRIPTION,
+  SCENARIO_DESCRIPTION,
+  EXAMPLES_DESCRIPTION,
+  FEATURE_DESCRIPTION_SENTENCE,
+  SCENARIO_DESCRIPTION_SENTENCE,
+  EXAMPLES_DESCRIPTION_SENTENCE,
 
   TAG,
   TAG_PREFIX,
@@ -108,7 +112,10 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
 
     b.rule(NAME_LITERAL).is(SPACING, b.regexp(".+"));
     b.rule(STEP_SENTENCE).is(SPACING, b.regexp(notStartingSentenceRegex + ".+"));
-    b.rule(DESCRIPTION_SENTENCE).is(SPACING, b.regexp(notStartingSentenceRegex + ".+"));
+
+    b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@)).+"));
+    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Examples|@)).+"));
+    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Scenario|@|\\|)).+"));
 
     b.rule(DOC_STRING_PREFIX).is(SPACING, "\"\"\"");
     b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, "\"\"\"");

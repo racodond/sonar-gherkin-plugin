@@ -24,17 +24,35 @@ import org.sonar.plugins.gherkin.api.tree.DescriptionTree;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class DescriptionTreeTest extends GherkinTreeTest {
+public class FeatureDescriptionTreeTest extends GherkinTreeTest {
 
-  public DescriptionTreeTest() {
-    super(GherkinLexicalGrammar.DESCRIPTION);
+  public FeatureDescriptionTreeTest() {
+    super(GherkinLexicalGrammar.FEATURE_DESCRIPTION);
   }
 
   @Test
-  public void description() throws Exception {
+  public void featureDescription() throws Exception {
     checkParsed("blabla...", 1);
     checkParsed("blabla...\nblabla...", 2);
     checkParsed("blabla...\n\nblabla...", 2);
+
+    checkParsed("Given ...", 1);
+    checkParsed("When ...", 1);
+    checkParsed("Then ...", 1);
+    checkParsed("But ...", 1);
+    checkParsed("And ...", 1);
+    checkParsed("* ...", 1);
+    checkParsed("Examples ...", 1);
+    checkParsed("\"\"\" ...", 1);
+    checkParsed("| ...", 1);
+  }
+
+  @Test
+  public void notFeatureDescription() throws Exception {
+    checkNotParsed("@ ...");
+    checkNotParsed("Background ...");
+    checkNotParsed("Scenario ...");
+    checkNotParsed("Scenario Outline ...");
   }
 
   private void checkParsed(String toParse, int size) {
