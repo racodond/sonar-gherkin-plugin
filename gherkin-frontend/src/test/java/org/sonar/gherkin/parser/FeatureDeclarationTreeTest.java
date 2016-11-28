@@ -34,7 +34,18 @@ public class FeatureDeclarationTreeTest extends GherkinTreeTest {
   public void featureDeclaration() throws Exception {
     FeatureDeclarationTree tree;
 
+    tree = checkParsed("Feature:");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNull();
+
+    tree = checkParsed("Feature: \n\n");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNull();
+
     tree = checkParsed("Feature: my feature");
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("my feature");
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNull();
@@ -43,6 +54,7 @@ public class FeatureDeclarationTreeTest extends GherkinTreeTest {
     assertThat(tree.name().text()).isEqualTo("my feature");
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.description().descriptionLines()).hasSize(2);
 
     tree = checkParsed("@mytag @my-tag\nFeature: my feature\nblabla...\nblabla...");
     assertThat(tree.name().text()).isEqualTo("my feature");
@@ -54,14 +66,12 @@ public class FeatureDeclarationTreeTest extends GherkinTreeTest {
   public void notFeatureDeclaration() throws Exception {
     checkNotParsed("feature");
     checkNotParsed("Feature");
-    checkNotParsed("Feature:");
   }
 
   private FeatureDeclarationTree checkParsed(String toParse) {
     FeatureDeclarationTree tree = (FeatureDeclarationTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.tags()).isNotNull();
-    assertThat(tree.name()).isNotNull();
     return tree;
   }
 

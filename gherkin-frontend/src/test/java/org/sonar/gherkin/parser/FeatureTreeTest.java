@@ -107,7 +107,6 @@ public class FeatureTreeTest extends GherkinTreeTest {
   public void notFeature() throws Exception {
     checkNotParsed("feature");
     checkNotParsed("Feature");
-    checkNotParsed("Feature:");
   }
 
   private FeatureTree checkParsed(String toParse) {

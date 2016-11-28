@@ -33,10 +33,11 @@ public class ExamplesTreeImpl extends GherkinTree implements ExamplesTree {
   private final List<TagTree> tags;
   private final PrefixTree prefix;
   private final SyntaxToken colon;
+  private final NameTree name;
   private final DescriptionTree description;
   private final TableTree table;
 
-  public ExamplesTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable DescriptionTree description, @Nullable TableTree table) {
+  public ExamplesTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable TableTree table) {
     if (tags != null) {
       this.tags = tags;
     } else {
@@ -45,6 +46,7 @@ public class ExamplesTreeImpl extends GherkinTree implements ExamplesTree {
 
     this.prefix = prefix;
     this.colon = colon;
+    this.name = name;
     this.description = description;
     this.table = table;
   }
@@ -58,7 +60,7 @@ public class ExamplesTreeImpl extends GherkinTree implements ExamplesTree {
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
       tags.iterator(),
-      Iterators.forArray(prefix, colon, description, table));
+      Iterators.forArray(prefix, colon, name, description, table));
   }
 
   @Override
@@ -74,6 +76,12 @@ public class ExamplesTreeImpl extends GherkinTree implements ExamplesTree {
   @Override
   public SyntaxToken colon() {
     return colon;
+  }
+
+  @Override
+  @Nullable
+  public NameTree name() {
+    return name;
   }
 
   @Override

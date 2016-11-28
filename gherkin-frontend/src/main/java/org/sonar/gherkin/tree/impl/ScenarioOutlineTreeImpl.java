@@ -38,7 +38,7 @@ public class ScenarioOutlineTreeImpl extends GherkinTree implements ScenarioOutl
   private final List<StepTree> steps;
   private final ExamplesTree examples;
 
-  public ScenarioOutlineTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps, ExamplesTree examples) {
+  public ScenarioOutlineTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps, ExamplesTree examples) {
     if (tags != null) {
       this.tags = tags;
     } else {
@@ -89,6 +89,7 @@ public class ScenarioOutlineTreeImpl extends GherkinTree implements ScenarioOutl
   }
 
   @Override
+  @Nullable
   public NameTree name() {
     return name;
   }

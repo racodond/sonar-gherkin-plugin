@@ -21,13 +21,11 @@ package org.sonar.plugins.gherkin.api.tree;
 
 import java.util.List;
 
-public interface BasicScenarioTree extends Tree, Taggable, Descriptionable {
+public interface BasicScenarioTree extends Tree, Taggable, Nameable, Descriptionable {
 
   PrefixTree prefix();
 
   SyntaxToken colon();
-
-  NameTree name();
 
   List<StepTree> steps();
 

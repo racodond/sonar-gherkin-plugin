@@ -35,24 +35,24 @@ public class TreeFactory {
     return new FeatureTreeImpl(featureDeclaration, background.orNull(), allScenarios.orNull());
   }
 
-  public FeatureDeclarationTree featureDeclaration(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, Optional<DescriptionTree> description) {
-    return new FeatureDeclarationTreeImpl(tags.orNull(), prefix, colon, name, description.orNull());
+  public FeatureDeclarationTree featureDeclaration(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description) {
+    return new FeatureDeclarationTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull());
   }
 
-  public BackgroundTree background(PrefixTree prefix, SyntaxToken colon, Optional<DescriptionTree> description, Optional<List<StepTree>> steps) {
-    return new BackgroundTreeImpl(prefix, colon, description.orNull(), steps.orNull());
+  public BackgroundTree background(PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps) {
+    return new BackgroundTreeImpl(prefix, colon, name.orNull(), description.orNull(), steps.orNull());
   }
 
-  public ScenarioTree scenario(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps) {
-    return new ScenarioTreeImpl(tags.orNull(), prefix, colon, name, description.orNull(), steps.orNull());
+  public ScenarioTree scenario(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps) {
+    return new ScenarioTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), steps.orNull());
   }
 
-  public ScenarioOutlineTree scenarioOutline(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps, ExamplesTree examples) {
-    return new ScenarioOutlineTreeImpl(tags.orNull(), prefix, colon, name, description.orNull(), steps.orNull(), examples);
+  public ScenarioOutlineTree scenarioOutline(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps, ExamplesTree examples) {
+    return new ScenarioOutlineTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), steps.orNull(), examples);
   }
 
-  public ExamplesTree examples(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<DescriptionTree> description, Optional<TableTree> table) {
-    return new ExamplesTreeImpl(tags.orNull(), prefix, colon, description.orNull(), table.orNull());
+  public ExamplesTree examples(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<TableTree> table) {
+    return new ExamplesTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), table.orNull());
   }
 
   public StepTree step(PrefixTree prefix, SyntaxToken sentence, Optional<Tree> data) {

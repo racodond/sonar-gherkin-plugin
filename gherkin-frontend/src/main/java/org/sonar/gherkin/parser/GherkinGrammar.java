@@ -58,7 +58,7 @@ public class GherkinGrammar {
         b.zeroOrMore(TAG()),
         FEATURE_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
-        NAME(),
+        b.optional(NAME()),
         b.optional(FEATURE_DESCRIPTION())));
   }
 
@@ -67,6 +67,7 @@ public class GherkinGrammar {
       f.background(
         BACKGROUND_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
+        b.optional(NAME()),
         b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP())));
   }
@@ -77,7 +78,7 @@ public class GherkinGrammar {
         b.zeroOrMore(TAG()),
         SCENARIO_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
-        NAME(),
+        b.optional(NAME()),
         b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP())));
   }
@@ -88,7 +89,7 @@ public class GherkinGrammar {
         b.zeroOrMore(TAG()),
         SCENARIO_OUTLINE_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
-        NAME(),
+        b.optional(NAME()),
         b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP()),
         EXAMPLES()));
@@ -100,6 +101,7 @@ public class GherkinGrammar {
         b.zeroOrMore(TAG()),
         EXAMPLES_PREFIX(),
         b.token(GherkinLexicalGrammar.COLON),
+        b.optional(NAME()),
         b.optional(EXAMPLES_DESCRIPTION()),
         b.optional(TABLE())));
   }

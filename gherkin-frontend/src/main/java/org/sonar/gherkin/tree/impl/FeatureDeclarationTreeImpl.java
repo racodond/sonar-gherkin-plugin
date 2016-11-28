@@ -36,7 +36,7 @@ public class FeatureDeclarationTreeImpl extends GherkinTree implements FeatureDe
   private final NameTree name;
   private final DescriptionTree description;
 
-  public FeatureDeclarationTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, @Nullable DescriptionTree description) {
+  public FeatureDeclarationTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description) {
     if (tags != null) {
       this.tags = tags;
     } else {
@@ -77,6 +77,7 @@ public class FeatureDeclarationTreeImpl extends GherkinTree implements FeatureDe
   }
 
   @Override
+  @Nullable
   public NameTree name() {
     return name;
   }

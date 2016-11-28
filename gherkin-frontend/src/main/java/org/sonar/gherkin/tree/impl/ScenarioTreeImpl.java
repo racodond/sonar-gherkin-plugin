@@ -37,7 +37,7 @@ public class ScenarioTreeImpl extends GherkinTree implements ScenarioTree {
   private final DescriptionTree description;
   private final List<StepTree> steps;
 
-  public ScenarioTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
+  public ScenarioTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
     if (tags != null) {
       this.tags = tags;
     } else {
@@ -84,6 +84,7 @@ public class ScenarioTreeImpl extends GherkinTree implements ScenarioTree {
   }
 
   @Override
+  @Nullable
   public NameTree name() {
     return name;
   }

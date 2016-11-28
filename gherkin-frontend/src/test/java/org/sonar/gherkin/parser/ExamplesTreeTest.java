@@ -36,7 +36,32 @@ public class ExamplesTreeTest extends GherkinTreeTest {
 
     tree = checkParsed("Examples:");
     assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
     assertThat(tree.description()).isNull();
+    assertThat(tree.table()).isNull();
+
+    tree = checkParsed("Examples: blabla...");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.description()).isNull();
+    assertThat(tree.table()).isNull();
+
+    tree = checkParsed("Examples: blabla...\nblabla...");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.description()).isNotNull();
+    assertThat(tree.table()).isNull();
+
+    tree = checkParsed("Examples:\nblabla...");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNotNull();
+    assertThat(tree.table()).isNull();
+
+    tree = checkParsed("Examples: \nblabla...");
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNotNull();
     assertThat(tree.table()).isNull();
 
     tree = checkParsed("@mytag @my-tag\nExamples:");

@@ -36,18 +36,41 @@ public class BackgroundTreeTest extends GherkinTreeTest {
 
     tree = checkParsed("Background:");
     assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.name()).isNull();
     assertThat(tree.description()).isNull();
 
-    tree = checkParsed("Background: blabla...");
+    tree = checkParsed("Background: blabla... \n");
     assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo("blabla...");
+    assertThat(tree.description()).isNull();
+
+    tree = checkParsed("Background: blabla... \nblabla...");
+    assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo("blabla...");
+    assertThat(tree.description()).isNotNull();
+    assertThat(tree.description().descriptionLines()).hasSize(1);
+
+    tree = checkParsed("Background:\nblabla...");
+    assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNotNull();
+    assertThat(tree.description().descriptionLines()).hasSize(1);
+
+    tree = checkParsed("Background: \nblabla...");
+    assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.name()).isNull();
     assertThat(tree.description()).isNotNull();
 
     tree = checkParsed("Background: blabla...\nGiven ...");
     assertThat(tree.steps()).hasSize(1);
-    assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.description()).isNull();
 
     tree = checkParsed("Background:\nGiven ...\nAnd ...");
     assertThat(tree.steps()).hasSize(2);
+    assertThat(tree.name()).isNull();
     assertThat(tree.description()).isNull();
   }
 

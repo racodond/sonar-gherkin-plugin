@@ -34,10 +34,26 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
   public void scenarioOutline() throws Exception {
     ScenarioOutlineTree tree;
 
+    tree = checkParsed("Scenario Outline:\nExamples:");
+    assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.name()).isNull();
+    assertThat(tree.description()).isNull();
+    assertThat(tree.examples().table()).isNull();
+
     tree = checkParsed("Scenario Outline: name...\nExamples:");
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNull();
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo("name...");
+    assertThat(tree.examples().table()).isNull();
+
+    tree = checkParsed("Scenario Outline: name...\nExamples:");
+    assertThat(tree.steps()).hasSize(0);
+    assertThat(tree.tags()).hasSize(0);
+    assertThat(tree.description()).isNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table()).isNull();
 
@@ -45,6 +61,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table()).isNull();
 
@@ -52,6 +69,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table()).isNull();
 
@@ -59,6 +77,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table().rows()).hasSize(1);
 
@@ -66,6 +85,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(1);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table().rows()).hasSize(1);
 
@@ -73,6 +93,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(1);
     assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table().rows()).hasSize(1);
     assertThat(tree.examples().tags()).hasSize(1);
@@ -82,9 +103,7 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
   public void notScenarioOutline() throws Exception {
     checkNotParsed("Scenario");
     checkNotParsed("Scenario Outline");
-    checkNotParsed("Scenario Outline:");
     checkNotParsed("Scenario Outline: name...");
-    checkNotParsed("Scenario Outline:\nExamples:");
   }
 
   private ScenarioOutlineTree checkParsed(String toParse) {
@@ -94,7 +113,6 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.colon()).isNotNull();
     assertThat(tree.steps()).isNotNull();
     assertThat(tree.tags()).isNotNull();
-    assertThat(tree.name()).isNotNull();
     assertThat(tree.examples()).isNotNull();
     return tree;
   }

@@ -32,12 +32,14 @@ public class BackgroundTreeImpl extends GherkinTree implements BackgroundTree {
 
   private final PrefixTree prefix;
   private final SyntaxToken colon;
+  private final NameTree name;
   private final DescriptionTree description;
   private final List<StepTree> steps;
 
-  public BackgroundTreeImpl(PrefixTree prefix, SyntaxToken colon, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
+  public BackgroundTreeImpl(PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
     this.prefix = prefix;
     this.colon = colon;
+    this.name = name;
     this.description = description;
 
     if (steps != null) {
@@ -55,7 +57,7 @@ public class BackgroundTreeImpl extends GherkinTree implements BackgroundTree {
   @Override
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
-      Iterators.forArray(prefix, colon, description),
+      Iterators.forArray(prefix, colon, name, description),
       steps.iterator());
   }
 
@@ -67,6 +69,12 @@ public class BackgroundTreeImpl extends GherkinTree implements BackgroundTree {
   @Override
   public SyntaxToken colon() {
     return colon;
+  }
+
+  @Override
+  @Nullable
+  public NameTree name() {
+    return name;
   }
 
   @Override

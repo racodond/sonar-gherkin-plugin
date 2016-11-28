@@ -17,17 +17,33 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.gherkin.api.tree;
+package org.sonar.gherkin.parser;
 
-import javax.annotation.Nullable;
+import org.junit.Test;
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 
-public interface ExamplesTree extends Tree, Taggable, Nameable, Descriptionable {
+import static org.fest.assertions.Assertions.assertThat;
 
-  PrefixTree prefix();
+public class NameLiteralTreeTest extends GherkinTreeTest {
 
-  SyntaxToken colon();
+  public NameLiteralTreeTest() {
+    super(GherkinLexicalGrammar.NAME_LITERAL);
+  }
 
-  @Nullable
-  TableTree table();
+  @Test
+  public void nameLiteral() throws Exception {
+    checkParsed("abc\n", "abc");
+    checkParsed("abc \n", "abc");
+    checkParsed("abc def\n", "abc def");
+    checkParsed("abc\\\\n def\n", "abc\\\\n def");
+    checkParsed("abc\\\\n def \n", "abc\\\\n def");
+
+  }
+
+  private void checkParsed(String toParse, String expected) {
+    SyntaxToken token = (SyntaxToken) parser().parse(toParse);
+    assertThat(token).isNotNull();
+    assertThat(token.text()).isEqualTo(expected);
+  }
 
 }

@@ -79,6 +79,7 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
 
   SPACING,
   SPACING_NO_COMMENTS,
+  WHITESPACE_WITHOUT_LINE_BREAK,
 
   BOM,
   EOF;
@@ -93,7 +94,9 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
   private static void syntax(LexerlessGrammarBuilder b) {
 
     String whitespaceRegex = "(?<!\\\\)[\\s]*+";
-    String notStartingSentenceRegex = "^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))";
+    String whitespaceWithoutLineBreakRegex = "(?<!\\\\)[ \\t\\x0B\\f]*+";
+    String whitespaceNotFollowedByLineBreakRegex = "(?<!\\\\)[ \\t\\x0B\\f]+(?!(\n|\r))";
+    String trimmedSentence = "(\\S+|" + whitespaceNotFollowedByLineBreakRegex + ")+";
 
     b.rule(EOF).is(SPACING, b.token(GenericTokenType.EOF, b.endOfInput()));
     b.rule(BOM).is("\ufeff");
@@ -110,12 +113,12 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
 
     b.rule(COLON).is(":");
 
-    b.rule(NAME_LITERAL).is(SPACING, b.regexp(".+"));
-    b.rule(STEP_SENTENCE).is(SPACING, b.regexp(notStartingSentenceRegex + ".+"));
+    b.rule(NAME_LITERAL).is(WHITESPACE_WITHOUT_LINE_BREAK, b.regexp(trimmedSentence));
+    b.rule(STEP_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))" + trimmedSentence));
 
-    b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@)).+"));
-    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Examples|@)).+"));
-    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Scenario|@|\\|)).+"));
+    b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@))" + trimmedSentence));
+    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Examples|@))" + trimmedSentence));
+    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Scenario|@|\\|))" + trimmedSentence));
 
     b.rule(DOC_STRING_PREFIX).is(SPACING, "\"\"\"");
     b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, "\"\"\"");
@@ -129,6 +132,9 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
       b.zeroOrMore(
         b.commentTrivia(b.regexp("#.*")),
         b.skippedTrivia(b.regexp(whitespaceRegex))));
+
+    b.rule(WHITESPACE_WITHOUT_LINE_BREAK).is(
+      b.skippedTrivia(b.regexp(whitespaceWithoutLineBreakRegex)));
 
     b.rule(SPACING_NO_COMMENTS).is(
       b.skippedTrivia(b.regexp(whitespaceRegex)));
