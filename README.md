@@ -52,6 +52,7 @@ Number of features.
  * Lines should not end with trailing whitespaces
  * Only tags from the whitelist should be used
  * Scenarios should not contain too many steps
+ * Scenarios that do not define any step should be removed
  * Source code should be properly indented
  * Star (*) step prefix should not be used
  * Tabulation characters should not be used

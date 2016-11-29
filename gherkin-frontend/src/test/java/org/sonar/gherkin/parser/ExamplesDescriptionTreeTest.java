@@ -36,14 +36,13 @@ public class ExamplesDescriptionTreeTest extends GherkinTreeTest {
     checkParsed("blabla...\nblabla...", 2);
     checkParsed("blabla...\n\nblabla...", 2);
 
-    checkParsed("Background ...", 1);
+    checkParsed("Examples ...", 1);
     checkParsed("Given ...", 1);
     checkParsed("When ...", 1);
     checkParsed("Then ...", 1);
     checkParsed("But ...", 1);
     checkParsed("And ...", 1);
     checkParsed("* ...", 1);
-    checkParsed("Examples ...", 1);
     checkParsed("\"\"\" ...", 1);
   }
 
@@ -51,6 +50,7 @@ public class ExamplesDescriptionTreeTest extends GherkinTreeTest {
   public void notExamplesDescription() throws Exception {
     checkNotParsed("@ ...");
     checkNotParsed("| ...");
+    checkNotParsed("Background ...");
     checkNotParsed("Scenario ...");
     checkNotParsed("Scenario Outline ...");
   }
