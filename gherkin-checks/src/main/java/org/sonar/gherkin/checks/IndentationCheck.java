@@ -86,44 +86,33 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
   private void checkAllDescriptionsIndentation(Tree tree) {
     if (tree instanceof Descriptionable) {
       int expectedIndentation;
-      int leftSiblingLine;
 
       switch (tree.getKind()) {
         case FEATURE_DECLARATION:
           expectedIndentation = indentation;
-          leftSiblingLine = ((FeatureDeclarationTree) tree).name().value().line();
           break;
 
         case BACKGROUND:
-          expectedIndentation = indentation * 2;
-          leftSiblingLine = ((BackgroundTree) tree).colon().line();
-          break;
-
         case SCENARIO:
         case SCENARIO_OUTLINE:
           expectedIndentation = indentation * 2;
-          leftSiblingLine = ((BasicScenarioTree) tree).name().value().line();
           break;
 
         case EXAMPLES:
           expectedIndentation = indentation * 3;
-          leftSiblingLine = ((ExamplesTree) tree).colon().line();
           break;
 
         default:
           throw new IllegalStateException("Unsupported Descriptionable: " + tree.toString());
       }
 
-      checkDescriptionLinesIndentation(((Descriptionable) tree).description(), expectedIndentation, leftSiblingLine);
+      checkDescriptionLinesIndentation(((Descriptionable) tree).description(), expectedIndentation);
     }
   }
 
-  private void checkDescriptionLinesIndentation(@Nullable DescriptionTree description, int expectedIndentation, int leftSiblingLine) {
+  private void checkDescriptionLinesIndentation(@Nullable DescriptionTree description, int expectedIndentation) {
     if (description != null) {
-      description.descriptionLines()
-        .stream()
-        .filter(d -> d.line() != leftSiblingLine)
-        .forEach(d -> checkIndentation(d, expectedIndentation));
+      description.descriptionLines().forEach(d -> checkIndentation(d, expectedIndentation));
     }
   }
 
