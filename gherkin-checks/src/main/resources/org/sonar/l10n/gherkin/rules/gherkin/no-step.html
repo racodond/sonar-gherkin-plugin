@@ -1,0 +1,25 @@
+<p>
+    Having a <code>Background</code>, a <code>Scenario</code> or a <code>Scenario Outline</code> that does not define any step
+    is useless. It can either be safely removed or steps should be added.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Background:
+
+Scenario: My Scenario
+
+Scenario Outline: My Scenario outline
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Background:
+  Given ...
+
+Scenario: My Scenario
+  Given ...
+
+Scenario Outline: My Scenario outline
+  Given ...
+</pre>

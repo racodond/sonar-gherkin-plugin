@@ -36,9 +36,6 @@ public class ScenarioDescriptionTreeTest extends GherkinTreeTest {
     checkParsed("blabla...\nblabla...", 2);
     checkParsed("blabla...\n\nblabla...", 2);
 
-    checkParsed("Background ...", 1);
-    checkParsed("Scenario ...", 1);
-    checkParsed("Scenario Outline ...", 1);
     checkParsed("\"\"\" ...", 1);
     checkParsed("| ...", 1);
   }
@@ -52,6 +49,9 @@ public class ScenarioDescriptionTreeTest extends GherkinTreeTest {
     checkNotParsed("But ...");
     checkNotParsed("And ...");
     checkNotParsed("* ...");
+    checkNotParsed("Background ...");
+    checkNotParsed("Scenario ...");
+    checkNotParsed("Scenario Outline ...");
     checkNotParsed("Examples ...");
 
   }

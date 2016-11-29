@@ -117,8 +117,8 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
     b.rule(STEP_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))" + trimmedSentence));
 
     b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@))" + trimmedSentence));
-    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Examples|@))" + trimmedSentence));
-    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Scenario|@|\\|))" + trimmedSentence));
+    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|Given|When|Then|And|But|\\*|Examples|@))" + trimmedSentence));
+    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@|\\|))" + trimmedSentence));
 
     b.rule(DOC_STRING_PREFIX).is(SPACING, "\"\"\"");
     b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, "\"\"\"");

@@ -97,6 +97,8 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.name().text()).isEqualTo("name...");
     assertThat(tree.examples().table().rows()).hasSize(1);
     assertThat(tree.examples().tags()).hasSize(1);
+
+    tree = checkParsed("Scenario Outline: Scenario 2\nExamples:\n|number|\n|1|\n|2|");
   }
 
   @Test

@@ -60,6 +60,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       MissingScenarioNameCheck.class,
       NoFeatureCheck.class,
       NoScenarioCheck.class,
+      NoStepCheck.class,
       ParsingErrorCheck.class,
       StarStepPrefixCheck.class,
       TabCharacterCheck.class,
