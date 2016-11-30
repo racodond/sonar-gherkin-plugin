@@ -1,0 +1,38 @@
+<p>
+    It is useless to set a tag that is already defined at <code>Feature</code> level on <code>Scenario</code>, <code>Scenario
+    Outline</code> and <code>Examples</code>.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@mytag
+Feature: my feature
+
+  @mytag @othertag
+  Scenario: my scenario
+    ...
+
+  @mytag
+  Scenario Outline: my scenario
+    ...
+
+    @mytag
+    Examples:
+      ...
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@mytag
+Feature: my feature
+
+  @othertag
+  Scenario: my scenario
+    ...
+
+  Scenario Outline: my scenario
+    ...
+
+    Examples:
+      ...
+</pre>

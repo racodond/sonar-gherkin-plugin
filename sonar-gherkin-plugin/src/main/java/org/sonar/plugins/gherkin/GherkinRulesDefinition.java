@@ -69,7 +69,8 @@ public class GherkinRulesDefinition implements RulesDefinition {
       TabCharacterCheck.class,
       TagNameCheck.class,
       TodoTagPresenceCheck.class,
-      TrailingWhitespaceCheck.class
+      TrailingWhitespaceCheck.class,
+      UselessTagCheck.class
     );
   }
 
