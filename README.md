@@ -59,6 +59,7 @@ Number of features.
  * Star (*) step prefix should not be used
  * Tabulation characters should not be used
  * Tags should comply with a naming convention
+ * Tags should not be set on Examples
 
 ### Templates
 
