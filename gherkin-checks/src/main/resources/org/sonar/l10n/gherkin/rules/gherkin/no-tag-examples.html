@@ -1,0 +1,31 @@
+<p>
+    Tags should be set on <code>Scenario Outline</code> instead of <code>Examples</code>.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario Outline: Scenario...
+  Given blabla...
+  When blabla...
+  Then blabla...
+
+  @tag1 @tag2
+  Examples:
+    | value |
+    | 1     |
+    | 2     |
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@tag1 @tag2
+Scenario Outline: Scenario...
+  Given blabla...
+  When blabla...
+  Then blabla...
+
+  Examples:
+    | value |
+    | 1     |
+    | 2     |
+</pre>
