@@ -38,12 +38,7 @@ public class ExamplesTreeImpl extends GherkinTree implements ExamplesTree {
   private final TableTree table;
 
   public ExamplesTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable TableTree table) {
-    if (tags != null) {
-      this.tags = tags;
-    } else {
-      this.tags = new ArrayList<>();
-    }
-
+    this.tags = tags != null ? tags : new ArrayList<>();
     this.prefix = prefix;
     this.colon = colon;
     this.name = name;

@@ -17,7 +17,22 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.gherkin.api.tree;
+package org.sonar.plugins.gherkin.issuesaver.crossfile;
 
-public interface ScenarioTree extends BasicScenarioTree, Taggable {
+import org.sonar.plugins.gherkin.issuesaver.IssueSaver;
+
+public abstract class CrossFileCheckIssueSaver {
+
+  private IssueSaver issueSaver;
+
+  public CrossFileCheckIssueSaver(IssueSaver issueSaver) {
+    this.issueSaver = issueSaver;
+  }
+
+  public IssueSaver getIssueSaver() {
+    return issueSaver;
+  }
+
+  public abstract void saveIssues();
+
 }

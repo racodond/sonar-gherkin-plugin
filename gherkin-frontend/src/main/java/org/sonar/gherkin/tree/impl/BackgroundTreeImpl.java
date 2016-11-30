@@ -19,73 +19,21 @@
  */
 package org.sonar.gherkin.tree.impl;
 
-import com.google.common.collect.Iterators;
 import org.sonar.plugins.gherkin.api.tree.*;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class BackgroundTreeImpl extends GherkinTree implements BackgroundTree {
-
-  private final PrefixTree prefix;
-  private final SyntaxToken colon;
-  private final NameTree name;
-  private final DescriptionTree description;
-  private final List<StepTree> steps;
+public class BackgroundTreeImpl extends AbstractBasicScenarioTreeImpl implements BackgroundTree {
 
   public BackgroundTreeImpl(PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
-    this.prefix = prefix;
-    this.colon = colon;
-    this.name = name;
-    this.description = description;
-
-    if (steps != null) {
-      this.steps = steps;
-    } else {
-      this.steps = new ArrayList<>();
-    }
+    super(prefix, colon, name, description, steps);
   }
 
   @Override
   public Kind getKind() {
     return Kind.BACKGROUND;
-  }
-
-  @Override
-  public Iterator<Tree> childrenIterator() {
-    return Iterators.concat(
-      Iterators.forArray(prefix, colon, name, description),
-      steps.iterator());
-  }
-
-  @Override
-  public PrefixTree prefix() {
-    return prefix;
-  }
-
-  @Override
-  public SyntaxToken colon() {
-    return colon;
-  }
-
-  @Override
-  @Nullable
-  public NameTree name() {
-    return name;
-  }
-
-  @Override
-  @Nullable
-  public DescriptionTree description() {
-    return description;
-  }
-
-  @Override
-  public List<StepTree> steps() {
-    return steps;
   }
 
   @Override
