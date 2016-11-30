@@ -60,6 +60,7 @@ Number of features.
  * Tabulation characters should not be used
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
+ * Useless tags should be removed
 
 ### Templates
 
