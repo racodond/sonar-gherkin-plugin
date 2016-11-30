@@ -24,6 +24,7 @@ public final class Tags {
   public static final String BUG = "bug";
   public static final String CONVENTION = "convention";
   public static final String PITFALL = "pitfall";
+  public static final String TAG = "tag";
   public static final String UNDERSTANDABILITY = "understandability";
 
   private Tags() {
