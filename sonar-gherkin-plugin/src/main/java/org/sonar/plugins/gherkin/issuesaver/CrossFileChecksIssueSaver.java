@@ -21,6 +21,7 @@ package org.sonar.plugins.gherkin.issuesaver;
 
 import com.google.common.collect.ImmutableList;
 import org.sonar.plugins.gherkin.issuesaver.crossfile.CrossFileCheckIssueSaver;
+import org.sonar.plugins.gherkin.issuesaver.crossfile.DuplicatedFeatureNamesIssueSaver;
 import org.sonar.plugins.gherkin.issuesaver.crossfile.DuplicatedScenarioNamesIssueSaver;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,6 +34,7 @@ public class CrossFileChecksIssueSaver {
 
   private static Collection<Class<? extends CrossFileCheckIssueSaver>> getCrossFileCheckIssueSavers() {
     return ImmutableList.of(
+      DuplicatedFeatureNamesIssueSaver.class,
       DuplicatedScenarioNamesIssueSaver.class
     );
   }

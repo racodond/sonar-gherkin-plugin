@@ -48,6 +48,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       BOMCheck.class,
       CommentConventionCheck.class,
       CommentRegularExpressionCheck.class,
+      DuplicatedFeatureNamesCheck.class,
       DuplicatedScenarioNamesCheck.class,
       EndLineCharactersCheck.class,
       FileNameCheck.class,

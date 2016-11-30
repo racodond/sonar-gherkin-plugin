@@ -42,6 +42,7 @@ Number of features.
  * All comments should be formatted consistently
  * Byte Order Mark (BOM) should not be used for UTF-8 files
  * Each feature should have a name
+ * Each feature should have a unique name
  * Each scenario should have a name
  * Each scenario should have a unique name
  * End-line characters should be consistent
