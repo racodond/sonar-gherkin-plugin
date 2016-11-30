@@ -17,7 +17,28 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.gherkin.api.tree;
+package org.sonar.gherkin.checks;
 
-public interface ScenarioTree extends BasicScenarioTree, Taggable {
+import org.sonar.plugins.gherkin.api.tree.NameTree;
+
+import java.io.File;
+
+public class FileNameTree {
+
+  private final File file;
+  private final NameTree tree;
+
+  public FileNameTree(File file, NameTree tree) {
+    this.file = file;
+    this.tree = tree;
+  }
+
+  public File getFile() {
+    return file;
+  }
+
+  public NameTree getName() {
+    return tree;
+  }
+
 }

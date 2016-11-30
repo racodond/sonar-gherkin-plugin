@@ -43,6 +43,7 @@ Number of features.
  * Byte Order Mark (BOM) should not be used for UTF-8 files
  * Each feature should have a name
  * Each scenario should have a name
+ * Each scenario should have a unique name
  * End-line characters should be consistent
  * Features should not contain too many scenarios
  * Features that do not define any scenario should be removed

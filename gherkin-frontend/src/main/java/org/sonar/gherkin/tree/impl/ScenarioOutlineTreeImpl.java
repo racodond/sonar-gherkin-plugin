@@ -28,35 +28,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ScenarioOutlineTreeImpl extends GherkinTree implements ScenarioOutlineTree {
+public class ScenarioOutlineTreeImpl extends AbstractBasicScenarioTreeImpl implements ScenarioOutlineTree {
 
   private final List<TagTree> tags;
-  private final PrefixTree prefix;
-  private final SyntaxToken colon;
-  private final NameTree name;
-  private final DescriptionTree description;
-  private final List<StepTree> steps;
   private final ExamplesTree examples;
 
   public ScenarioOutlineTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps, ExamplesTree examples) {
-    if (tags != null) {
-      this.tags = tags;
-    } else {
-      this.tags = new ArrayList<>();
-    }
-
-    this.prefix = prefix;
-    this.colon = colon;
-    this.name = name;
-    this.description = description;
-
-    if (steps != null) {
-      this.steps = steps;
-    } else {
-      this.steps = new ArrayList<>();
-    }
-
+    super(prefix, colon, name, description, steps);
     this.examples = examples;
+    this.tags = tags != null ? tags : new ArrayList<>();
   }
 
   @Override
@@ -68,41 +48,13 @@ public class ScenarioOutlineTreeImpl extends GherkinTree implements ScenarioOutl
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
       tags.iterator(),
-      Iterators.forArray(prefix, colon, name, description),
-      steps.iterator(),
+      super.childrenIterator(),
       Iterators.singletonIterator(examples));
   }
 
   @Override
   public List<TagTree> tags() {
     return tags;
-  }
-
-  @Override
-  public PrefixTree prefix() {
-    return prefix;
-  }
-
-  @Override
-  public SyntaxToken colon() {
-    return colon;
-  }
-
-  @Override
-  @Nullable
-  public NameTree name() {
-    return name;
-  }
-
-  @Override
-  @Nullable
-  public DescriptionTree description() {
-    return description;
-  }
-
-  @Override
-  public List<StepTree> steps() {
-    return steps;
   }
 
   @Override

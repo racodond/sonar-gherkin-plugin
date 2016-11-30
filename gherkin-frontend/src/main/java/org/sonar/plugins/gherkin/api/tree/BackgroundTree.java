@@ -19,14 +19,5 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-import java.util.List;
-
-public interface BackgroundTree extends Tree, Nameable, Descriptionable {
-
-  PrefixTree prefix();
-
-  SyntaxToken colon();
-
-  List<StepTree> steps();
-
+public interface BackgroundTree extends BasicScenarioTree {
 }

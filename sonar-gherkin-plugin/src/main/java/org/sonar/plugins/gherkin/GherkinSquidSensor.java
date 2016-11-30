@@ -48,6 +48,8 @@ import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.TreeVisitor;
 import org.sonar.plugins.gherkin.api.visitors.issue.Issue;
 import org.sonar.gherkin.checks.ParsingErrorCheck;
+import org.sonar.plugins.gherkin.issuesaver.CrossFileChecksIssueSaver;
+import org.sonar.plugins.gherkin.issuesaver.IssueSaver;
 import org.sonar.squidbridge.ProgressReport;
 import org.sonar.squidbridge.api.AnalysisException;
 
@@ -117,6 +119,7 @@ public class GherkinSquidSensor implements Sensor {
         progressReport.nextFile();
       }
       saveSingleFileIssues(issues);
+      saveCrossFileIssues();
       success = true;
     } finally {
       stopProgressReport(progressReport, success);
@@ -161,6 +164,10 @@ public class GherkinSquidSensor implements Sensor {
     for (Issue issue : issues) {
       issueSaver.saveIssue(issue);
     }
+  }
+
+  private void saveCrossFileIssues() {
+    CrossFileChecksIssueSaver.saveIssues(issueSaver);
   }
 
   private void processRecognitionException(RecognitionException e, SensorContext sensorContext, InputFile inputFile) {

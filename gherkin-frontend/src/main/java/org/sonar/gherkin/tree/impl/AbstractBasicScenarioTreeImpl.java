@@ -21,42 +21,60 @@ package org.sonar.gherkin.tree.impl;
 
 import com.google.common.collect.Iterators;
 import org.sonar.plugins.gherkin.api.tree.*;
-import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ScenarioTreeImpl extends AbstractBasicScenarioTreeImpl implements ScenarioTree {
+public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implements BasicScenarioTree {
 
-  private final List<TagTree> tags;
+  private final PrefixTree prefix;
+  private final SyntaxToken colon;
+  private final NameTree name;
+  private final DescriptionTree description;
+  private final List<StepTree> steps;
 
-  public ScenarioTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
-    super(prefix, colon, name, description, steps);
-    this.tags = tags != null ? tags : new ArrayList<>();
-  }
-
-  @Override
-  public Kind getKind() {
-    return Kind.SCENARIO;
+  public AbstractBasicScenarioTreeImpl(PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps) {
+    this.prefix = prefix;
+    this.colon = colon;
+    this.name = name;
+    this.description = description;
+    this.steps = steps != null ? steps : new ArrayList<>();
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
     return Iterators.concat(
-      tags.iterator(),
-      super.childrenIterator());
+      Iterators.forArray(prefix, colon, name, description),
+      steps.iterator());
   }
 
   @Override
-  public List<TagTree> tags() {
-    return tags;
+  public PrefixTree prefix() {
+    return prefix;
   }
 
   @Override
-  public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitScenario(this);
+  public SyntaxToken colon() {
+    return colon;
+  }
+
+  @Override
+  @Nullable
+  public NameTree name() {
+    return name;
+  }
+
+  @Override
+  @Nullable
+  public DescriptionTree description() {
+    return description;
+  }
+
+  @Override
+  public List<StepTree> steps() {
+    return steps;
   }
 
 }

@@ -21,7 +21,7 @@ package org.sonar.plugins.gherkin.api.tree;
 
 import java.util.List;
 
-public interface BasicScenarioTree extends Tree, Taggable, Nameable, Descriptionable {
+public interface BasicScenarioTree extends Tree, Nameable, Descriptionable {
 
   PrefixTree prefix();
 

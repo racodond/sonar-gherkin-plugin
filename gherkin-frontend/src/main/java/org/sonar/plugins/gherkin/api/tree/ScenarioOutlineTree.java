@@ -19,7 +19,7 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-public interface ScenarioOutlineTree extends BasicScenarioTree {
+public interface ScenarioOutlineTree extends BasicScenarioTree, Taggable {
 
   ExamplesTree examples();
 
