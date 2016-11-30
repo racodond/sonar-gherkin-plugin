@@ -70,14 +70,14 @@ public class DuplicatedScenarioNamesCheckTest {
   public void analyze_several_files() {
     DuplicatedScenarioNamesCheck check = new DuplicatedScenarioNamesCheck();
 
-    Map<String, List<FileNameTree>> keys = new HashMap<>();
+    Map<String, List<FileNameTree>> names = new HashMap<>();
 
     NameTree nameTree1 = new NameTreeImpl(new InternalSyntaxToken(2, 1, "background name blabla", new ArrayList<>(), false, false));
-    NameTree nameTree3 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "scenario name blabla", new ArrayList<>(), false, false));
+    NameTree nameTree2 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "scenario name blabla", new ArrayList<>(), false, false));
 
-    keys.put("background name blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
-    keys.put("abc", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree3)));
-    check.setNames(keys);
+    names.put("background name blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
+    names.put("abc", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree2)));
+    check.setNames(names);
 
     scanFile(check, "scenarios.feature");
 
@@ -112,7 +112,7 @@ public class DuplicatedScenarioNamesCheckTest {
 
   private void scanFile(GherkinCheck check, String fileName) {
     GherkinDocumentTree gherkinDocument = (GherkinDocumentTree) GherkinParserBuilder
-      .createParser(Charsets.ISO_8859_1)
+      .createParser(Charsets.UTF_8)
       .parse(getTestFile(fileName));
 
     GherkinVisitorContext context = new GherkinVisitorContext(gherkinDocument, getTestFile(fileName));

@@ -19,7 +19,7 @@
  */
 package org.sonar.plugins.gherkin.issuesaver.crossfile;
 
-import org.sonar.gherkin.checks.DuplicatedScenarioNamesCheck;
+import org.sonar.gherkin.checks.DuplicatedFeatureNamesCheck;
 import org.sonar.gherkin.checks.FileNameTree;
 import org.sonar.plugins.gherkin.api.visitors.issue.IssueLocation;
 import org.sonar.plugins.gherkin.api.visitors.issue.PreciseIssue;
@@ -30,25 +30,25 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class DuplicatedScenarioNamesIssueSaver extends CrossFileCheckIssueSaver {
+public class DuplicatedFeatureNamesIssueSaver extends CrossFileCheckIssueSaver {
 
-  public DuplicatedScenarioNamesIssueSaver(IssueSaver issueSaver) {
+  public DuplicatedFeatureNamesIssueSaver(IssueSaver issueSaver) {
     super(issueSaver);
   }
 
   @Override
   public void saveIssues() {
-    Optional<DuplicatedScenarioNamesCheck> check = getIssueSaver().getCheck(DuplicatedScenarioNamesCheck.class);
+    Optional<DuplicatedFeatureNamesCheck> check = getIssueSaver().getCheck(DuplicatedFeatureNamesCheck.class);
 
     if (check.isPresent()) {
       check.get().getNames().entrySet()
         .stream()
-        .filter(entry -> isScenarioNameDuplicated(entry.getValue()))
+        .filter(entry -> isFeatureNameDuplicated(entry.getValue()))
         .forEach(entry -> saveIssue(check.get(), entry));
     }
   }
 
-  private void saveIssue(DuplicatedScenarioNamesCheck check, Map.Entry<String, List<FileNameTree>> entry) {
+  private void saveIssue(DuplicatedFeatureNamesCheck check, Map.Entry<String, List<FileNameTree>> entry) {
     getIssueSaver().saveIssue(
       new PreciseIssue(
         check,
@@ -58,7 +58,7 @@ public class DuplicatedScenarioNamesIssueSaver extends CrossFileCheckIssueSaver 
   }
 
   private String buildIssueMessage(Map.Entry<String, List<FileNameTree>> duplicatedName) {
-    return "Update this scenario name"
+    return "Update this feature name"
       + " \""
       + duplicatedName.getKey()
       + "\" that is already defined in: "
@@ -70,7 +70,7 @@ public class DuplicatedScenarioNamesIssueSaver extends CrossFileCheckIssueSaver 
       .collect(Collectors.joining(", "));
   }
 
-  private boolean isScenarioNameDuplicated(List<FileNameTree> fileNameTrees) {
+  private boolean isFeatureNameDuplicated(List<FileNameTree> fileNameTrees) {
     return fileNameTrees.stream()
       .map(f -> f.getFile().getAbsolutePath())
       .distinct()
