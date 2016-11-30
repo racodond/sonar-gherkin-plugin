@@ -36,7 +36,7 @@ import java.util.List;
   key = "allowed-tags",
   name = "Only tags from the whitelist should be used",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
+  tags = {Tags.TAG, Tags.CONVENTION})
 @SqaleConstantRemediation("5min")
 public class AllowedTagsCheck extends DoubleDispatchVisitorCheck {
 

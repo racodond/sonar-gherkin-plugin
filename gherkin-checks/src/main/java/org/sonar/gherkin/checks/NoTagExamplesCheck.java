@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "no-tag-examples",
   name = "Tags should not be set on Examples",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
+  tags = {Tags.CONVENTION, Tags.TAG})
 @SqaleConstantRemediation("2min")
 public class NoTagExamplesCheck extends DoubleDispatchVisitorCheck {
 

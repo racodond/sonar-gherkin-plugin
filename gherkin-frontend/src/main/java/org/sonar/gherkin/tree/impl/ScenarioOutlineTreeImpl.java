@@ -27,16 +27,20 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ScenarioOutlineTreeImpl extends AbstractBasicScenarioTreeImpl implements ScenarioOutlineTree {
 
   private final List<TagTree> tags;
+  private final List<TagTree> allTags;
   private final ExamplesTree examples;
 
   public ScenarioOutlineTreeImpl(@Nullable List<TagTree> tags, PrefixTree prefix, SyntaxToken colon, @Nullable NameTree name, @Nullable DescriptionTree description, @Nullable List<StepTree> steps, ExamplesTree examples) {
     super(prefix, colon, name, description, steps);
     this.examples = examples;
     this.tags = tags != null ? tags : new ArrayList<>();
+    this.allTags = examples.tags() != null ? Stream.concat(this.tags.stream(), examples.tags().stream()).collect(Collectors.toList()) : this.tags;
   }
 
   @Override
@@ -55,6 +59,11 @@ public class ScenarioOutlineTreeImpl extends AbstractBasicScenarioTreeImpl imple
   @Override
   public List<TagTree> tags() {
     return tags;
+  }
+
+  @Override
+  public List<TagTree> allTags() {
+    return allTags;
   }
 
   @Override

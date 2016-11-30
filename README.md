@@ -58,6 +58,7 @@ Number of features.
  * Source code should be properly indented
  * Star (*) step prefix should not be used
  * Tabulation characters should not be used
+ * Tags should be defined at the right level
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
  * Useless tags should be removed

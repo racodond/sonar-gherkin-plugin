@@ -17,15 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.plugins.gherkin.api.tree;
+package org.sonar.gherkin.checks;
 
-import java.util.List;
+import org.junit.Test;
+import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
 
-public interface ScenarioOutlineTree extends BasicScenarioTree, Taggable {
+public class TagRightLevelCheckTest {
 
-  ExamplesTree examples();
-
-  // Tags defined at Scenario Outline level + tags defined at Examples level
-  List<TagTree> allTags();
+  @Test
+  public void test() {
+    GherkinCheckVerifier.verify(new TagRightLevelCheck(), CheckTestUtils.getTestFile("tag-right-level.feature"));
+  }
 
 }

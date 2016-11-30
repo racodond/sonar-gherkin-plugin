@@ -35,7 +35,7 @@ import java.util.regex.PatternSyntaxException;
   key = "tag-naming-convention",
   name = "Tags should comply with a naming convention",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
+  tags = {Tags.CONVENTION, Tags.TAG})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class TagNameCheck extends DoubleDispatchVisitorCheck {
