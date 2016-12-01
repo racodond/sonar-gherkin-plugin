@@ -53,6 +53,7 @@ Number of features.
  * File names should comply with a naming convention
  * Files should contain an empty new line at the end
  * Files that do not define any feature should be removed
+ * Given steps should follow a regular expression
  * Lines should not end with trailing whitespaces
  * Only tags from the whitelist should be used
  * Scenarios should not contain too many steps
@@ -63,8 +64,10 @@ Number of features.
  * Tags should be defined at the right level
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
+ * Then steps should follow a regular expression
  * Useless tags should be removed
-
+ * When steps should follow a regular expression
+ 
 ### Templates
 
  * Regular expression on comment

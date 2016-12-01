@@ -54,6 +54,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       EndLineCharactersCheck.class,
       FileNameCheck.class,
       FixmeTagPresenceCheck.class,
+      GivenStepRegularExpressionCheck.class,
       IncompleteExamplesTableCheck.class,
       IndentationCheck.class,
       MaxNumberScenariosCheck.class,
@@ -71,9 +72,11 @@ public class GherkinRulesDefinition implements RulesDefinition {
       TabCharacterCheck.class,
       TagNameCheck.class,
       TagRightLevelCheck.class,
+      ThenStepRegularExpressionCheck.class,
       TodoTagPresenceCheck.class,
       TrailingWhitespaceCheck.class,
-      UselessTagCheck.class
+      UselessTagCheck.class,
+      WhenStepRegularExpressionCheck.class
     );
   }
 
