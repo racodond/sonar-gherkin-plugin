@@ -60,6 +60,7 @@ Number of features.
  * Scenarios that do not define any step should be removed
  * Source code should be properly indented
  * Star (*) step prefix should not be used
+ * Steps of unknown type should not be used
  * Tabulation characters should not be used
  * Tags should be defined at the right level
  * Tags should comply with a naming convention
