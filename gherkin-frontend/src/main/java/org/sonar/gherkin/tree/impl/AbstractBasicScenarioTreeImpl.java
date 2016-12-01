@@ -41,6 +41,8 @@ public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implemen
     this.name = name;
     this.description = description;
     this.steps = steps != null ? steps : new ArrayList<>();
+
+    setStepTypes();
   }
 
   @Override
@@ -75,6 +77,37 @@ public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implemen
   @Override
   public List<StepTree> steps() {
     return steps;
+  }
+
+  private void setStepTypes() {
+    for (int i = 0; i < steps.size(); i++) {
+      StepTree currentStep = steps.get(i);
+      switch (currentStep.prefix().text()) {
+        case "Given":
+          currentStep.setType(StepTree.StepType.GIVEN);
+          break;
+
+        case "When":
+          currentStep.setType(StepTree.StepType.WHEN);
+          break;
+
+        case "Then":
+          currentStep.setType(StepTree.StepType.THEN);
+          break;
+
+        case "And":
+        case "But":
+          if (i > 0) {
+            currentStep.setType(steps.get(i - 1).type());
+          } else {
+            currentStep.setType(StepTree.StepType.UNKNOWN);
+          }
+          break;
+
+        default:
+          currentStep.setType(StepTree.StepType.UNKNOWN);
+      }
+    }
   }
 
 }

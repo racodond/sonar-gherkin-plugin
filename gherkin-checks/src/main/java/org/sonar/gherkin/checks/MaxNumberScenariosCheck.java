@@ -32,7 +32,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "max-number-scenarios",
   name = "Features should not contain too many scenarios",
   priority = Priority.MAJOR,
-  tags = {Tags.UNDERSTANDABILITY})
+  tags = {Tags.READABILITY})
 @SqaleConstantRemediation("30min")
 @ActivatedByDefault
 public class MaxNumberScenariosCheck extends DoubleDispatchVisitorCheck {

@@ -32,6 +32,7 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   private final SyntaxToken sentence;
   private final DocStringTree docString;
   private final TableTree table;
+  private StepType type;
 
   public StepTreeImpl(PrefixTree prefix, SyntaxToken sentence, @Nullable Tree data) {
     this.prefix = prefix;
@@ -71,6 +72,16 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   @Override
   public SyntaxToken sentence() {
     return sentence;
+  }
+
+  @Override
+  public StepType type() {
+    return type;
+  }
+
+  @Override
+  public void setType(StepType type) {
+    this.type = type;
   }
 
   @Override
