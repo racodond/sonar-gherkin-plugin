@@ -42,7 +42,7 @@ public class GherkinProfileTest {
 
     assertThat(profile.getName()).isEqualTo("SonarQube Way");
     assertThat(profile.getLanguage()).isEqualTo("gherkin");
-    assertThat(profile.getActiveRulesByRepository("gherkin")).hasSize(26);
+    assertThat(profile.getActiveRulesByRepository("gherkin")).hasSize(27);
     assertThat(validation.hasErrors()).isFalse();
   }
 
