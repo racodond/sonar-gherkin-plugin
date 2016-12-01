@@ -43,6 +43,7 @@ Number of features.
  * Background should only contain Given steps
  * All comments should be formatted consistently
  * Byte Order Mark (BOM) should not be used for UTF-8 files
+ * Each scenario should define at least one of each Given/When/Then step
  * Each feature should have a name
  * Each feature should have a unique name
  * Each scenario should have a name

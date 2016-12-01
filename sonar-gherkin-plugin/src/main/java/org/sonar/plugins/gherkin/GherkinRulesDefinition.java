@@ -46,6 +46,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
     return ImmutableList.of(
       AddCommonGivenStepsToBackgroundCheck.class,
       AllowedTagsCheck.class,
+      AllStepTypesInScenarioCheck.class,
       BOMCheck.class,
       CommentConventionCheck.class,
       CommentRegularExpressionCheck.class,

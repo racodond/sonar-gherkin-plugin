@@ -1,5 +1,17 @@
 {
+'project:custom/all-step-types-in-scenario/without-background.feature':[
+0,
+],
+'project:custom/missing-scenario-name.feature':[
+0,
+],
 'project:custom/new-line-end-of-file/no-new-line-end-of-file.feature':[
+0,
+],
+'project:custom/no-tag-examples.feature':[
+0,
+],
+'project:custom/step-of-unknown-type.feature':[
 0,
 ],
 }
