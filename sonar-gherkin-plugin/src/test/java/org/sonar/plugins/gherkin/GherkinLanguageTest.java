@@ -30,7 +30,7 @@ public class GherkinLanguageTest {
   public void language_key_and_name() {
     GherkinLanguage gherkinLanguage = new GherkinLanguage();
     assertThat(gherkinLanguage.getKey()).isEqualTo("gherkin");
-    assertThat(gherkinLanguage.getName()).isEqualTo("Gherkin");
+    assertThat(gherkinLanguage.getName()).isEqualTo("Cucumber Gherkin");
   }
 
   @Test

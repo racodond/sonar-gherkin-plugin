@@ -26,7 +26,7 @@ public class GherkinLanguage extends AbstractLanguage {
   public static final String KEY = "gherkin";
 
   public GherkinLanguage() {
-    super(KEY, "Gherkin");
+    super(KEY, "Cucumber Gherkin");
   }
 
   @Override
