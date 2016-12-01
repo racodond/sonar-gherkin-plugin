@@ -36,10 +36,11 @@ Number of features.
 
 ### Standard
 
- * Add common Given steps to Background
  * "Examples" table should contain data
  * "FIXME" tags should be handled
  * "TODO" tags should be handled
+ * Add common Given steps to Background
+ * Background should only contain Given steps
  * All comments should be formatted consistently
  * Byte Order Mark (BOM) should not be used for UTF-8 files
  * Each feature should have a name
