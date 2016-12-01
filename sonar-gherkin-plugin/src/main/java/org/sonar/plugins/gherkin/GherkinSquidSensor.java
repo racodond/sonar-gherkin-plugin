@@ -106,7 +106,7 @@ public class GherkinSquidSensor implements Sensor {
 
     setParsingErrorCheckIfActivated(treeVisitors);
 
-    ProgressReport progressReport = new ProgressReport("Report about progress of Gherkin analyzer", TimeUnit.SECONDS.toMillis(10));
+    ProgressReport progressReport = new ProgressReport("Report about progress of Cucumber Gherkin analyzer", TimeUnit.SECONDS.toMillis(10));
     progressReport.start(Lists.newArrayList(fileSystem.files(mainFilePredicate)));
 
     issueSaver = new IssueSaver(sensorContext, checks);

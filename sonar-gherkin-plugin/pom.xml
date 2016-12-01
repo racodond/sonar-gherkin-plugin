@@ -18,7 +18,7 @@
 
   <properties>
     <sonar.pluginKey>gherkin</sonar.pluginKey>
-    <sonar.pluginName>Gherkin</sonar.pluginName>
+    <sonar.pluginName>Cucumber Gherkin</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.gherkin.GherkinPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
   </properties>
