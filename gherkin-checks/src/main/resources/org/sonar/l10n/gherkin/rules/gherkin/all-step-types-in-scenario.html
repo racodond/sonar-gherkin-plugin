@@ -1,0 +1,41 @@
+<p>
+    To be complete a scenario must:
+</p>
+<ul>
+    <li>Set the context (Given steps)</li>
+    <li>Make the action (When steps)</li>
+    <li>Assert the expected outcome (Then steps)</li>
+</ul>
+<p>
+    This rule checks that each scenario defines steps of all three types.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Feature: Cart
+
+    Scenario: Add product to cart
+      Given I am on the catalog page
+      When I add a product to my cart
+      # Noncompliant: Missing Then step
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Feature: Cart
+
+  Scenario: Add product to cart
+    Given I am on the catalog page
+    When I add a product to my cart
+    Then I should see the product in my cart
+
+--------------------------------------------
+Feature: Cart
+
+  Background:
+    Given I am on the catalog page
+
+  Scenario: Add product to cart
+    When I add a product to my cart
+    Then I should see the product in my cart
+</pre>

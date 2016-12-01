@@ -1,0 +1,15 @@
+{
+'project:custom/all-step-types-in-scenario/without-background.feature':[
+33,
+],
+'project:custom/duplicated-scenario-names/scenarios.feature':[
+12,
+],
+'project:custom/missing-scenario-name.feature':[
+18,
+24,
+],
+'project:custom/no-tag-examples.feature':[
+17,
+],
+}
