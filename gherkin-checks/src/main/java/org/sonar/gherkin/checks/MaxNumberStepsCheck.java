@@ -32,7 +32,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "max-number-steps",
   name = "Scenarios should not contain too many steps",
   priority = Priority.MAJOR,
-  tags = {Tags.UNDERSTANDABILITY})
+  tags = {Tags.READABILITY})
 @SqaleConstantRemediation("30min")
 @ActivatedByDefault
 public class MaxNumberStepsCheck extends DoubleDispatchVisitorCheck {

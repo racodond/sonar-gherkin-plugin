@@ -44,6 +44,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
   @SuppressWarnings("rawtypes")
   public static Collection<Class> getChecks() {
     return ImmutableList.of(
+      AddCommonGivenStepsToBackgroundCheck.class,
       AllowedTagsCheck.class,
       BOMCheck.class,
       CommentConventionCheck.class,

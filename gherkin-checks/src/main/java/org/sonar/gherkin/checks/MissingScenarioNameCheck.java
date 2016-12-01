@@ -34,7 +34,7 @@ import java.util.List;
   key = "missing-scenario-name",
   name = "Each scenario should have a name",
   priority = Priority.CRITICAL,
-  tags = {Tags.UNDERSTANDABILITY})
+  tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class MissingScenarioNameCheck extends SubscriptionVisitorCheck {

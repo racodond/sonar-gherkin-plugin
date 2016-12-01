@@ -23,9 +23,20 @@ import javax.annotation.Nullable;
 
 public interface StepTree extends Tree {
 
+  enum StepType {
+    GIVEN,
+    WHEN,
+    THEN,
+    UNKNOWN;
+  }
+
   PrefixTree prefix();
 
   SyntaxToken sentence();
+
+  StepType type();
+
+  void setType(StepType type);
 
   @Nullable
   DocStringTree docString();

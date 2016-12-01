@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "star-step-prefix",
   name = "Star (*) step prefix should not be used",
   priority = Priority.MAJOR,
-  tags = {Tags.UNDERSTANDABILITY})
+  tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class StarStepPrefixCheck extends DoubleDispatchVisitorCheck {

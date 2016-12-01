@@ -36,6 +36,7 @@ Number of features.
 
 ### Standard
 
+ * Add common Given steps to Background
  * "Examples" table should contain data
  * "FIXME" tags should be handled
  * "TODO" tags should be handled

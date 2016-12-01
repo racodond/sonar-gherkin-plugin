@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
   key = "tag-right-level",
   name = "Tags should be defined at the right level",
   priority = Priority.MINOR,
-  tags = {Tags.TAG, Tags.UNDERSTANDABILITY})
+  tags = {Tags.TAG, Tags.READABILITY})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
