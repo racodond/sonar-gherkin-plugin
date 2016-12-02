@@ -1,0 +1,27 @@
+<p>
+    Scenario steps should follow Given/When/Then order.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario: Purchase a product
+  Given I am a customer
+  When I add a product to my cart
+  Then I should see the product in my cart
+  When I proceed to the order payment          # Noncompliant
+  Then I should see the order total amount
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario: Add a product to my cart
+  Given I am a customer
+  When I add a product to my cart
+  Then I should see the product in my cart
+
+Scenario: Proceed to payment
+  Given I am a customer
+  And I have added a product to my cart
+  When I proceed to payment
+  Then I should see the order total amount
+</pre>

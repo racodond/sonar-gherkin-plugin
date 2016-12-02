@@ -9,7 +9,7 @@ SonarQube Cucumber Gherkin Plugin
 This plugin enables code QA analysis of [Cucumber Gherkin feature files](https://github.com/cucumber/cucumber/wiki/Gherkin) within [SonarQube](http://www.sonarqube.org):
 
  * Computes metrics: lines of code, comments lines, etc.
- * Performs more than [15 checks](#available-checks)
+ * Performs more than [40 checks](#available-checks)
  * Provide the ability to write your own checks
 
 ## Usage
@@ -55,6 +55,7 @@ Number of features.
  * Files should contain an empty new line at the end
  * Files that do not define any feature should be removed
  * Given steps should follow a regular expression
+ * Given/When/Then steps should be defined in the right order
  * Lines should not end with trailing whitespaces
  * Only tags from the whitelist should be used
  * Scenarios should not contain too many steps
