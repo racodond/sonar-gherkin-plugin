@@ -68,6 +68,7 @@ Number of features.
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
  * Then steps should follow a regular expression
+ * Use Ant and But instead of redundant Given/When/Then
  * Useless tags should be removed
  * When steps should follow a regular expression
  
