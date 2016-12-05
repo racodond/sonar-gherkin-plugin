@@ -78,6 +78,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       ThenStepRegularExpressionCheck.class,
       TodoTagPresenceCheck.class,
       TrailingWhitespaceCheck.class,
+      UnusedVariableCheck.class,
       UseAndButCheck.class,
       UselessTagCheck.class,
       WhenStepRegularExpressionCheck.class,

@@ -36,21 +36,36 @@ public class TableTreeTest extends GherkinTreeTest {
 
     tree = checkParsed("||");
     assertThat(tree.rows()).hasSize(1);
+    assertThat(tree.headers()).hasSize(1);
 
     tree = checkParsed(" ||");
     assertThat(tree.rows()).hasSize(1);
+    assertThat(tree.headers()).hasSize(1);
 
     tree = checkParsed(" | |");
     assertThat(tree.rows()).hasSize(1);
+    assertThat(tree.headers()).hasSize(1);
 
     tree = checkParsed("| test|");
     assertThat(tree.rows()).hasSize(1);
+    assertThat(tree.headers()).hasSize(1);
+    assertThat(tree.headers().get(0)).isEqualTo("test");
 
     tree = checkParsed("| test| \n | 2 |");
     assertThat(tree.rows()).hasSize(2);
+    assertThat(tree.headers()).hasSize(1);
+    assertThat(tree.headers().get(0)).isEqualTo("test");
 
     tree = checkParsed("| test| \n | 2 | \n | sqfqsf|");
     assertThat(tree.rows()).hasSize(3);
+    assertThat(tree.headers()).hasSize(1);
+    assertThat(tree.headers().get(0)).isEqualTo("test");
+
+    tree = checkParsed("| test| blabla |\n | 2 | 3 |\n | sqfqsf| abcqsf |");
+    assertThat(tree.rows()).hasSize(3);
+    assertThat(tree.headers()).hasSize(2);
+    assertThat(tree.headers().get(0)).isEqualTo("test");
+    assertThat(tree.headers().get(1)).isEqualTo("blabla");
   }
 
   @Test
@@ -64,6 +79,7 @@ public class TableTreeTest extends GherkinTreeTest {
     TableTree tree = (TableTree) parser().parse(toParse);
     assertThat(tree).isNotNull();
     assertThat(tree.rows()).isNotNull();
+    assertThat(tree.headers()).isNotNull();
     return tree;
   }
 

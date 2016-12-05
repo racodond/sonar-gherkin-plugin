@@ -19,16 +19,14 @@
  */
 package org.sonar.gherkin.checks;
 
-public final class Tags {
+import org.junit.Test;
+import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
 
-  public static final String BUG = "bug";
-  public static final String CONVENTION = "convention";
-  public static final String PITFALL = "pitfall";
-  public static final String READABILITY = "readability";
-  public static final String TAG = "tag";
-  public static final String UNUSED = "unused";
+public class UnusedVariableCheckTest {
 
-  private Tags() {
+  @Test
+  public void test() {
+    GherkinCheckVerifier.verify(new UnusedVariableCheck(), CheckTestUtils.getTestFile("unused-variable.feature"));
   }
 
 }

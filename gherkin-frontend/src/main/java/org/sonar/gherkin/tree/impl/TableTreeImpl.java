@@ -24,6 +24,8 @@ import org.sonar.plugins.gherkin.api.tree.TableTree;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +33,19 @@ import java.util.stream.Collectors;
 public class TableTreeImpl extends GherkinTree implements TableTree {
 
   private final List<SyntaxToken> rows;
+  private final List<String> headers;
 
   public TableTreeImpl(List<SyntaxToken> rows) {
     this.rows = rows;
+
+    if (rows.isEmpty()) {
+      this.headers = new ArrayList<>();
+    } else {
+      this.headers = Arrays
+        .stream(rows.get(0).text().substring(1, rows.get(0).text().length() - 1).split("\\|"))
+        .map(String::trim)
+        .collect(Collectors.toList());
+    }
   }
 
   @Override
@@ -49,6 +61,11 @@ public class TableTreeImpl extends GherkinTree implements TableTree {
   @Override
   public List<SyntaxToken> rows() {
     return rows;
+  }
+
+  @Override
+  public List<String> headers() {
+    return headers;
   }
 
   @Override

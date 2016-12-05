@@ -24,34 +24,27 @@ import org.sonar.plugins.gherkin.api.tree.*;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StepTreeImpl extends GherkinTree implements StepTree {
 
   private final PrefixTree prefix;
   private final SyntaxToken sentence;
-  private final DocStringTree docString;
-  private final TableTree table;
+  private DocStringTree docString;
+  private TableTree table;
+  private Set<String> variables;
   private StepType type;
 
   public StepTreeImpl(PrefixTree prefix, SyntaxToken sentence, @Nullable Tree data) {
     this.prefix = prefix;
     this.sentence = sentence;
 
-    if (data != null) {
-      if (data instanceof DocStringTree) {
-        docString = (DocStringTree) data;
-        table = null;
-      } else if (data instanceof TableTree) {
-        table = (TableTree) data;
-        docString = null;
-      } else {
-        throw new IllegalStateException("Unsupported data tree: " + data.toString());
-      }
-    } else {
-      docString = null;
-      table = null;
-    }
+    initData(data);
+    initVariables(sentence);
   }
 
   @Override
@@ -85,6 +78,11 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   }
 
   @Override
+  public Set<String> variables() {
+    return variables;
+  }
+
+  @Override
   @Nullable
   public DocStringTree docString() {
     return docString;
@@ -99,6 +97,33 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
     visitor.visitStep(this);
+  }
+
+  private void initVariables(SyntaxToken sentence) {
+    Pattern pattern = Pattern.compile("<(.+?)>");
+    Matcher matcher = pattern.matcher(sentence.text());
+    variables = new HashSet<>();
+
+    while (matcher.find()) {
+      variables.add(matcher.group(1).trim());
+    }
+  }
+
+  private void initData(@Nullable Tree data) {
+    if (data != null) {
+      if (data instanceof DocStringTree) {
+        docString = (DocStringTree) data;
+        table = null;
+      } else if (data instanceof TableTree) {
+        table = (TableTree) data;
+        docString = null;
+      } else {
+        throw new IllegalStateException("Unsupported data tree: " + data.toString());
+      }
+    } else {
+      docString = null;
+      table = null;
+    }
   }
 
 }
