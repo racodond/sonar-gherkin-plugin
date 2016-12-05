@@ -34,6 +34,10 @@
       <artifactId>commons-lang</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -57,6 +61,24 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <configuration>
           <destFile>${sonar.jacoco.reportPath}</destFile>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <executions>
+          <execution>
+            <id>generate-rule-descriptions</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>org.sonar.gherkin.checks.GenerateRuleDescriptionsBatch</mainClass>
         </configuration>
       </plugin>
     </plugins>

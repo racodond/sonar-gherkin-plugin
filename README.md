@@ -71,6 +71,7 @@ Number of features.
  * Use Ant and But instead of redundant Given/When/Then
  * Useless tags should be removed
  * When steps should follow a regular expression
+ * Wording should remain at business level
  
 ### Templates
 

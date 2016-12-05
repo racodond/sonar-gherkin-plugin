@@ -1,0 +1,23 @@
+<p>
+    Wording should remain at business level.
+    This rules check feature and scenario names as well as step sentences.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario: As a customer, add a product to my cart
+  Given I am on the catalog page
+  When I click on a product to add it to my cart   # Noncompliant
+  Then I should see the product in my cart
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario: As a customer, add a product to my cart
+  Given I am on the catalog page
+  When I add a product to my cart
+  Then I should see the product in my cart
+</pre>
+
+<h2>List of Forbidden Words</h2>
+[[allForbiddenWords]]

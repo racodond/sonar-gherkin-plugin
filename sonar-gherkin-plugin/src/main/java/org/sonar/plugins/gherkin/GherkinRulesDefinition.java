@@ -80,7 +80,8 @@ public class GherkinRulesDefinition implements RulesDefinition {
       TrailingWhitespaceCheck.class,
       UseAndButCheck.class,
       UselessTagCheck.class,
-      WhenStepRegularExpressionCheck.class
+      WhenStepRegularExpressionCheck.class,
+      WordingBusinessLevelCheck.class
     );
   }
 
