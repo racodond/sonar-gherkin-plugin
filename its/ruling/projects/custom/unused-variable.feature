@@ -13,16 +13,16 @@ Feature: My feature
     Given blabla...
     When blabla...
     Then blabla...
-    # Noncompliant [[sc=5;ec=13]] {{Remove the following unused variables: number}}
+    # Noncompliant [[sc=5;ec=13]] {{Remove the following unused variable: number}}
     Examples:
       | number |
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 2
+  Scenario Outline: Scenario 3
     Given blabla...
     When blabla... <number>
-    Then blabla...
+    Then blabla... <number>
   # Noncompliant [[sc=5;ec=13]] {{Remove the following unused variables: status, type}}
     Examples:
       | number | type | status |

@@ -60,6 +60,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       IndentationCheck.class,
       MaxNumberScenariosCheck.class,
       MaxNumberStepsCheck.class,
+      MissingDataTableColumnCheck.class,
       MissingFeatureNameCheck.class,
       MissingNewlineAtEndOfFileCheck.class,
       MissingScenarioNameCheck.class,

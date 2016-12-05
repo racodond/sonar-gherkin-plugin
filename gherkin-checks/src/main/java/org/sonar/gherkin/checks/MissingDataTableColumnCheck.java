@@ -27,38 +27,43 @@ import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Rule(
-  key = "unused-variable",
-  name = "Unused variable should be removed",
-  priority = Priority.MAJOR,
-  tags = {Tags.BUG, Tags.UNUSED})
+  key = "missing-data-table-column",
+  name = "Missing data table column should be added",
+  priority = Priority.CRITICAL,
+  tags = {Tags.BUG})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
-public class UnusedVariableCheck extends DoubleDispatchVisitorCheck {
+public class MissingDataTableColumnCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScenarioOutline(ScenarioOutlineTree tree) {
-
     TableTree table = tree.examples().table();
 
-    Set<String> unusedVariables = new HashSet<>();
+    Set<String> missingColumns = tree.steps()
+      .stream()
+      .flatMap(s -> s.variables().stream())
+      .collect(Collectors.toSet());
+
     if (table != null) {
-      unusedVariables = table.headers().stream().collect(Collectors.toSet());
-      unusedVariables.removeAll(tree.steps()
-        .stream()
-        .flatMap(s -> s.variables().stream())
-        .collect(Collectors.toSet()));
+      missingColumns.removeAll(table.headers().stream().collect(Collectors.toSet()));
     }
 
-    if (!unusedVariables.isEmpty()) {
-      addPreciseIssue(
-        tree.examples().prefix(),
-        "Remove the following unused variable" + (unusedVariables.size() > 1 ? "s" : "") + ": "
-          + unusedVariables.stream().sorted().collect(Collectors.joining(", ")));
+    if (!missingColumns.isEmpty()) {
+      if (table != null) {
+        addPreciseIssue(
+          tree.examples().prefix(),
+          "Add the following missing data table column" + (missingColumns.size() > 1 ? "s" : "") + ": "
+            + missingColumns.stream().sorted().collect(Collectors.joining(", ")));
+      } else {
+        addPreciseIssue(
+          tree.examples().prefix(),
+          "Add a data table with the following missing column" + (missingColumns.size() > 1 ? "s" : "") + ": "
+            + missingColumns.stream().sorted().collect(Collectors.joining(", ")));
+      }
     }
 
     super.visitScenarioOutline(tree);
