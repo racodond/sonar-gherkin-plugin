@@ -57,6 +57,7 @@ Number of features.
  * Given steps should follow a regular expression
  * Given/When/Then steps should be defined in the right order
  * Lines should not end with trailing whitespaces
+ * Missing data table column should be added
  * Only tags from the whitelist should be used
  * Scenarios should not contain too many steps
  * Scenarios that do not define any step should be removed
@@ -69,7 +70,7 @@ Number of features.
  * Tags should not be set on Examples
  * Then steps should follow a regular expression
  * Unused variable should be removed
- * Use Ant and But instead of redundant Given/When/Then
+ * Use And and But instead of redundant Given/When/Then
  * Useless tags should be removed
  * When steps should follow a regular expression
  * Wording should remain at business level

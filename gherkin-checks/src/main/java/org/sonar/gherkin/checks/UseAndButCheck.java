@@ -32,7 +32,7 @@ import java.util.List;
 
 @Rule(
   key = "use-and-but",
-  name = "Use Ant and But instead of redundant Given/When/Then",
+  name = "Use And and But instead of redundant Given/When/Then",
   priority = Priority.MAJOR,
   tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")

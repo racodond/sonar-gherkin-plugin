@@ -1,0 +1,30 @@
+<p>
+    A <code>Scenario Outline</code> with steps using variables that are not defined in the <code>Examples</code> data
+    table is not valid. Thus, missing columns must be added to the data table.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario Outline: Add product to cart
+  Given I am a customer
+  When I add &lt;number&gt; &lt;type&gt; items to my cart
+  Then I should see &lt;number&gt; &lt;type&gt; items in my cart
+
+    Examples:     # Noncompliant: Missing  'type' column
+      | number |
+      | 1      |
+      | 2      |
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario Outline: Add product to cart
+  Given I am a customer
+  When I add &lt;number&gt; &lt;type&gt; items to my cart
+  Then I should see &lt;number&gt; &lt;type&gt; items in my cart
+
+    Examples:
+      | number | type |
+      | 1      | book |
+      | 2      | bike |
+</pre>
