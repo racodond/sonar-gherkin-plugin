@@ -59,6 +59,15 @@ public class StepTreeTest extends GherkinTreeTest {
     assertThat(tree.table()).isNotNull();
     assertThat(tree.docString()).isNull();
     assertThat(tree.table().rows()).hasSize(2);
+
+    tree = checkParsed("Given a < b", "Given", "a < b");
+    assertThat(tree.variables()).hasSize(0);
+
+    tree = checkParsed("Given blabla... <abc>zzz blabla...<def>", "Given", "blabla... <abc>zzz blabla...<def>");
+    assertThat(tree.variables()).hasSize(2);
+    assertThat(tree.variables().contains("abc")).isTrue();
+    assertThat(tree.variables().contains("def")).isTrue();
+    assertThat(tree.variables().contains("zzz")).isFalse();
   }
 
   @Test
@@ -79,6 +88,7 @@ public class StepTreeTest extends GherkinTreeTest {
     assertThat(tree.sentence()).isNotNull();
     assertThat(tree.prefix().keyword()).isNotNull();
     assertThat(tree.prefix().text()).isNotNull();
+    assertThat(tree.variables()).isNotNull();
     assertThat(tree.prefix().text()).isEqualTo(prefix);
     assertThat(tree.sentence().text()).isEqualTo(sentence);
     return tree;

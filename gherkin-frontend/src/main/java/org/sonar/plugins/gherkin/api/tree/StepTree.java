@@ -20,6 +20,7 @@
 package org.sonar.plugins.gherkin.api.tree;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public interface StepTree extends Tree {
 
@@ -37,6 +38,8 @@ public interface StepTree extends Tree {
   StepType type();
 
   void setType(StepType type);
+
+  Set<String> variables();
 
   @Nullable
   DocStringTree docString();

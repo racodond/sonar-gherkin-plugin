@@ -25,4 +25,6 @@ public interface TableTree extends Tree {
 
   List<SyntaxToken> rows();
 
+  List<String> headers();
+
 }

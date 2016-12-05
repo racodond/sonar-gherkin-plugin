@@ -1,0 +1,43 @@
+<p>
+    An unused <code>Examples</code> data table column might hide a potential bug. Is this column there from a previously
+    used variable that is no longer necessary? In this case, the column can be safely removed. Or is it a step
+    parametrization that has not been finished? In this case, the related step must be updated.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario Outline: Add product to cart
+  Given I am a customer
+  When I add &lt;number&gt; products to my cart
+  Then I should see &lt;number&gt; products in my cart
+
+    Examples:
+      | number | type   |  # Noncompliant: Unused 'type' variable
+      | 1      | tea    |
+      | 2      | coffee |
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario Outline: Add product to cart
+  Given I am a customer
+  When I add &lt;number&gt; products to my cart
+  Then I should see &lt;number&gt; products in my cart
+
+    Examples:
+      | number |
+      | 1      |
+      | 2      |
+
+OR
+
+Scenario Outline: Add product to cart
+  Given I am a customer
+  When I add &lt;number&gt; &lt;type&gt; to my cart
+  Then I should see &lt;number&gt; &lt;type&gt; in my cart
+
+    Examples:
+      | number | type |
+      | 1      | book |
+      | 2      | bike |
+</pre>
