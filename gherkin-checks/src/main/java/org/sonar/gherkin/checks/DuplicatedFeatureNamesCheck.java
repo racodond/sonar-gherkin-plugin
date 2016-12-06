@@ -35,9 +35,9 @@ import java.util.Map;
 
 @Rule(
   key = "duplicated-feature-names",
-  name = "Each feature should have a unique name",
+  name = "Features should have a unique name",
   priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  tags = {Tags.PITFALL, Tags.DESIGN})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class DuplicatedFeatureNamesCheck extends DoubleDispatchVisitorCheck {

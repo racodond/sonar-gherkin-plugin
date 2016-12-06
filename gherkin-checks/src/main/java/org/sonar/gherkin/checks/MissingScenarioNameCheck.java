@@ -32,7 +32,7 @@ import java.util.List;
 
 @Rule(
   key = "missing-scenario-name",
-  name = "Each scenario should have a name",
+  name = "Scenarios should have a name",
   priority = Priority.CRITICAL,
   tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")

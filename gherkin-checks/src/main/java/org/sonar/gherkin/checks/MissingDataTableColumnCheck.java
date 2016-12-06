@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Rule(
   key = "missing-data-table-column",
-  name = "Missing data table column should be added",
+  name = "Missing data table columns should be added",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
 @SqaleConstantRemediation("15min")

@@ -36,8 +36,8 @@ import java.util.stream.Collectors;
   key = "wording-business-level",
   name = "Wording should remain at business level",
   priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
-@SqaleConstantRemediation("15min")
+  tags = {Tags.DESIGN})
+@SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class WordingBusinessLevelCheck extends DoubleDispatchVisitorCheck {
 

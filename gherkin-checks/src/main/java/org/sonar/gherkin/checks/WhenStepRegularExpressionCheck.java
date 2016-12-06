@@ -32,7 +32,7 @@ import java.util.regex.PatternSyntaxException;
 @Rule(
   key = "when-step-regular-expression",
   name = "When steps should follow a regular expression",
-  priority = Priority.MAJOR,
+  priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("10min")
 public class WhenStepRegularExpressionCheck extends DoubleDispatchVisitorCheck {

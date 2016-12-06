@@ -32,9 +32,9 @@ import java.util.List;
 
 @Rule(
   key = "add-common-given-steps-to-background",
-  name = "Add common Given steps to Background",
+  name = "Common Given steps should be added to Background",
   priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class AddCommonGivenStepsToBackgroundCheck extends DoubleDispatchVisitorCheck {

@@ -33,9 +33,9 @@ import java.util.stream.Stream;
 
 @Rule(
   key = "all-step-types-in-scenario",
-  name = "Each scenario should define at least one of each Given/When/Then step",
-  priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
+  name = "Scenarios should define at least one of each Given/When/Then step type",
+  priority = Priority.CRITICAL,
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class AllStepTypesInScenarioCheck extends DoubleDispatchVisitorCheck {

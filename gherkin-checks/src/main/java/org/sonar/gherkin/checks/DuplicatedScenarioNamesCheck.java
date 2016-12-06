@@ -37,9 +37,9 @@ import java.util.Map;
 
 @Rule(
   key = "duplicated-scenario-names",
-  name = "Each scenario should have a unique name",
+  name = "Scenarios should have a unique name",
   priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  tags = {Tags.PITFALL, Tags.READABILITY})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
 public class DuplicatedScenarioNamesCheck extends SubscriptionVisitorCheck {

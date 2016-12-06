@@ -30,8 +30,8 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "comment-convention",
   name = "All comments should be formatted consistently",
   priority = Priority.MINOR,
-  tags = {Tags.CONVENTION})
-@SqaleConstantRemediation("1min")
+  tags = {Tags.READABILITY})
+@SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class CommentConventionCheck extends DoubleDispatchVisitorCheck {
 

@@ -35,42 +35,42 @@ Number of features.
 ## Available Checks
 
 ### Standard
-
- * "Examples" table should contain data
  * "FIXME" tags should be handled
  * "TODO" tags should be handled
- * Add common Given steps to Background
- * Background should only contain Given steps
  * All comments should be formatted consistently
+ * And and But prefixes should be used instead of redundant Given/When/Then prefixes
  * Byte Order Mark (BOM) should not be used for UTF-8 files
- * Each scenario should define at least one of each Given/When/Then step
- * Each feature should have a name
- * Each feature should have a unique name
- * Each scenario should have a name
- * Each scenario should have a unique name
+ * Common Given steps should be added to Background
  * End-line characters should be consistent
+ * Examples data table should contain data at least two data rows
+ * Features should have a name
+ * Features should have a unique name
  * Features should not contain too many scenarios
  * Features that do not define any scenario should be removed
  * File names should comply with a naming convention
  * Files should contain an empty new line at the end
  * Files that do not define any feature should be removed
+ * Gherkin parser failure
  * Given steps should follow a regular expression
  * Given/When/Then steps should be defined in the right order
  * Lines should not end with trailing whitespaces
- * Missing data table column should be added
+ * Missing data table columns should be added
+ * Non-Given steps should be moved out of Background
  * Only tags from the whitelist should be used
+ * Scenarios should define at least one of each Given/When/Then step type
+ * Scenarios should have a name
+ * Scenarios should have a unique name
  * Scenarios should not contain too many steps
  * Scenarios that do not define any step should be removed
  * Source code should be properly indented
- * Star (*) step prefix should not be used
+ * Star (*) step prefixes should not be used
  * Steps of unknown type should not be used
  * Tabulation characters should not be used
  * Tags should be defined at the right level
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
  * Then steps should follow a regular expression
- * Unused variable should be removed
- * Use And and But instead of redundant Given/When/Then
+ * Unused variables should be removed
  * Useless tags should be removed
  * When steps should follow a regular expression
  * Wording should remain at business level

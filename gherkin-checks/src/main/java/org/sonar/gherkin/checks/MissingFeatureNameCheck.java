@@ -28,9 +28,9 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "missing-feature-name",
-  name = "Each feature should have a name",
+  name = "Features should have a name",
   priority = Priority.CRITICAL,
-  tags = {Tags.READABILITY})
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class MissingFeatureNameCheck extends DoubleDispatchVisitorCheck {

@@ -1,7 +1,7 @@
 <p>
-    Having <code>Scenario Outlines</code> with <code>Examples</code> section containing no table will end up with the
-    execution of zero scenario; that is unlikely the expected behavior. Thus, each <code>Examples</code> section should
-    contain a table.
+    A <code>Scenario Outline</code> with an <code>Examples</code> section containing no data table will end up with the
+    execution of zero scenario; that is unlikely the expected behavior. Thus, each <code>Examples</code> should contain
+    a data table.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -11,7 +11,7 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
+  Examples:
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -21,16 +21,16 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
-      | number |
-      | 1      |
-      | 2      |
+  Examples:
+    | number |
+    | 1      |
+    | 2      |
 </pre>
 
 <p>
-    Having <code>Scenario Outlines</code> with <code>Examples</code> section containing a table with one single row will
-    end up with the execution of zero scenario; that is unlikely the expected behavior. Thus, each <code>Examples</code>
-    table should contain at least two rows.
+    A <code>Scenario Outline</code> with an <code>Examples</code> section containing a data table with one single row
+    will end up with the execution of zero scenario; that is unlikely the expected behavior. Thus, each
+    <code>Examples</code> data table should contain at least two data rows.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -40,8 +40,8 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
-      | number |
+  Examples:
+    | number |
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -51,16 +51,16 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
-      | number |
-      | 1      |
-      | 2      |
+  Examples:
+    | number |
+    | 1      |
+    | 2      |
 </pre>
 
 <p>
-    Having <code>Scenario Outlines</code> with <code>Examples</code> section containing a table with two rows will
-    end up with the execution of a single scenario. Thus, either some data are missing or the <code>Scenario
-    Outline</code> can be safely converted to a <code>Scenario</code>.
+    A <code>Scenario Outline</code> with an <code>Examples</code> section containing a data table with two rows will end
+    up with the execution of a single scenario. Thus, either some data are missing or the <code>Scenario Outline</code>
+    can be safely converted to a standard <code>Scenario</code>.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -70,9 +70,9 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
-      | number |
-      | 1      |
+  Examples:
+    | number |
+    | 1      |
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -82,10 +82,10 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; products to my cart
   Then I should see &lt;number&gt; products in my cart
 
-    Examples:
-      | number |
-      | 1      |
-      | 2      |
+  Examples:
+    | number |
+    | 1      |
+    | 2      |
     
 OR   
 
