@@ -19,36 +19,49 @@
  */
 package org.sonar.gherkin.checks;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.plugins.gherkin.api.tree.ExamplesTree;
-import org.sonar.plugins.gherkin.api.tree.TableTree;
+import org.sonar.check.RuleProperty;
+import org.sonar.plugins.gherkin.api.tree.StepTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
-  key = "incomplete-examples-table",
-  name = "Examples data tables should contain data at least two data rows",
-  priority = Priority.CRITICAL,
-  tags = {Tags.BUG})
-@SqaleConstantRemediation("15min")
+  key = "step-sentence-length",
+  name = "Step sentences should not be too long",
+  priority = Priority.MAJOR,
+  tags = {Tags.DESIGN})
+@SqaleConstantRemediation("10min")
 @ActivatedByDefault
-public class IncompleteExamplesTableCheck extends DoubleDispatchVisitorCheck {
+public class StepSentenceLengthCheck extends DoubleDispatchVisitorCheck {
+
+  private static final int DEFAULT_LENGTH = 100;
+
+  @RuleProperty(
+    key = "threshold",
+    defaultValue = DEFAULT_LENGTH + "",
+    description = "Maximum step sentence length.")
+  private int threshold = DEFAULT_LENGTH;
 
   @Override
-  public void visitExamples(ExamplesTree tree) {
-    TableTree table = tree.table();
-
-    if (table == null) {
-      addPreciseIssue(tree.prefix(), "Add a data table to this Examples section.");
-    } else if (table.rows().size() == 1) {
-      addPreciseIssue(table, "Add data rows to this data table.");
-    } else if (table.rows().size() < 3) {
-      addPreciseIssue(table, "Add data rows to this data table or convert this Scenario Outline to a standard Scenario.");
+  public void visitStep(StepTree tree) {
+    if (tree.sentence().text().length() > threshold) {
+      addPreciseIssue(
+        tree.sentence(),
+        "Rephrase this sentence to make it shorter. Actual size: "
+          + tree.sentence().text().length() + " characters. "
+          + "Maximum expected size: "
+          + threshold + " characters.");
     }
-
-    super.visitExamples(tree);
+    super.visitStep(tree);
   }
+
+  @VisibleForTesting
+  void setThreshold(int threshold) {
+    this.threshold = threshold;
+  }
+
 
 }

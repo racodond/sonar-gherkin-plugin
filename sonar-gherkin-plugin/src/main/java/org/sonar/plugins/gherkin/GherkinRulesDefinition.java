@@ -72,6 +72,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       ParsingErrorCheck.class,
       StarStepPrefixCheck.class,
       StepOfUnknownTypeCheck.class,
+      StepSentenceLengthCheck.class,
       StepsRightOrderCheck.class,
       TabCharacterCheck.class,
       TagNameCheck.class,

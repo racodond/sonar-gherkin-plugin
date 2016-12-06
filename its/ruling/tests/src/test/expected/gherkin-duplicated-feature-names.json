@@ -8,4 +8,7 @@
 'project:custom/given-step-regular-expression.feature':[
 1,
 ],
+'project:custom/step-sentence-length/step-sentence-length-custom-threshold.feature':[
+1,
+],
 }

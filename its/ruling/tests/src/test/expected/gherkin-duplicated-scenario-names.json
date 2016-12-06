@@ -29,4 +29,7 @@
 'project:custom/star-step-prefix.feature':[
 3,
 ],
+'project:custom/step-sentence-length/step-sentence-length-custom-threshold.feature':[
+3,
+],
 }
