@@ -5,7 +5,7 @@
 <h2>Noncompliant Code Example</h2>
 <pre>
 Scenario: Add product to cart
-  And I am a customer                        # Noncompliant
+  And I am a customer                        # Noncompliant: Given step?
   When I add a product to my cart
   Then I should see the product in my cart
   And I should see the update total amount

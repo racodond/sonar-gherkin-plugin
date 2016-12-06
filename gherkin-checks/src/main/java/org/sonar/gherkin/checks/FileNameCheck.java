@@ -36,7 +36,7 @@ import java.util.regex.PatternSyntaxException;
   name = "File names should comply with a naming convention",
   priority = Priority.MINOR,
   tags = {Tags.CONVENTION})
-@SqaleConstantRemediation("10min")
+@SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class FileNameCheck extends DoubleDispatchVisitorCheck {
 

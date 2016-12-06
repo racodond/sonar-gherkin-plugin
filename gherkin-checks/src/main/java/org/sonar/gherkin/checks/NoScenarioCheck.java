@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "no-scenario",
   name = "Features that do not define any scenario should be removed",
   priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  tags = {Tags.PITFALL, Tags.DESIGN})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class NoScenarioCheck extends DoubleDispatchVisitorCheck {

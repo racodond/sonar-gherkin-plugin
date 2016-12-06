@@ -32,8 +32,8 @@ import java.util.List;
 
 @Rule(
   key = "use-and-but",
-  name = "Use And and But instead of redundant Given/When/Then",
-  priority = Priority.MAJOR,
+  name = "And and But prefixes should be used instead of redundant Given/When/Then prefixes",
+  priority = Priority.MINOR,
   tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault

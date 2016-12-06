@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "no-feature",
   name = "Files that do not define any feature should be removed",
   priority = Priority.MAJOR,
-  tags = {Tags.PITFALL})
+  tags = {Tags.PITFALL, Tags.DESIGN})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault
 public class NoFeatureCheck extends DoubleDispatchVisitorCheck {

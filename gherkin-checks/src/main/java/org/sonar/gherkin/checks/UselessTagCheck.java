@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
   key = "useless-tag",
   name = "Useless tags should be removed",
   priority = Priority.MINOR,
-  tags = {Tags.TAG, Tags.READABILITY})
+  tags = {Tags.TAG, Tags.UNUSED})
 @SqaleConstantRemediation("2min")
 @ActivatedByDefault
 public class UselessTagCheck extends DoubleDispatchVisitorCheck {

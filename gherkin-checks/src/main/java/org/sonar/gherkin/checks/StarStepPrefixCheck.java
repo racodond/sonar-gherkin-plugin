@@ -28,7 +28,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "star-step-prefix",
-  name = "Star (*) step prefix should not be used",
+  name = "Star (*) step prefixes should not be used",
   priority = Priority.MAJOR,
   tags = {Tags.READABILITY})
 @SqaleConstantRemediation("5min")

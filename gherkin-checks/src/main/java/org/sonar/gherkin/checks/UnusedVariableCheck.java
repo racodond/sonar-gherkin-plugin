@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Rule(
   key = "unused-variable",
-  name = "Unused variable should be removed",
+  name = "Unused variables should be removed",
   priority = Priority.MAJOR,
   tags = {Tags.BUG, Tags.UNUSED})
 @SqaleConstantRemediation("15min")

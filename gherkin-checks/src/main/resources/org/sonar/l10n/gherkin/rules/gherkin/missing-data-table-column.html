@@ -10,10 +10,10 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; &lt;type&gt; items to my cart
   Then I should see &lt;number&gt; &lt;type&gt; items in my cart
 
-    Examples:     # Noncompliant: Missing  'type' column
-      | number |
-      | 1      |
-      | 2      |
+  Examples:     # Noncompliant: Missing  'type' column
+    | number |
+    | 1      |
+    | 2      |
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -23,8 +23,8 @@ Scenario Outline: Add product to cart
   When I add &lt;number&gt; &lt;type&gt; items to my cart
   Then I should see &lt;number&gt; &lt;type&gt; items in my cart
 
-    Examples:
-      | number | type |
-      | 1      | book |
-      | 2      | bike |
+  Examples:
+    | number | type |
+    | 1      | book |
+    | 2      | bike |
 </pre>

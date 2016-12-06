@@ -1,23 +1,23 @@
 <p>
-    To make the feature and its scenarios more readable, all <code>Given</code> steps common to all scenarios should
-    be grouped in a <code>Background</code>.
+    To make the feature and its scenarios more readable, <code>Given</code> steps common to all scenarios should be
+    grouped in a <code>Background</code>.
 </p>
 
 <h2>Noncompliant Code Example</h2>
 <pre>
 Feature: Cart management
 
-  Scenario: As a customer, add a product to the cart
+  Scenario: Add a product to my cart
     Given I am a customer
     And I am on the catalog page
     When I add a product to my cart
     ...
 
-    Scenario: As a customer, remove a product from the cart
-      Given I am a customer
-      And I have products in my cart
-      When I remove a product from my cart
-      ...
+  Scenario: Remove a product from my cart
+    Given I am a customer
+    And I have products in my cart
+    When I remove a product from my cart
+    ...
 </pre>
 
 <h2>Compliant Solution</h2>
@@ -27,13 +27,13 @@ Feature: Cart management
   Background:
     Given I am a customer
 
-  Scenario: As a customer, add a product to the cart
+  Scenario: Add a product to my cart
     Given I am on the catalog page
     When I add a product to my cart
     ...
 
-    Scenario: As a customer, remove a product from the cart
-      Given I have products in my cart
-      When I remove a product from my cart
-      ...
+  Scenario: Remove a product from my cart
+    Given I have products in my cart
+    When I remove a product from my cart
+    ...
 </pre>

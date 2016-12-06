@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "step-of-unknown-type",
   name = "Steps of unknown type should not be used",
   priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class StepOfUnknownTypeCheck extends DoubleDispatchVisitorCheck {

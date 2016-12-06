@@ -33,8 +33,8 @@ import java.util.List;
 @Rule(
   key = "steps-right-order",
   name = "Given/When/Then steps should be defined in the right order",
-  priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
+  priority = Priority.CRITICAL,
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class StepsRightOrderCheck extends DoubleDispatchVisitorCheck {

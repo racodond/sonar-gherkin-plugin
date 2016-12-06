@@ -29,9 +29,9 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "only-given-steps-in-background",
-  name = "Background should only contain Given steps",
-  priority = Priority.MAJOR,
-  tags = {Tags.READABILITY})
+  name = "Non-Given steps should be moved out of Background",
+  priority = Priority.CRITICAL,
+  tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class OnlyGivenStepsInBackgroundCheck extends DoubleDispatchVisitorCheck {

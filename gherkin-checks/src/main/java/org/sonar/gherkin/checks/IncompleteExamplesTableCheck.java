@@ -4,7 +4,8 @@
  * david.racodon@gmail.com
  *
  * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
+ * modify it under the terms of th
+ * e GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
@@ -22,28 +23,32 @@ package org.sonar.gherkin.checks;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.gherkin.api.tree.ExamplesTree;
+import org.sonar.plugins.gherkin.api.tree.TableTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 @Rule(
   key = "incomplete-examples-table",
-  name = "\"Examples\" table should contain data",
+  name = "Examples data tables should contain data at least two data rows",
   priority = Priority.CRITICAL,
   tags = {Tags.BUG})
-@SqaleConstantRemediation("10min")
+@SqaleConstantRemediation("15min")
 @ActivatedByDefault
 public class IncompleteExamplesTableCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitExamples(ExamplesTree tree) {
-    if (tree.table() == null) {
-      addPreciseIssue(tree.prefix(), "Add a table to this \"Examples\" section.");
-    } else if (tree.table().rows().size() == 1) {
-      addPreciseIssue(tree.table(), "Add data rows to this table.");
-    } else if (tree.table().rows().size() < 3) {
-      addPreciseIssue(tree.table(), "Add data rows to this table or convert this \"Scenario Outline\" to a standard \"Scenario\".");
+    TableTree table = tree.table();
+
+    if (table == null) {
+      addPreciseIssue(tree.prefix(), "Add a data table to this Examples section.");
+    } else if (table.rows().size() == 1) {
+      addPreciseIssue(table, "Add data rows to this data table.");
+    } else if (table.rows().size() < 3) {
+      addPreciseIssue(table, "Add data rows to this data table or convert this Scenario Outline to a standard Scenario.");
     }
+
     super.visitExamples(tree);
   }
 
