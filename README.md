@@ -9,8 +9,13 @@ SonarQube Cucumber Gherkin Plugin
 This plugin enables code QA analysis of [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) within [SonarQube](http://www.sonarqube.org):
 
  * Computes metrics: lines of code, comments lines, etc.
- * Performs more than [40 checks](#available-checks)
+ * Performs more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
  * Provide the ability to write your own checks
+ 
+## Demo
+ 
+ * [Demo project](http://sonarqube.racodond.com/dashboard/index?id=gherkin-sample-project)
+ * Real life project: [Diaspora](http://sonarqube.racodond.com/dashboard?id=diaspora)
 
 ## Usage
 
