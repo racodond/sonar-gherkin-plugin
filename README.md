@@ -6,7 +6,7 @@ SonarQube Cucumber Gherkin Plugin
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.racodond.sonarqube.plugin.gherkin:gherkin)](https://sonarqube.com/overview?id=com.racodond.sonarqube.plugin.gherkin%3Agherkin)
 
 ## Description
-This plugin enables code QA analysis of [Cucumber Gherkin feature files](https://github.com/cucumber/cucumber/wiki/Gherkin) within [SonarQube](http://www.sonarqube.org):
+This plugin enables code QA analysis of [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) within [SonarQube](http://www.sonarqube.org):
 
  * Computes metrics: lines of code, comments lines, etc.
  * Performs more than [40 checks](#available-checks)
