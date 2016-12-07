@@ -77,7 +77,7 @@ Number of features.
  * Wording should remain at business level
 
  
-### Templates
+### Template
 
  * Regular expression on comment
 

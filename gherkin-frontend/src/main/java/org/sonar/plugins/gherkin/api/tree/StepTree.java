@@ -28,7 +28,7 @@ public interface StepTree extends Tree {
     GIVEN,
     WHEN,
     THEN,
-    UNKNOWN;
+    UNKNOWN
   }
 
   PrefixTree prefix();

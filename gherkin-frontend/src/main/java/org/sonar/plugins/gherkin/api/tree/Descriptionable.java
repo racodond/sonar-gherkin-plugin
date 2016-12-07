@@ -21,6 +21,7 @@ package org.sonar.plugins.gherkin.api.tree;
 
 import javax.annotation.Nullable;
 
+@FunctionalInterface
 public interface Descriptionable {
 
   @Nullable

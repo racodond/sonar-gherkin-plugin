@@ -21,6 +21,7 @@ package org.sonar.gherkin.visitors;
 
 import java.nio.charset.Charset;
 
+@FunctionalInterface
 public interface CharsetAwareVisitor {
 
   void setCharset(Charset charset);

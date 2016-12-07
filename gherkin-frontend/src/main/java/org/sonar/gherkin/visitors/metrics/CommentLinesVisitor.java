@@ -29,7 +29,7 @@ import java.util.List;
 public class CommentLinesVisitor extends SubscriptionVisitor {
 
   private int commentLines;
-  private GherkinCommentAnalyser commentAnalyser = new GherkinCommentAnalyser();
+  private final GherkinCommentAnalyser commentAnalyser = new GherkinCommentAnalyser();
 
   public CommentLinesVisitor(Tree tree) {
     commentLines = 0;

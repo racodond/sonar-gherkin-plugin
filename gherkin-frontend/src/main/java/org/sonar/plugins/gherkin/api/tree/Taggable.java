@@ -21,6 +21,7 @@ package org.sonar.plugins.gherkin.api.tree;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface Taggable {
 
   List<TagTree> tags();

@@ -44,7 +44,6 @@ public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
 
   private PrefixTree featurePrefix;
 
-  private final List<TagTree> featureTagTrees = new ArrayList<>();
   private final Set<String> featureTags = new HashSet<>();
 
   private final List<TagTree> scenarioTagTrees = new ArrayList<>();
@@ -52,7 +51,6 @@ public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitGherkinDocument(GherkinDocumentTree tree) {
-    featureTagTrees.clear();
     featureTags.clear();
     scenarioTagTrees.clear();
     scenarioTags.clear();
@@ -64,7 +62,6 @@ public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitFeatureDeclaration(FeatureDeclarationTree tree) {
-    featureTagTrees.addAll(tree.tags());
     featureTags.addAll(tree.tags().stream().map(TagTree::text).collect(Collectors.toSet()));
     featurePrefix = tree.prefix();
     super.visitFeatureDeclaration(tree);

@@ -56,7 +56,6 @@ public class GherkinChecks {
 
   public GherkinChecks addCustomChecks(@Nullable CustomGherkinRulesDefinition[] customRulesDefinitions) {
     if (customRulesDefinitions != null) {
-
       for (CustomGherkinRulesDefinition rulesDefinition : customRulesDefinitions) {
         addChecks(rulesDefinition.repositoryKey(), Lists.newArrayList(rulesDefinition.checkClasses()));
       }

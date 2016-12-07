@@ -19,12 +19,12 @@
  */
 package org.sonar.gherkin.tree.impl;
 
+import com.google.common.base.Preconditions;
 import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 import org.sonar.plugins.gherkin.api.tree.TableTree;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -36,16 +36,12 @@ public class TableTreeImpl extends GherkinTree implements TableTree {
   private final List<String> headers;
 
   public TableTreeImpl(List<SyntaxToken> rows) {
+    Preconditions.checkArgument(!rows.isEmpty());
     this.rows = rows;
-
-    if (rows.isEmpty()) {
-      this.headers = new ArrayList<>();
-    } else {
-      this.headers = Arrays
-        .stream(rows.get(0).text().substring(1, rows.get(0).text().length() - 1).split("\\|"))
-        .map(String::trim)
-        .collect(Collectors.toList());
-    }
+    this.headers = Arrays
+      .stream(rows.get(0).text().substring(1, rows.get(0).text().length() - 1).split("\\|"))
+      .map(String::trim)
+      .collect(Collectors.toList());
   }
 
   @Override

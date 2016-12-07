@@ -37,7 +37,7 @@ public class RuleDescriptionsGenerator {
     .put("[[allForbiddenWords]]", generateForbiddenWordsHtmlTable())
     .build();
 
-  public void generateHtmlRuleDescription(String templatePath, String outputPath) throws IOException {
+  public void generateHtmlRuleDescription(String templatePath, String outputPath) {
     try (OutputStream fileOutputStream = new FileOutputStream(outputPath)) {
       Writer writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream, UTF_8));
       writer.write(replaceTags(FileUtils.readFileToString(new File(templatePath), UTF_8)));
