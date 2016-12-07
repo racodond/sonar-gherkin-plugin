@@ -65,8 +65,12 @@ public class UseAndButCheck extends DoubleDispatchVisitorCheck {
         && previousStepType == steps.get(i).type()
         && !"And".equals(steps.get(i).prefix().text())
         && !"But".equals(steps.get(i).prefix().text())) {
-        addPreciseIssue(steps.get(i).prefix(), "Replace this redundant prefix with And or But.");
+
+        addPreciseIssue(
+          steps.get(i).prefix(),
+          "Replace this redundant " + steps.get(i).prefix().text() + " prefix with And or But.");
       }
+      
       previousStepType = steps.get(i).type();
     }
   }

@@ -2,10 +2,4 @@
 'project:custom/no-scenario/no-scenario.feature':[
 2,
 ],
-'project:custom/only-given-steps-in-background/not-only-given.feature':[
-1,
-],
-'project:custom/only-given-steps-in-background/only-given.feature':[
-1,
-],
 }

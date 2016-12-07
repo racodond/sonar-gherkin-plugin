@@ -40,7 +40,7 @@ public class NoStepCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitBackground(BackgroundTree tree) {
     if (tree.steps().isEmpty()) {
-      addPreciseIssue(tree.prefix(), "Remove this \"Background\" that does not define any step.");
+      addPreciseIssue(tree.prefix(), "Remove this Background that does not define any step.");
     }
     super.visitBackground(tree);
   }
@@ -48,7 +48,7 @@ public class NoStepCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitScenario(ScenarioTree tree) {
     if (tree.steps().isEmpty()) {
-      addPreciseIssue(tree.prefix(), "Remove this \"Scenario\" that does not define any step.");
+      addPreciseIssue(tree.prefix(), "Remove this Scenario that does not define any step.");
     }
     super.visitScenario(tree);
   }
@@ -56,7 +56,7 @@ public class NoStepCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitScenarioOutline(ScenarioOutlineTree tree) {
     if (tree.steps().isEmpty()) {
-      addPreciseIssue(tree.prefix(), "Remove this \"Scenario Outline\" that does not define any step.");
+      addPreciseIssue(tree.prefix(), "Remove this Scenario Outline that does not define any step.");
     }
     super.visitScenarioOutline(tree);
   }

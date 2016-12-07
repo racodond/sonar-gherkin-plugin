@@ -1,6 +1,6 @@
-Feature: My feature
+Feature: My feature Missing data column
 
-  Scenario Outline: Scenario 1
+  Scenario Outline: Scenario 1 Missing data column
     Given blabla...
     When blabla... <number>
     Then blabla...
@@ -9,7 +9,7 @@ Feature: My feature
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 2
+  Scenario Outline: Scenario 2 Missing data column
     Given blabla...
     When blabla... <number>
     Then blabla... <type>
@@ -19,7 +19,7 @@ Feature: My feature
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 3
+  Scenario Outline: Scenario 3 Missing data column
     Given blabla...
     When blabla... <number>
     Then blabla... <type> <status>
@@ -29,7 +29,7 @@ Feature: My feature
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 4
+  Scenario Outline: Scenario 4 Missing data column
     Given blabla...
     When blabla... <number> <status>
     Then blabla... <status>

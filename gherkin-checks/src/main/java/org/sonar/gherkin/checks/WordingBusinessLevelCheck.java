@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 @ActivatedByDefault
 public class WordingBusinessLevelCheck extends DoubleDispatchVisitorCheck {
 
-  public final static String[] FORBIDDEN_WORDS = {"checkbox", "click", "drop-down list", "dropdown list", "field", "fill in the form", "radio button"};
+  protected final static String[] FORBIDDEN_WORDS = {"checkbox", "click", "drop-down list", "dropdown list", "field", "fill in the form", "radio button"};
 
   @Override
   public void visitStep(StepTree tree) {

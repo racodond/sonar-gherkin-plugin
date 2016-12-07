@@ -1,13 +1,13 @@
  # Noncompliant {{Indent this line at column 0 (currently indented at column 1).}}
  @tag
  # Noncompliant {{Indent this line at column 0 (currently indented at column 1).}}
- Feature: My feature...
+ Feature: My feature indentation custom ko
     blabla...
     # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
      blabla...
 
      # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
-     Background: blabla...
+     Background: blabla background indentation custom ko
         blabla...
        # Noncompliant {{Indent this line at column 8 (currently indented at column 7).}}
        blabla...
@@ -15,9 +15,9 @@
           Given blabla...
 
      # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
-     @tag
+     @abc
    # Noncompliant {{Indent this line at column 4 (currently indented at column 3).}}
-   Scenario: Scenario 1
+   Scenario: Scenario 1 indentation custom ko
          # Noncompliant {{Indent this line at column 8 (currently indented at column 9).}}
          blabla...
         blabla...
@@ -25,11 +25,11 @@
         When blabla...
         Then blabla...
 
-    @tag
+    @def
      # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
-     @tag @tag
+     @ghi @jkl
    # Noncompliant {{Indent this line at column 4 (currently indented at column 3).}}
-   Scenario Outline: Scenario 2
+   Scenario Outline: Scenario 2 indentation custom ko
        # Noncompliant {{Indent this line at column 8 (currently indented at column 7).}}
        blabla...
         blabla...
@@ -38,7 +38,7 @@
             | data |
             # Noncompliant {{Indent this line at column 12 (currently indented at column 13).}}
              | 2    |
-        Then blabla...
+        Then blabla...<data>
              # Noncompliant {{Indent this line at column 12 (currently indented at column 13).}}
              """string
             blabla...
@@ -47,9 +47,9 @@
            # Noncompliant [[sl=-1]] {{Indent this line at column 12 (currently indented at column 11).}}
 
          # Noncompliant {{Indent this line at column 8 (currently indented at column 9).}}
-         @tag @tag
+         @lmn @opq
          # Noncompliant {{Indent this line at column 8 (currently indented at column 9).}}
-         Examples: blabla...
+         Examples: blabla examples indentation custom ko
              # Noncompliant {{Indent this line at column 12 (currently indented at column 13).}}
              blabla...
             blabla...

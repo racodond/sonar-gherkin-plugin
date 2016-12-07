@@ -1,6 +1,6 @@
-Feature: My feature
+Feature: My feature Unused variable
 
-  Scenario Outline: Scenario 1
+  Scenario Outline: Scenario 1 Unused variable
     Given blabla...
     When blabla... <number>
     Then blabla...
@@ -9,7 +9,7 @@ Feature: My feature
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 2
+  Scenario Outline: Scenario 2 Unused variable
     Given blabla...
     When blabla...
     Then blabla...
@@ -19,7 +19,7 @@ Feature: My feature
       | 1      |
       | 2      |
 
-  Scenario Outline: Scenario 3
+  Scenario Outline: Scenario 3 Unused variable
     Given blabla...
     When blabla... <number>
     Then blabla... <number>

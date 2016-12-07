@@ -1,15 +1,15 @@
-Feature: My feature
+Feature: My feature all step types with background
 
   Background:
     Given blabla...
 
-  Scenario: Scenario 1
+  Scenario: Scenario 1 all step types with background
     When blabla...
     Then blabla...
 
-  Scenario Outline: Scenario 2
+  Scenario Outline: Scenario 2 all step types with background
     When blabla...
-    Then blabla...
+    Then blabla...<number>
     Examples:
       | number |
       | 1      |

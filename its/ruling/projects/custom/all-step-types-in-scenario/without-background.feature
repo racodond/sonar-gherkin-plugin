@@ -1,38 +1,38 @@
-Feature: My feature
+Feature: My feature all step types without background
 
-  Scenario: Scenario 1
+  Scenario: Scenario 1 all step types without background
     Given blabla...
     When blabla...
     Then blabla...
 
-  Scenario Outline: Scenario 2
+  Scenario Outline: Scenario 2 all step types without background
     Given blabla...
     When blabla...
-    Then blabla...
+    Then blabla... <number>
     Examples:
       | number |
       | 1      |
       | 2      |
 
   # Noncompliant [[sc=3;ec=11]] {{Add at least one Given step.}}
-  Scenario: Scenario 3
+  Scenario: Scenario 3 all step types without background
     When blabla...
     Then blabla...
 
   # Noncompliant [[sc=3;ec=11]] {{Add at least one When step.}}
-  Scenario: Scenario 4
+  Scenario: Scenario 4 all step types without background
     Given blabla...
     Then blabla...
 
   # Noncompliant [[sc=3;ec=11]] {{Add at least one Then step.}}
-  Scenario: Scenario 5
+  Scenario: Scenario 5 all step types without background
     Given blabla...
     When blabla...
 
   # Noncompliant [[sc=3;ec=19]] {{Add at least one Then step.}}
-  Scenario Outline:
+  Scenario Outline: Scenario 5 all step types without background
     Given blabla...
-    When blabla...
+    When blabla... <number>
     Examples:
       | number |
       | 1      |

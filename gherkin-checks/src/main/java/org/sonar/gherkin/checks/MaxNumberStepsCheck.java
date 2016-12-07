@@ -52,7 +52,7 @@ public class MaxNumberStepsCheck extends DoubleDispatchVisitorCheck {
     tree.allScenarios()
       .stream()
       .filter(s -> s.steps().size() + numberOfBackgroundSteps > threshold)
-      .forEach(s -> addPreciseIssue(s.prefix(), "Reduce the number of steps (" + (s.steps().size() + numberOfBackgroundSteps) + ", greater than " + threshold + " allowed)"));
+      .forEach(s -> addPreciseIssue(s.prefix(), "Reduce the number of steps (" + (s.steps().size() + numberOfBackgroundSteps) + ", greater than " + threshold + " allowed)."));
 
     super.visitFeature(tree);
   }

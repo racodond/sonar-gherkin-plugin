@@ -38,7 +38,7 @@ public class StarStepPrefixCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitStepPrefix(StepPrefixTree tree) {
     if ("*".equals(tree.text())) {
-      addPreciseIssue(tree, "Replace this star prefix with Given/When/Then.");
+      addPreciseIssue(tree, "Replace this star prefix with one of the Given/When/Then prefixes.");
     }
     super.visitStepPrefix(tree);
   }

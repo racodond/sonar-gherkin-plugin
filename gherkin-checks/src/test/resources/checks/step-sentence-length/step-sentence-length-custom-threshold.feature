@@ -1,6 +1,6 @@
-Feature: My feature step sentence length default threshold
+Feature: My feature step sentence length custom threshold
 
-  Scenario: My scenario #1 step sentence length default threshold
+  Scenario: My scenario #1 step sentence length custom threshold
     Given I am on the homepage
     # Noncompliant [[sc=9;ec=60]] {{Rephrase this sentence to make it shorter. Actual size: 51 characters. Maximum expected size: 50 characters.}}
     And I am logged in as user/password and I have added...
