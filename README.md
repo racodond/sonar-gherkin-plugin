@@ -46,6 +46,7 @@ Number of features.
  * And and But prefixes should be used instead of redundant Given/When/Then prefixes
  * Byte Order Mark (BOM) should not be used for UTF-8 files
  * Common Given steps should be added to Background
+ * Duplicated steps should be removed
  * End-line characters should be consistent
  * Examples data table should contain data at least two data rows
  * Features should have a description

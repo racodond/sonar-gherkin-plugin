@@ -1,0 +1,43 @@
+<p>
+    There should not be any reason for a scenario to contain duplicated steps.
+</p>
+<ul>
+    <li>From a <code>Given</code> point of view, there is no reason to set twice the same context.</li>
+    <li>From a <code>Then</code> point of view, there is not reason to assert twice the same expected outcome.</li>
+    <li> From a <code>When</code> point of view, performing several times the same action should be defined in a
+        dedicated sentence.
+    </li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Background:
+  Given I am a customer
+  And I am on the catalog page
+
+Scenario: Add a product to my cart
+  Given I am on the catalog page    # Noncompliant: Step is already defined in Background
+  When I add a product to my cart
+  Then I should see the product in my cart
+
+Scenario: Adding more than two products to my cart triggers an error message stating that it is not possible to add more than two products to the cart
+  When I add a product to my cart
+  And I add a product to my cart    # Noncompliant: Same as previous step
+  And I add a product to my cart    # Noncompliant: Same as previous step
+  Then I should be told that I cannot add more than two products to my cart
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Background:
+  Given I am a customer
+  And I am on the catalog page
+
+Scenario: Add a product to my cart
+  When I add a product to my cart
+  Then I should see the product in my cart
+
+Scenario: Adding more than two products to my cart triggers an error message stating that it is not possible to add more than two products to the cart
+  When I add 3 products to my cart
+  Then I should be told that I cannot add more than two products to my cart
+</pre>
