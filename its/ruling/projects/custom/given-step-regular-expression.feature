@@ -7,5 +7,5 @@ Feature: My feature Given step regular expression
     And I am a customer
     # Noncompliant [[sc=9;ec=12]] {{Update the sentence to match the following regular expression: ^I .*$}}
     But IOC
-    When I am a customer
-    Then I am a customer
+    When w1
+    Then t1
