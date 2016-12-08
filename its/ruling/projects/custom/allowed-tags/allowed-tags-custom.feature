@@ -1,6 +1,7 @@
 # Noncompliant [[sc=1;ec=5]] {{Remove this tag that is not in the whitelist.}}
 @nrt
 Feature: My feature allowed tags custom...
+  Blabla...
 
   # Noncompliant [[sc=3;ec=23]] {{Remove this tag that is not in the whitelist.}}
   @non-regression-test

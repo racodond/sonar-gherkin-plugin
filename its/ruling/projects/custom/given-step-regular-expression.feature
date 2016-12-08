@@ -1,4 +1,5 @@
 Feature: My feature Given step regular expression
+  Blabla...
 
   Scenario: Scenario 1 Given step regular expression
     # Noncompliant [[sc=11;ec=26]] {{Update the sentence to match the following regular expression: ^I .*$}}

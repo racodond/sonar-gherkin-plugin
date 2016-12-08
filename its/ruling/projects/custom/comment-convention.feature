@@ -1,4 +1,6 @@
 Feature: My feature Comment convention
+  Blabla...
+
 #My comments
 # My comments
   Scenario: Scenario 1 Comment convention

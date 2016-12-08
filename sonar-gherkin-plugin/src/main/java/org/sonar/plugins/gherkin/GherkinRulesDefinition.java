@@ -61,6 +61,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       MaxNumberScenariosCheck.class,
       MaxNumberStepsCheck.class,
       MissingDataTableColumnCheck.class,
+      MissingFeatureDescriptionCheck.class,
       MissingFeatureNameCheck.class,
       MissingNewlineAtEndOfFileCheck.class,
       MissingScenarioNameCheck.class,

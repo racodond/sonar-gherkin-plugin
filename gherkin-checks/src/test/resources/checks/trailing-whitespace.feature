@@ -1,6 +1,7 @@
 # Noncompliant [[sl=3]] {{Remove the useless trailing whitespaces at the end of this line.}}
-# Noncompliant [[sl=6]] {{Remove the useless trailing whitespaces at the end of this line.}}
+# Noncompliant [[sl=7]] {{Remove the useless trailing whitespaces at the end of this line.}}
 Feature: My feature Trailing whitespace 
+  Blabla...
 
   Scenario: Scenario 1 Trailing whitespace
     Given blabla...  

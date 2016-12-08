@@ -1,6 +1,7 @@
 Feature: My feature only given steps to add to background...
+  Blabla...
 
-  # Noncompliant [[sc=3;ec=13;secondary=8,9,14,15]] {{Add all common Given steps to Background.}}
+  # Noncompliant [[sc=3;ec=13;secondary=9,10,15,16]] {{Add all common Given steps to Background.}}
   Background:
     Given aaa aaa aaa
 

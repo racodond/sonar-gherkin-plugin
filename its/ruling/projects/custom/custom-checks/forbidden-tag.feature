@@ -1,5 +1,6 @@
 @bar
 Feature: My feature forbidden tag...
+  Blabla...
 
   @foo
   Scenario: Scenario 1 forbidden tag

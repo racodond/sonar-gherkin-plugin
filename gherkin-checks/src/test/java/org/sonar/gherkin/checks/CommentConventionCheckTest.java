@@ -27,7 +27,7 @@ public class CommentConventionCheckTest {
   @Test
   public void test() {
     GherkinCheckVerifier.issues(new CommentConventionCheck(), CheckTestUtils.getTestFile("comment-convention.feature"))
-      .next().atLine(2).withMessage("Add a whitespace after the starting comment token.")
+      .next().atLine(4).withMessage("Add a whitespace after the starting comment token.")
       .noMore();
   }
 

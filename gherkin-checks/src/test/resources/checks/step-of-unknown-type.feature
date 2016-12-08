@@ -1,4 +1,5 @@
 Feature: My feature Step of unknown type
+  Blabla...
 
   Scenario: Scenario 1 Step of unknown type
     # Noncompliant [[sc=5;ec=8]] {{Update the prefix of this unknown type step.}}
