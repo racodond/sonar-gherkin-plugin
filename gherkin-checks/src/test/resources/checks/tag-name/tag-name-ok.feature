@@ -1,5 +1,6 @@
 @mytag @my-tag
 Feature: My feature Tag name OK
+  Blabla...
 
   @my-tag1
   Scenario: Scenario 1 Tag name OK

@@ -38,8 +38,8 @@ public class CommentRegularExpressionCheckTest {
     check.message = "Stop annotating lines with WTF! Detail what is wrong instead.";
 
     GherkinCheckVerifier.issues(check, FILE)
-      .next().atLine(2).withMessage(message)
-      .next().atLine(3).withMessage(message)
+      .next().atLine(4).withMessage(message)
+      .next().atLine(5).withMessage(message)
       .noMore();
   }
 

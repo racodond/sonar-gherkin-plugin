@@ -1,5 +1,6 @@
-# Noncompliant [[sc=1;ec=8;secondary=5,6,11,12]] {{Add a Background to group common Given steps.}}
+# Noncompliant [[sc=1;ec=8;secondary=6,7,12,13]] {{Add a Background to group common Given steps.}}
 Feature: My feature background to create...
+  Blabla...
 
   Scenario: Scenario 1 background to create
     Given abc

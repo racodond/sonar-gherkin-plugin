@@ -1,4 +1,5 @@
 Feature: My feature Steps right order
+  Blabla...
 
   Scenario: Scenario 1 Steps right order
     Given I am a customer

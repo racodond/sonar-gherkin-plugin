@@ -1,6 +1,7 @@
 # Noncompliant [[sc=1;ec=7]] {{Rename this tag to match the regular expression: ^[a-z]+$}}
 @myTag
 Feature: My feature Tag name custom KO
+  Blabla...
 
   @tag
   Scenario: Scenario 1 Tag name custom KO

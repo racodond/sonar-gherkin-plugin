@@ -1,4 +1,5 @@
 Feature: My feature No step
+  Blabla...
 
   # Noncompliant [[sc=3;ec=13]] {{Remove this Background that does not define any step.}}
   Background:

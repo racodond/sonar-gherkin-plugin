@@ -1,4 +1,5 @@
 Feature: My feature Then step regular expression
+  Blabla...
 
   Scenario: Scenario 1 Then step regular expression
     Given I am a customer

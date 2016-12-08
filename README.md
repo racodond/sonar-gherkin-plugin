@@ -48,6 +48,7 @@ Number of features.
  * Common Given steps should be added to Background
  * End-line characters should be consistent
  * Examples data table should contain data at least two data rows
+ * Features should have a description
  * Features should have a name
  * Features should have a unique name
  * Features should not contain too many scenarios

@@ -1,4 +1,5 @@
 Feature: My feature step sentence length default threshold
+  Blabla...
 
   Scenario: My scenario #1 step sentence length default threshold
     Given I am on the homepage

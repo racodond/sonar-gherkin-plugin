@@ -1,5 +1,6 @@
 @mytag
 Feature: My feature Useless tag
+  Blabla...
 
   # Noncompliant [[sc=13;ec=19;secondary=1]] {{Remove this useless tag that is already set at feature level.}}
   @othertag @mytag
