@@ -36,6 +36,7 @@ import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.sonar.gherkin.checks.ParsingErrorCheck;
 import org.sonar.gherkin.parser.GherkinParserBuilder;
 import org.sonar.gherkin.visitors.CharsetAwareVisitor;
 import org.sonar.gherkin.visitors.GherkinVisitorContext;
@@ -47,7 +48,6 @@ import org.sonar.plugins.gherkin.api.tree.GherkinDocumentTree;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.TreeVisitor;
 import org.sonar.plugins.gherkin.api.visitors.issue.Issue;
-import org.sonar.gherkin.checks.ParsingErrorCheck;
 import org.sonar.plugins.gherkin.issuesaver.CrossFileChecksIssueSaver;
 import org.sonar.plugins.gherkin.issuesaver.IssueSaver;
 import org.sonar.squidbridge.ProgressReport;
@@ -157,6 +157,7 @@ public class GherkinSquidSensor implements Sensor {
         visitor.scanTree(context);
       }
     }
+
     return issues;
   }
 

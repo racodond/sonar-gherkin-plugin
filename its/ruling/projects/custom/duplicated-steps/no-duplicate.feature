@@ -2,18 +2,18 @@ Feature: My feature No duplicated steps
   Blabla...
 
   Background:
-    Given blabla1
-    And blabla2
+    Given Blabla1
+    And Blabla2
 
   Scenario: My scenario 1 No duplicated steps
-    Given blabla given...1
-    When blabla when...2
-    Then blabla then...3
+    Given Blabla given...1
+    When Blabla when...2
+    Then Blabla then...3
 
   Scenario Outline: My scenario 2 No duplicated steps
-    Given blabla given...1
-    When blabla when...2
-    Then blabla then...3 <data>
+    Given Blabla given...1
+    When Blabla when...2
+    Then Blabla then...3 <data>
     Examples:
       | data |
       | 1    |

@@ -37,6 +37,7 @@ import java.util.*;
 public class ProfileGenerator {
 
   private static Multimap<String, Parameter> parameters = ImmutableListMultimap.<String, Parameter>builder()
+    .put("spelling", new Parameter("wordsToIgnore", "blabla"))
     .build();
 
   public static void generateProfile(Orchestrator orchestrator) {

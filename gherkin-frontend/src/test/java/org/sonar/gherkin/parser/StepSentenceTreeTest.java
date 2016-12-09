@@ -27,7 +27,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class StepSentenceTreeTest extends GherkinTreeTest {
 
   public StepSentenceTreeTest() {
-    super(GherkinLexicalGrammar.STEP_SENTENCE);
+    super(GherkinLexicalGrammar.STEP_SENTENCE_LITERAL);
   }
 
   @Test

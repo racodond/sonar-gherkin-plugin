@@ -179,6 +179,17 @@
         <version>19.0</version>
       </dependency>
       <dependency>
+        <groupId>org.languagetool</groupId>
+        <artifactId>language-en</artifactId>
+        <version>3.5</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.2</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.10</version>

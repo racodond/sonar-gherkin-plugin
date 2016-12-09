@@ -19,10 +19,5 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-public interface NameTree extends Tree {
-
-  SyntaxToken value();
-
-  String text();
-
+public interface NameTree extends LiteralTree {
 }

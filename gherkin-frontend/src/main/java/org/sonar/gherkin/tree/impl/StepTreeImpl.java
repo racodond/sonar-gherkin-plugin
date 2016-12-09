@@ -33,13 +33,13 @@ import java.util.regex.Pattern;
 public class StepTreeImpl extends GherkinTree implements StepTree {
 
   private final PrefixTree prefix;
-  private final SyntaxToken sentence;
+  private final StepSentenceTree sentence;
   private DocStringTree docString;
   private TableTree table;
   private Set<String> variables;
   private StepType type;
 
-  public StepTreeImpl(PrefixTree prefix, SyntaxToken sentence, @Nullable Tree data) {
+  public StepTreeImpl(PrefixTree prefix, StepSentenceTree sentence, @Nullable Tree data) {
     this.prefix = prefix;
     this.sentence = sentence;
 
@@ -63,7 +63,7 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   }
 
   @Override
-  public SyntaxToken sentence() {
+  public StepSentenceTree sentence() {
     return sentence;
   }
 
@@ -99,7 +99,7 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
     visitor.visitStep(this);
   }
 
-  private void initVariables(SyntaxToken sentence) {
+  private void initVariables(StepSentenceTree sentence) {
     Pattern pattern = Pattern.compile("<(.+?)>");
     Matcher matcher = pattern.matcher(sentence.text());
     variables = new HashSet<>();

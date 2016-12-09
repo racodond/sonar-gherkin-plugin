@@ -110,7 +110,7 @@ public class GherkinGrammar {
     return b.<StepTree>nonterminal(GherkinLexicalGrammar.STEP).is(
       f.step(
         STEP_PREFIX(),
-        b.token(GherkinLexicalGrammar.STEP_SENTENCE),
+        STEP_SENTENCE(),
         b.optional(
           b.firstOf(
             TABLE(),
@@ -175,6 +175,11 @@ public class GherkinGrammar {
   public NameTree NAME() {
     return b.<NameTree>nonterminal(GherkinLexicalGrammar.NAME).is(
       f.name(b.token(GherkinLexicalGrammar.NAME_LITERAL)));
+  }
+
+  public StepSentenceTree STEP_SENTENCE() {
+    return b.<StepSentenceTree>nonterminal(GherkinLexicalGrammar.STEP_SENTENCE).is(
+      f.stepSentence(b.token(GherkinLexicalGrammar.STEP_SENTENCE_LITERAL)));
   }
 
   public DocStringTree DOC_STRING() {

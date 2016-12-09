@@ -45,7 +45,7 @@ public class WordingBusinessLevelCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitStep(StepTree tree) {
-    checkForForbiddenWords(tree.sentence());
+    checkForForbiddenWords(tree.sentence().value());
     super.visitStep(tree);
   }
 

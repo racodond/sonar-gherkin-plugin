@@ -19,12 +19,8 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-public interface TagTree extends Tree {
+public interface TagTree extends LiteralTree {
 
   SyntaxToken prefix();
-
-  SyntaxToken value();
-
-  String text();
 
 }

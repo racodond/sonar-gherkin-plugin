@@ -24,12 +24,12 @@ import org.sonar.plugins.gherkin.api.GherkinCheck;
 
 public class CheckUtils {
 
-  public static final String LINK_TO_JAVA_REGEX_PATTERN_DOC = "http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html";
+  static final String LINK_TO_JAVA_REGEX_PATTERN_DOC = "http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html";
 
   private CheckUtils() {
   }
 
-  public static String paramsErrorMessage(Class<? extends GherkinCheck> clazz, String message) {
+  public static String paramErrorMessage(Class<? extends GherkinCheck> clazz, String message) {
     return "Check gherkin:" + clazz.getAnnotation(Rule.class).key()
       + " (" + clazz.getAnnotation(Rule.class).name() + "): "
       + message;
