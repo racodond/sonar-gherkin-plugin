@@ -70,6 +70,7 @@ Number of features.
  * Scenarios should not contain too many steps
  * Scenarios that do not define any step should be removed
  * Source code should be properly indented
+ * Spelling mistakes should be fixed
  * Star (*) step prefixes should not be used
  * Step sentences should not be too long
  * Steps of unknown type should not be used

@@ -49,21 +49,21 @@ public class DuplicatedScenarioNamesCheckTest {
     Assert.assertNotNull(check.getNames());
     Assert.assertEquals(3, check.getNames().size());
 
-    Assert.assertTrue(check.getNames().containsKey("background name blabla"));
-    Assert.assertTrue(check.getNames().containsKey("scenario name blabla"));
-    Assert.assertTrue(check.getNames().containsKey("scenario outline name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Background name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Scenario name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Scenario outline name blabla"));
 
-    Assert.assertNotNull(check.getNames().get("background name blabla"));
-    Assert.assertNotNull(check.getNames().get("scenario name blabla"));
-    Assert.assertNotNull(check.getNames().get("scenario outline name blabla"));
+    Assert.assertNotNull(check.getNames().get("Background name blabla"));
+    Assert.assertNotNull(check.getNames().get("Scenario name blabla"));
+    Assert.assertNotNull(check.getNames().get("Scenario outline name blabla"));
 
-    Assert.assertEquals(1, check.getNames().get("background name blabla").size());
-    Assert.assertEquals(2, check.getNames().get("scenario name blabla").size());
-    Assert.assertEquals(1, check.getNames().get("scenario outline name blabla").size());
+    Assert.assertEquals(1, check.getNames().get("Background name blabla").size());
+    Assert.assertEquals(2, check.getNames().get("Scenario name blabla").size());
+    Assert.assertEquals(1, check.getNames().get("Scenario outline name blabla").size());
 
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("background name blabla").get(0).getFile().getPath());
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("scenario name blabla").get(0).getFile().getPath());
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("scenario outline name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Background name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Scenario name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Scenario outline name blabla").get(0).getFile().getPath());
   }
 
   @Test
@@ -72,10 +72,10 @@ public class DuplicatedScenarioNamesCheckTest {
 
     Map<String, List<FileNameTree>> names = new HashMap<>();
 
-    NameTree nameTree1 = new NameTreeImpl(new InternalSyntaxToken(2, 1, "background name blabla", new ArrayList<>(), false, false));
-    NameTree nameTree2 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "scenario name blabla", new ArrayList<>(), false, false));
+    NameTree nameTree1 = new NameTreeImpl(new InternalSyntaxToken(2, 1, "Background name blabla", new ArrayList<>(), false, false));
+    NameTree nameTree2 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "Scenario name blabla", new ArrayList<>(), false, false));
 
-    names.put("background name blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
+    names.put("Background name blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
     names.put("abc", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree2)));
     check.setNames(names);
 
@@ -84,28 +84,28 @@ public class DuplicatedScenarioNamesCheckTest {
     Assert.assertNotNull(check.getNames());
     Assert.assertEquals(4, check.getNames().size());
 
-    Assert.assertTrue(check.getNames().containsKey("background name blabla"));
-    Assert.assertTrue(check.getNames().containsKey("scenario name blabla"));
-    Assert.assertTrue(check.getNames().containsKey("scenario outline name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Background name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Scenario name blabla"));
+    Assert.assertTrue(check.getNames().containsKey("Scenario outline name blabla"));
     Assert.assertTrue(check.getNames().containsKey("abc"));
 
-    Assert.assertNotNull(check.getNames().get("background name blabla"));
-    Assert.assertNotNull(check.getNames().get("scenario name blabla"));
-    Assert.assertNotNull(check.getNames().get("scenario outline name blabla"));
+    Assert.assertNotNull(check.getNames().get("Background name blabla"));
+    Assert.assertNotNull(check.getNames().get("Scenario name blabla"));
+    Assert.assertNotNull(check.getNames().get("Scenario outline name blabla"));
     Assert.assertNotNull(check.getNames().get("abc"));
 
-    Assert.assertEquals(2, check.getNames().get("background name blabla").size());
-    Assert.assertEquals(2, check.getNames().get("scenario name blabla").size());
-    Assert.assertEquals(1, check.getNames().get("scenario outline name blabla").size());
+    Assert.assertEquals(2, check.getNames().get("Background name blabla").size());
+    Assert.assertEquals(2, check.getNames().get("Scenario name blabla").size());
+    Assert.assertEquals(1, check.getNames().get("Scenario outline name blabla").size());
     Assert.assertEquals(1, check.getNames().get("abc").size());
 
-    Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("background name blabla").get(0).getFile().getPath());
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("background name blabla").get(1).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("Background name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Background name blabla").get(1).getFile().getPath());
 
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("scenario name blabla").get(0).getFile().getPath());
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("scenario name blabla").get(1).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Scenario name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Scenario name blabla").get(1).getFile().getPath());
 
-    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("scenario outline name blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("scenarios.feature"), check.getNames().get("Scenario outline name blabla").get(0).getFile().getPath());
 
     Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("abc").get(0).getFile().getPath());
   }

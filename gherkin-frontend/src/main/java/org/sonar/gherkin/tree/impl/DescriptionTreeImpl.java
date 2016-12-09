@@ -31,9 +31,11 @@ import java.util.stream.Collectors;
 public class DescriptionTreeImpl extends GherkinTree implements DescriptionTree {
 
   private final List<SyntaxToken> desriptionLines;
+  private final String text;
 
   public DescriptionTreeImpl(List<SyntaxToken> descriptionLines) {
     this.desriptionLines = descriptionLines;
+    this.text = descriptionLines.stream().map(SyntaxToken::text).collect(Collectors.joining("\n"));
   }
 
   @Override
@@ -49,6 +51,11 @@ public class DescriptionTreeImpl extends GherkinTree implements DescriptionTree 
   @Override
   public List<SyntaxToken> descriptionLines() {
     return desriptionLines;
+  }
+
+  @Override
+  public String text() {
+    return text;
   }
 
   @Override

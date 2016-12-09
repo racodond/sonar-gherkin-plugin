@@ -51,6 +51,7 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
   STEP_PREFIX,
   STEP_KEYWORD,
   STEP_SENTENCE,
+  STEP_SENTENCE_LITERAL,
 
   COLON,
 
@@ -114,7 +115,7 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
     b.rule(COLON).is(":");
 
     b.rule(NAME_LITERAL).is(WHITESPACE_WITHOUT_LINE_BREAK, b.regexp(trimmedSentence));
-    b.rule(STEP_SENTENCE).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))" + trimmedSentence));
+    b.rule(STEP_SENTENCE_LITERAL).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))" + trimmedSentence));
 
     b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@))" + trimmedSentence));
     b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|Given|When|Then|And|But|\\*|Examples|@))" + trimmedSentence));

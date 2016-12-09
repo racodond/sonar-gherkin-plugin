@@ -49,10 +49,10 @@ public class DuplicatedFeatureNamesCheckTest {
     Assert.assertNotNull(check.getNames());
     Assert.assertEquals(1, check.getNames().size());
 
-    Assert.assertTrue(check.getNames().containsKey("my feature blabla"));
-    Assert.assertNotNull(check.getNames().get("my feature blabla"));
-    Assert.assertEquals(1, check.getNames().get("my feature blabla").size());
-    Assert.assertEquals(getTestFilePath("feature.feature"), check.getNames().get("my feature blabla").get(0).getFile().getPath());
+    Assert.assertTrue(check.getNames().containsKey("My feature blabla"));
+    Assert.assertNotNull(check.getNames().get("My feature blabla"));
+    Assert.assertEquals(1, check.getNames().get("My feature blabla").size());
+    Assert.assertEquals(getTestFilePath("feature.feature"), check.getNames().get("My feature blabla").get(0).getFile().getPath());
   }
 
   @Test
@@ -61,10 +61,10 @@ public class DuplicatedFeatureNamesCheckTest {
 
     Map<String, List<FileNameTree>> names = new HashMap<>();
 
-    NameTree nameTree1 = new NameTreeImpl(new InternalSyntaxToken(2, 1, "my feature blabla", new ArrayList<>(), false, false));
-    NameTree nameTree2 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "blabla", new ArrayList<>(), false, false));
+    NameTree nameTree1 = new NameTreeImpl(new InternalSyntaxToken(2, 1, "My feature blabla", new ArrayList<>(), false, false));
+    NameTree nameTree2 = new NameTreeImpl(new InternalSyntaxToken(4, 1, "Blabla", new ArrayList<>(), false, false));
 
-    names.put("my feature blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
+    names.put("My feature blabla", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree1)));
     names.put("abc", Lists.newArrayList(new FileNameTree(getTestFile("feature2.feature"), nameTree2)));
     check.setNames(names);
 
@@ -73,17 +73,17 @@ public class DuplicatedFeatureNamesCheckTest {
     Assert.assertNotNull(check.getNames());
     Assert.assertEquals(2, check.getNames().size());
 
-    Assert.assertTrue(check.getNames().containsKey("my feature blabla"));
+    Assert.assertTrue(check.getNames().containsKey("My feature blabla"));
     Assert.assertTrue(check.getNames().containsKey("abc"));
 
-    Assert.assertNotNull(check.getNames().get("my feature blabla"));
+    Assert.assertNotNull(check.getNames().get("My feature blabla"));
     Assert.assertNotNull(check.getNames().get("abc"));
 
-    Assert.assertEquals(2, check.getNames().get("my feature blabla").size());
+    Assert.assertEquals(2, check.getNames().get("My feature blabla").size());
     Assert.assertEquals(1, check.getNames().get("abc").size());
 
-    Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("my feature blabla").get(0).getFile().getPath());
-    Assert.assertEquals(getTestFilePath("feature.feature"), check.getNames().get("my feature blabla").get(1).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("My feature blabla").get(0).getFile().getPath());
+    Assert.assertEquals(getTestFilePath("feature.feature"), check.getNames().get("My feature blabla").get(1).getFile().getPath());
 
     Assert.assertEquals(getTestFilePath("feature2.feature"), check.getNames().get("abc").get(0).getFile().getPath());
   }

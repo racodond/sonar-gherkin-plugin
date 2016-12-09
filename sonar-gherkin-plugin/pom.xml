@@ -77,6 +77,18 @@
                     <include>**</include>
                   </includes>
                 </filter>
+                <filter>
+                  <artifact>org.languagetool:language-en</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+                <filter>
+                  <artifact>org.languagetool:languagetool-core</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
               </filters>
             </configuration>
           </execution>
@@ -96,8 +108,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>2000000</maxsize>
-                  <minsize>1800000</minsize>
+                  <maxsize>22000000</maxsize>
+                  <minsize>21000000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

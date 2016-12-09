@@ -25,4 +25,6 @@ public interface DescriptionTree extends Tree {
 
   List<SyntaxToken> descriptionLines();
 
+  String text();
+
 }

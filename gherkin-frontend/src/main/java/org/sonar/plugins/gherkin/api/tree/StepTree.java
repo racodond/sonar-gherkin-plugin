@@ -33,7 +33,7 @@ public interface StepTree extends Tree {
 
   PrefixTree prefix();
 
-  SyntaxToken sentence();
+  StepSentenceTree sentence();
 
   StepType type();
 

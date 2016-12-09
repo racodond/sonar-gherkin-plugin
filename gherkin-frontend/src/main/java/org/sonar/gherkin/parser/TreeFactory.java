@@ -55,7 +55,7 @@ public class TreeFactory {
     return new ExamplesTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), table.orNull());
   }
 
-  public StepTree step(PrefixTree prefix, SyntaxToken sentence, Optional<Tree> data) {
+  public StepTree step(PrefixTree prefix, StepSentenceTree sentence, Optional<Tree> data) {
     return new StepTreeImpl(prefix, sentence, data.orNull());
   }
 
@@ -97,6 +97,10 @@ public class TreeFactory {
 
   public StepPrefixTree stepPrefix(SyntaxToken keyword) {
     return new StepPrefixTreeImpl(keyword);
+  }
+
+  public StepSentenceTree stepSentence(SyntaxToken sentence) {
+    return new StepSentenceTreeImpl(sentence);
   }
 
   public NameTree name(SyntaxToken name) {

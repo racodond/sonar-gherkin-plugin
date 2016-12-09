@@ -64,12 +64,12 @@ public class CommentRegularExpressionCheck extends DoubleDispatchVisitorCheck {
     try {
       Pattern.compile(regularExpression);
     } catch (PatternSyntaxException exception) {
-      throw new IllegalStateException(paramsErrorMessage(), exception);
+      throw new IllegalStateException(paramErrorMessage(), exception);
     }
   }
 
-  private String paramsErrorMessage() {
-    return CheckUtils.paramsErrorMessage(
+  private String paramErrorMessage() {
+    return CheckUtils.paramErrorMessage(
       this.getClass(),
       "regularExpression parameter \"" + regularExpression + "\" is not a valid regular expression.");
   }

@@ -108,6 +108,10 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
+  public void visitStepSentence(StepSentenceTree tree) {
+    scanChildren(tree);
+  }
+
   public void visitFeaturePrefix(FeaturePrefixTree tree) {
     scanChildren(tree);
   }
