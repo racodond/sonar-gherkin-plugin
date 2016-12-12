@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.gherkin.api;
 
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.TreeVisitorContext;
 import org.sonar.plugins.gherkin.api.visitors.issue.FileIssue;
@@ -31,6 +32,8 @@ import java.util.List;
 public interface GherkinCheck {
 
   PreciseIssue addPreciseIssue(Tree tree, String message);
+
+  PreciseIssue addPreciseIssue(SyntaxToken toke, int startOffset, int endOffset, String message);
 
   FileIssue addFileIssue(String message);
 

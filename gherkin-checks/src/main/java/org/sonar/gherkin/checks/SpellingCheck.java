@@ -32,6 +32,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.gherkin.api.tree.DescriptionTree;
 import org.sonar.plugins.gherkin.api.tree.LiteralTree;
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.SubscriptionVisitorCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -78,19 +79,21 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
 
   public void visitNode(Tree tree) {
     if (tree instanceof LiteralTree) {
-      checkSpellingMistakes(((LiteralTree) tree).text(), tree);
+      checkSpellingMistakes(((LiteralTree) tree).text(), ((LiteralTree) tree).value());
     } else if (tree instanceof DescriptionTree) {
-      checkSpellingMistakes(((DescriptionTree) tree).text(), tree);
+      ((DescriptionTree) tree).descriptionLines().forEach(r -> checkSpellingMistakes(r.text(), r));
     } else {
       throw new IllegalStateException("Unsupported tree type");
     }
   }
 
-  private void checkSpellingMistakes(String text, Tree tree) {
+  private void checkSpellingMistakes(String text, SyntaxToken token) {
     try {
       languageTool.check(text)
         .forEach(m -> addPreciseIssue(
-          tree,
+          token,
+          m.getFromPos(),
+          m.getToPos(),
           m.getMessage() + ". Suggested correction(s): " + m.getSuggestedReplacements() + "."));
 
     } catch (IOException e) {
