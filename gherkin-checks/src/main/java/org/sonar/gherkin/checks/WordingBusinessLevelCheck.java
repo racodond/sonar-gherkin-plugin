@@ -28,9 +28,8 @@ import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Rule(
   key = "wording-business-level",
@@ -56,23 +55,13 @@ public class WordingBusinessLevelCheck extends DoubleDispatchVisitorCheck {
   }
 
   private void checkForForbiddenWords(SyntaxToken token) {
-    List<String> forbiddenWordsFound = forbiddenWordsFound(token.text());
-    if (!forbiddenWordsFound.isEmpty()) {
-      addPreciseIssue(
-        token,
-        "Rephrase this sentence to remove the following forbidden words: "
-          + forbiddenWordsFound.stream().sorted().collect(Collectors.joining(", ")));
-    }
-  }
-
-  private List<String> forbiddenWordsFound(String text) {
-    List<String> forbiddenWordsFound = new ArrayList<>();
     for (String word : FORBIDDEN_WORDS) {
-      if (text.contains(word)) {
-        forbiddenWordsFound.add(word);
+      Pattern pattern = Pattern.compile(word);
+      Matcher matcher = pattern.matcher(token.text());
+      while (matcher.find()) {
+        addPreciseIssue(token, matcher.start(), matcher.end(), "Remove this forbidden word.");
       }
     }
-    return forbiddenWordsFound.stream().sorted().collect(Collectors.toList());
   }
 
 }

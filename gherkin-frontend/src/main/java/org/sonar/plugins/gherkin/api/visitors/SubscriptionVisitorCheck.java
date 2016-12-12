@@ -21,6 +21,7 @@ package org.sonar.plugins.gherkin.api.visitors;
 
 import org.sonar.gherkin.visitors.Issues;
 import org.sonar.plugins.gherkin.api.GherkinCheck;
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.issue.FileIssue;
 import org.sonar.plugins.gherkin.api.visitors.issue.Issue;
@@ -44,6 +45,11 @@ public abstract class SubscriptionVisitorCheck extends SubscriptionVisitor imple
   @Override
   public PreciseIssue addPreciseIssue(Tree tree, String message) {
     return issues.addPreciseIssue(getContext().getFile(), tree, message);
+  }
+
+  @Override
+  public PreciseIssue addPreciseIssue(SyntaxToken token, int startOffset, int endOffset, String message) {
+    return issues.addPreciseIssue(getContext().getFile(), token, startOffset, endOffset, message);
   }
 
   @Override

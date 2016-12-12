@@ -26,6 +26,7 @@ import org.sonar.plugins.gherkin.api.tree.SyntaxTrivia;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -53,8 +54,10 @@ public class CommentRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitComment(SyntaxTrivia trivia) {
-    if (trivia.text().matches(regularExpression)) {
-      addPreciseIssue(trivia, message);
+    Pattern pattern = Pattern.compile(regularExpression);
+    Matcher matcher = pattern.matcher(trivia.text());
+    while (matcher.find()) {
+      addPreciseIssue(trivia, matcher.start(), matcher.end(), message);
     }
     super.visitComment(trivia);
   }
