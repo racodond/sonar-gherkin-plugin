@@ -1,61 +1,81 @@
-# Noncompliant {{Indent this line at column 0 (currently indented at column 1).}}
+# Noncompliant [[sc=2;ec=3]] {{Indent this token at column 1 (currently indented at column 2).}}
  @tag
 @abc
-  # Noncompliant {{Indent this line at column 0 (currently indented at column 2).}}
-  Feature: My feature indentation default KO
-    # Noncompliant {{Indent this line at column 2 (currently indented at column 4).}}
+  # Noncompliant [[sc=3;ec=10]] {{Indent this token at column 1 (currently indented at column 3).}}
+  Feature:  My feature indentation default KO
+    # Noncompliant [[sc=5;ec=14]] {{Indent this token at column 3 (currently indented at column 5).}}
     Blabla...
   Blabla...
 
- # Noncompliant {{Indent this line at column 2 (currently indented at column 1).}}
+ # Noncompliant [[sc=2;ec=12]] {{Indent this token at column 3 (currently indented at column 2).}}
  Background: Blabla background indentation default KO
-  # Noncompliant {{Indent this line at column 4 (currently indented at column 2).}}
+  # Noncompliant [[sc=3;ec=12]] {{Indent this token at column 5 (currently indented at column 3).}}
   Blabla...
     Blabla...
-    # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
+    # Noncompliant [[sc=6;ec=11]] {{Indent this token at column 5 (currently indented at column 6).}}
      Given Blabla given1...
 
-    # Noncompliant {{Indent this line at column 2 (currently indented at column 4).}}
+    # Noncompliant [[sc=5;ec=6]] {{Indent this token at column 3 (currently indented at column 5).}}
     @def
-  # Noncompliant {{Indent this line at column 2 (currently indented at column 3).}}
+  # Noncompliant [[sc=4;ec=12]] {{Indent this token at column 3 (currently indented at column 4).}}
    Scenario: Scenario 1 indentation default KO
     Blabla...
-    # Noncompliant {{Indent this line at column 4 (currently indented at column 7).}}
+    # Noncompliant [[sc=8;ec=17]] {{Indent this token at column 5 (currently indented at column 8).}}
        Blabla...
     Given Blabla given...
     When Blabla when...
     Then Blabla then...
 
   @ghi
-    # Noncompliant {{Indent this line at column 2 (currently indented at column 4).}}
+    # Noncompliant [[sc=5;ec=6]] {{Indent this token at column 3 (currently indented at column 5).}}
     @jkl
-   # Noncompliant {{Indent this line at column 2 (currently indented at column 3).}}
+   # Noncompliant [[sc=4;ec=20]] {{Indent this token at column 3 (currently indented at column 4).}}
    Scenario Outline: Scenario 2 indentation default KO
-    # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
+    # Noncompliant [[sc=6;ec=15]] {{Indent this token at column 5 (currently indented at column 6).}}
      Blabla...
     Blabla...
     Given Blabla given...
     When Blabla when...
       | data |
-       # Noncompliant {{Indent this line at column 6 (currently indented at column 7).}}
+       # Noncompliant [[sc=8;ec=16]] {{Indent this token at column 7 (currently indented at column 8).}}
        | 2    |
     Then Blabla then...<data>
-      # Noncompliant {{Indent this line at column 6 (currently indented at column 7).}}
+      # Noncompliant [[sc=8;ec=11]] {{Indent this token at column 7 (currently indented at column 8).}}
        """string
       Blabla...
         Blabla...
      """
-    # Noncompliant [[sl=-1]] {{Indent this line at column 6 (currently indented at column 5).}}
+    # Noncompliant [[sl=-1;sc=6;ec=9]] {{Indent this token at column 7 (currently indented at column 6).}}
 
-     # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
+     # Noncompliant [[sc=6;ec=7]] {{Indent this token at column 5 (currently indented at column 6).}}
      @mno
-     # Noncompliant {{Indent this line at column 4 (currently indented at column 5).}}
+     # Noncompliant [[sc=6;ec=14]] {{Indent this token at column 5 (currently indented at column 6).}}
      Examples: Blabla examples indentation default KO
       Blabla...
-      # Noncompliant {{Indent this line at column 6 (currently indented at column 7).}}
+      # Noncompliant [[sc=8;ec=17]] {{Indent this token at column 7 (currently indented at column 8).}}
        Blabla...
-     # Noncompliant {{Indent this line at column 6 (currently indented at column 5).}}
+     # Noncompliant [[sc=6;ec=14]] {{Indent this token at column 7 (currently indented at column 6).}}
      | data |
-       # Noncompliant {{Indent this line at column 6 (currently indented at column 7).}}
+       # Noncompliant [[sc=8;ec=16]] {{Indent this token at column 7 (currently indented at column 8).}}
        | 1    |
+      | 2    |
+
+  # Noncompliant [[sc=14;ec=49]] {{Indent this token at column 13 (currently indented at column 14).}}
+  Scenario:  Scenario 3 - indentation default KO
+    Blabla...
+    Given Blabla given...
+    When Blabla when
+    Then Blabla then...
+
+  # Noncompliant [[sc=23;ec=58]] {{Indent this token at column 21 (currently indented at column 23).}}
+  Scenario Outline:   Scenario 4 - indentation default KO
+    Blabla...
+    Given Blabla given...
+    When Blabla when...<data>
+    Then Blabla then...
+
+    # Noncompliant [[sc=16;ec=54]] {{Indent this token at column 15 (currently indented at column 16).}}
+    Examples:  Blabla examples indentation default KO
+      | data |
+      | 1    |
       | 2    |
