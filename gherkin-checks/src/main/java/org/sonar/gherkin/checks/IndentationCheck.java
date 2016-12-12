@@ -65,17 +65,30 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       Tree.Kind.EXAMPLES_PREFIX,
       Tree.Kind.STEP_PREFIX,
       Tree.Kind.TABLE,
-      Tree.Kind.DOC_STRING
+      Tree.Kind.DOC_STRING,
+      Tree.Kind.NAME
     );
   }
 
   @Override
   public void visitNode(Tree tree) {
-    checkAllPrefixesIndentation(tree);
-    checkAllDescriptionsIndentation(tree);
-    checkAllTagsIndentation(tree);
-    checkAllTablesIndentation(tree);
-    checkDocStringsIndentation(tree);
+    if (tree instanceof Descriptionable) {
+      checkAllDescriptionsIndentation(tree);
+    }
+
+    if (tree instanceof Taggable) {
+      checkAllTagsIndentation(tree);
+    }
+
+    if (tree instanceof PrefixTree) {
+      checkAllPrefixesIndentation((PrefixTree) tree);
+    } else if (tree.is(Tree.Kind.DOC_STRING)) {
+      checkDocStringsIndentation((DocStringTree) tree);
+    } else if (tree.is(Tree.Kind.TABLE)) {
+      checkAllTablesIndentation((TableTree) tree);
+    } else if (tree.is(Tree.Kind.NAME)) {
+      checkNameIndentation((NameTree) tree);
+    }
   }
 
   @VisibleForTesting
@@ -84,30 +97,28 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
   }
 
   private void checkAllDescriptionsIndentation(Tree tree) {
-    if (tree instanceof Descriptionable) {
-      int expectedIndentation;
+    int expectedIndentation;
 
-      switch (tree.getKind()) {
-        case FEATURE_DECLARATION:
-          expectedIndentation = indentation;
-          break;
+    switch (tree.getKind()) {
+      case FEATURE_DECLARATION:
+        expectedIndentation = indentation;
+        break;
 
-        case BACKGROUND:
-        case SCENARIO:
-        case SCENARIO_OUTLINE:
-          expectedIndentation = indentation * 2;
-          break;
+      case BACKGROUND:
+      case SCENARIO:
+      case SCENARIO_OUTLINE:
+        expectedIndentation = indentation * 2;
+        break;
 
-        case EXAMPLES:
-          expectedIndentation = indentation * 3;
-          break;
+      case EXAMPLES:
+        expectedIndentation = indentation * 3;
+        break;
 
-        default:
-          throw new IllegalStateException("Unsupported Descriptionable: " + tree.toString());
-      }
-
-      checkDescriptionLinesIndentation(((Descriptionable) tree).description(), expectedIndentation);
+      default:
+        throw new IllegalStateException("Unsupported Descriptionable: " + tree.toString());
     }
+
+    checkDescriptionLinesIndentation(((Descriptionable) tree).description(), expectedIndentation);
   }
 
   private void checkDescriptionLinesIndentation(@Nullable DescriptionTree description, int expectedIndentation) {
@@ -116,60 +127,55 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
     }
   }
 
-  private void checkAllPrefixesIndentation(Tree tree) {
-    if (tree instanceof PrefixTree) {
-      int expectedIndentation;
+  private void checkAllPrefixesIndentation(PrefixTree tree) {
+    int expectedIndentation;
 
-      switch (tree.getKind()) {
-        case FEATURE_PREFIX:
-          expectedIndentation = 0;
-          break;
+    switch (tree.getKind()) {
+      case FEATURE_PREFIX:
+        expectedIndentation = 0;
+        break;
 
-        case BACKGROUND_PREFIX:
-        case SCENARIO_PREFIX:
-        case SCENARIO_OUTLINE_PREFIX:
-          expectedIndentation = indentation;
-          break;
+      case BACKGROUND_PREFIX:
+      case SCENARIO_PREFIX:
+      case SCENARIO_OUTLINE_PREFIX:
+        expectedIndentation = indentation;
+        break;
 
-        case EXAMPLES_PREFIX:
-        case STEP_PREFIX:
-          expectedIndentation = indentation * 2;
-          break;
+      case EXAMPLES_PREFIX:
+      case STEP_PREFIX:
+        expectedIndentation = indentation * 2;
+        break;
 
-        default:
-          throw new IllegalStateException("Unsupported PrefixTree: " + tree.toString());
-      }
-
-      checkIndentation(((PrefixTree) tree).keyword(), expectedIndentation);
+      default:
+        throw new IllegalStateException("Unsupported PrefixTree: " + tree.toString());
     }
+
+    checkIndentation(tree.keyword(), expectedIndentation);
   }
 
   private void checkAllTagsIndentation(Tree tree) {
-    if (tree instanceof Taggable) {
-      int expectedIndentation;
+    int expectedIndentation;
 
-      switch (tree.getKind()) {
-        case FEATURE_DECLARATION:
-          expectedIndentation = 0;
-          break;
+    switch (tree.getKind()) {
+      case FEATURE_DECLARATION:
+        expectedIndentation = 0;
+        break;
 
-        case BACKGROUND:
-        case SCENARIO:
-        case SCENARIO_OUTLINE:
-          expectedIndentation = indentation;
-          break;
+      case BACKGROUND:
+      case SCENARIO:
+      case SCENARIO_OUTLINE:
+        expectedIndentation = indentation;
+        break;
 
-        case EXAMPLES:
-          expectedIndentation = indentation * 2;
-          break;
+      case EXAMPLES:
+        expectedIndentation = indentation * 2;
+        break;
 
-        default:
-          throw new IllegalStateException("Unsupported Taggable: " + tree.toString());
-      }
-
-      checkTagsIndentation(((Taggable) tree).tags(), expectedIndentation);
+      default:
+        throw new IllegalStateException("Unsupported Taggable: " + tree.toString());
     }
 
+    checkTagsIndentation(((Taggable) tree).tags(), expectedIndentation);
   }
 
   private void checkTagsIndentation(List<TagTree> tags, int expectedIndentation) {
@@ -182,24 +188,63 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
     }
   }
 
-  private void checkAllTablesIndentation(Tree tree) {
-    if (tree.is(Tree.Kind.TABLE)) {
-      ((TableTree) tree).rows().forEach(d -> checkIndentation(d, indentation * 3));
-    }
+  private void checkAllTablesIndentation(TableTree tree) {
+    tree.rows().forEach(d -> checkIndentation(d, indentation * 3));
   }
 
-  private void checkDocStringsIndentation(Tree tree) {
-    if (tree.is(Tree.Kind.DOC_STRING)) {
-      checkIndentation(((DocStringTree) tree).prefix(), indentation * 3);
-      checkIndentation(((DocStringTree) tree).suffix(), indentation * 3);
+  private void checkDocStringsIndentation(DocStringTree tree) {
+    checkIndentation(tree.prefix(), indentation * 3);
+    checkIndentation(tree.suffix(), indentation * 3);
+  }
+
+  private void checkNameIndentation(NameTree tree) {
+    int expectedIndentation = -1;
+
+    switch (tree.parent().getKind()) {
+      case FEATURE_DECLARATION:
+        if (((FeatureDeclarationTree) tree.parent()).prefix().keyword().column() == 0) {
+          expectedIndentation = 9;
+        }
+        break;
+
+      case BACKGROUND:
+        if (((BackgroundTree) tree.parent()).prefix().keyword().column() == indentation) {
+          expectedIndentation = indentation + 12;
+        }
+        break;
+
+      case SCENARIO:
+        if (((ScenarioTree) tree.parent()).prefix().keyword().column() == indentation) {
+          expectedIndentation = indentation + 10;
+        }
+        break;
+
+      case SCENARIO_OUTLINE:
+        if (((ScenarioOutlineTree) tree.parent()).prefix().keyword().column() == indentation) {
+          expectedIndentation = indentation + 18;
+        }
+        break;
+
+      case EXAMPLES:
+        if (((ExamplesTree) tree.parent()).prefix().keyword().column() == indentation * 2) {
+          expectedIndentation = indentation * 2 + 10;
+        }
+        break;
+
+      default:
+        throw new IllegalStateException("Unsupported NameTree: " + tree.toString());
+    }
+
+    if (expectedIndentation >= 0) {
+      checkIndentation(tree.value(), expectedIndentation);
     }
   }
 
   private void checkIndentation(SyntaxToken token, int expectedIndentation) {
     if (token.column() != expectedIndentation) {
-      addLineIssue(
-        token.line(),
-        "Indent this line at column " + expectedIndentation + " (currently indented at column " + token.column() + ").");
+      addPreciseIssue(
+        token,
+        "Indent this token at column " + (expectedIndentation + 1) + " (currently indented at column " + (token.column() + 1) + ").");
     }
   }
 
