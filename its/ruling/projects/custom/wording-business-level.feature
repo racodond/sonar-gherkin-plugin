@@ -1,11 +1,12 @@
-# Noncompliant [[sc=10;ec=40]] {{Rephrase this sentence to remove the following forbidden words: click, radio button}}
+# Noncompliant [[sl=+2]] {{Remove this forbidden word.}}
+# Noncompliant {{Remove this forbidden word.}}
 Feature: I click on the radio button...
   Blabla...
 
-  # Noncompliant [[sc=21;ec=40]] {{Rephrase this sentence to remove the following forbidden words: radio button}}
+  # Noncompliant [[sc=28;ec=40]] {{Remove this forbidden word.}}
   Scenario Outline: Blabla radio button
     Given Blabla given...
-    # Noncompliant [[sc=10;ec=28]] {{Rephrase this sentence to remove the following forbidden words: fill in the form}}
+    # Noncompliant [[sc=12;ec=28]] {{Remove this forbidden word.}}
     When I fill in the form
     Then Blabla then...<number>
     Examples:
@@ -13,7 +14,7 @@ Feature: I click on the radio button...
       | 1      |
       | 2      |
 
-  # Noncompliant [[sc=13;ec=23]] {{Rephrase this sentence to remove the following forbidden words: click}}
+  # Noncompliant [[sc=15;ec=20]] {{Remove this forbidden word.}}
   Scenario: I click on
     Given Blabla given...
     When Blabla when...

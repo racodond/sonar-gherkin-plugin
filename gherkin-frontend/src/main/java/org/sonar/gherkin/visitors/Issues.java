@@ -20,6 +20,7 @@
 package org.sonar.gherkin.visitors;
 
 import org.sonar.plugins.gherkin.api.GherkinCheck;
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.issue.*;
 
@@ -39,6 +40,12 @@ public class Issues {
 
   public PreciseIssue addPreciseIssue(File file, Tree tree, String message) {
     PreciseIssue issue = new PreciseIssue(check, new IssueLocation(file, tree, message));
+    issueList.add(issue);
+    return issue;
+  }
+
+  public PreciseIssue addPreciseIssue(File file, SyntaxToken token, int startOffset, int endOffset, String message) {
+    PreciseIssue issue = new PreciseIssue(check, new IssueLocation(file, token, startOffset, endOffset, message));
     issueList.add(issue);
     return issue;
   }

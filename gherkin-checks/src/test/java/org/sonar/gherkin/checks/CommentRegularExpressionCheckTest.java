@@ -34,12 +34,14 @@ public class CommentRegularExpressionCheckTest {
   @Test
   public void should_match_some_comments_and_raise_some_issues() {
     String message = "Stop annotating lines with WTF! Detail what is wrong instead.";
-    check.regularExpression = "(?i).*WTF.*";
+    check.regularExpression = "(?i)WTF";
     check.message = "Stop annotating lines with WTF! Detail what is wrong instead.";
 
     GherkinCheckVerifier.issues(check, FILE)
       .next().atLine(4).withMessage(message)
       .next().atLine(5).withMessage(message)
+      .next().atLine(6).withMessage(message)
+      .next().atLine(6).withMessage(message)
       .noMore();
   }
 

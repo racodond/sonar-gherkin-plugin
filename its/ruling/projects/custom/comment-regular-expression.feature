@@ -3,6 +3,7 @@ Feature: My feature Comment regular expression
 
   # WTF!
   # wtf: abc
+  # wtf: wtf
   # Hello
   Scenario: Scenario 1 Comment regular expression
     Given Blabla given...
