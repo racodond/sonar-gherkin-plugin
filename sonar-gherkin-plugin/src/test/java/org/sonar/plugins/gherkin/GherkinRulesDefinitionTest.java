@@ -37,7 +37,7 @@ public class GherkinRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarQube");
     assertThat(repository.language()).isEqualTo("gherkin");
-    assertThat(repository.rules()).hasSize(44);
+    assertThat(repository.rules()).hasSize(45);
 
     RulesDefinition.Rule lineLengthRule = repository.rule(TabCharacterCheck.class.getAnnotation(Rule.class).key());
     assertThat(lineLengthRule).isNotNull();
