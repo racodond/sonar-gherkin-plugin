@@ -51,8 +51,13 @@ import java.util.Set;
 public class SpellingCheck extends SubscriptionVisitorCheck {
 
   private static final String DEFAULT_WORDS_TO_IGNORE = "";
-  private static final String DEFAULT_LANGUAGE = "en_US";
-  private static final Set<String> SUPPORTED_LANGUAGES = ImmutableSet.of("en_US", "en_GB");
+  private static final String DEFAULT_RULES_TO_IGNORE = "EN_QUOTES";
+
+  private static final String EN_US_LANGUAGE = "en_US";
+  private static final String EN_GB_LANGUAGE = "en_GB";
+
+  private static final String DEFAULT_LANGUAGE = EN_US_LANGUAGE;
+  private static final Set<String> SUPPORTED_LANGUAGES = ImmutableSet.of(EN_US_LANGUAGE, EN_GB_LANGUAGE);
   private JLanguageTool languageTool;
 
   @RuleProperty(
@@ -62,8 +67,14 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   private String wordsToIgnore = DEFAULT_WORDS_TO_IGNORE;
 
   @RuleProperty(
+    key = "rulesToIgnore",
+    description = "Comma-separated list of rules to ignore. Example: 'UPPERCASE_SENTENCE_START,EN_QUOTES'",
+    defaultValue = DEFAULT_RULES_TO_IGNORE)
+  private String rulesToIgnore = DEFAULT_RULES_TO_IGNORE;
+
+  @RuleProperty(
     key = "language",
-    description = "The language to be applied by the spell checker. Supported values are: 'en_US', 'en_GB'.",
+    description = "The language to be applied by the spell checker. Supported values are: '" + EN_US_LANGUAGE + "', '" + EN_GB_LANGUAGE + "'.",
     defaultValue = DEFAULT_LANGUAGE)
   private String language = DEFAULT_LANGUAGE;
 
@@ -77,6 +88,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
     languageTool = createLanguageTool();
   }
 
+  @Override
   public void visitNode(Tree tree) {
     if (tree instanceof LiteralTree) {
       checkSpellingMistakes(((LiteralTree) tree).text(), ((LiteralTree) tree).value());
@@ -94,7 +106,8 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
           token,
           m.getFromPos(),
           m.getToPos(),
-          m.getMessage() + ". Suggested correction(s): " + m.getSuggestedReplacements() + "."));
+          "[" + m.getRule().getId() + "] " + m.getMessage()
+            + ". Suggested correction(s): " + m.getSuggestedReplacements() + "."));
 
     } catch (IOException e) {
       throw new IllegalStateException("Spell checker failed", e);
@@ -105,11 +118,11 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
     English dictionary;
 
     switch (language) {
-      case "en_US":
+      case EN_US_LANGUAGE:
         dictionary = new AmericanEnglish();
         break;
 
-      case "en_GB":
+      case EN_GB_LANGUAGE:
         dictionary = new BritishEnglish();
         break;
 
@@ -117,13 +130,16 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
         throw new IllegalStateException("Unsupported spell check language: " + language);
     }
 
-    JLanguageTool languageTool = new JLanguageTool(dictionary);
-    languageTool.getAllActiveRules()
+    JLanguageTool jLanguageTool = new JLanguageTool(dictionary);
+
+    Arrays.stream(rulesToIgnore.split(",")).forEach(r -> jLanguageTool.disableRule(r));
+
+    jLanguageTool.getAllActiveRules()
       .stream()
       .filter(r -> r instanceof SpellingCheckRule)
       .forEach(r -> ((SpellingCheckRule) r).addIgnoreTokens(Arrays.asList(wordsToIgnore.split(","))));
 
-    return languageTool;
+    return jLanguageTool;
   }
 
   @Override
@@ -136,7 +152,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   private String languageParamErrorMessage() {
     return CheckUtils.paramErrorMessage(
       this.getClass(),
-      "language parameter \"" + language + "\" is not valid. Allowed values are 'en_US' and 'en_GB'.");
+      "language parameter \"" + language + "\" is not valid. Allowed values are '" + EN_US_LANGUAGE + "' and '" + EN_GB_LANGUAGE + "'.");
   }
 
   @VisibleForTesting
@@ -147,6 +163,11 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   @VisibleForTesting
   void setWordsToIgnore(String wordsToIgnore) {
     this.wordsToIgnore = wordsToIgnore;
+  }
+
+  @VisibleForTesting
+  void setRulesToIgnore(String rulesToIgnore) {
+    this.rulesToIgnore = rulesToIgnore;
   }
 
 }
