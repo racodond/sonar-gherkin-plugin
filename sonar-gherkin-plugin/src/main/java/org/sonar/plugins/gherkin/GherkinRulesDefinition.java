@@ -70,6 +70,7 @@ public class GherkinRulesDefinition implements RulesDefinition {
       NoScenarioCheck.class,
       NoStepCheck.class,
       NoTagExamplesCheck.class,
+      OneSingleWhenPerScenarioCheck.class,
       OnlyGivenStepsInBackgroundCheck.class,
       ParsingErrorCheck.class,
       SpellingCheck.class,

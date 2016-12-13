@@ -79,6 +79,7 @@ Number of features.
  * Tags should comply with a naming convention
  * Tags should not be set on Examples
  * Then steps should follow a regular expression
+ * There should be one single When step per scenario
  * Unused variables should be removed
  * Useless tags should be removed
  * When steps should follow a regular expression

@@ -1,0 +1,23 @@
+<p>
+    There should be one single <code>When</code> step per scenario. If you feel compelled to add more, it is usually a
+    sign that you should split the scenario up in multiple scenarios or that some <code>When</code> steps could be
+    converted into <code>Given</code> steps.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+Scenario: Add a nice bike to my cart
+  Given I am a customer
+  When I go to the nice bike product page
+  And I add the nice bike to my cart           # Noncompliant
+  Then I should see the nice bike in my cart
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+Scenario: Add a nice bike to my cart
+  Given I am a customer
+  And I am on the nice bike product page
+  When I add the nice bike to my cart
+  Then I should see the nice bike in my cart
+</pre>
