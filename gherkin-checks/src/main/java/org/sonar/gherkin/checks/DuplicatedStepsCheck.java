@@ -19,6 +19,7 @@
  */
 package org.sonar.gherkin.checks;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -28,9 +29,11 @@ import org.sonar.plugins.gherkin.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Rule(
   key = "duplicated-steps",
@@ -47,14 +50,14 @@ public class DuplicatedStepsCheck extends DoubleDispatchVisitorCheck {
   public void visitFeature(FeatureTree tree) {
     backgroundStepsBySentence.clear();
     if (tree.background() != null) {
-      backgroundStepsBySentence = buildStepsBySentenceMap(tree.background().steps());
+      backgroundStepsBySentence = getStepsBySentence(tree.background().steps());
     }
     super.visitFeature(tree);
   }
 
   @Override
   public void visitBackground(BackgroundTree tree) {
-    checkForDuplicatedStepsInBackground(tree);
+    checkForDuplicatedStepsInBackground();
   }
 
   @Override
@@ -67,34 +70,25 @@ public class DuplicatedStepsCheck extends DoubleDispatchVisitorCheck {
     checkForDuplicatedStepsInScenario(tree);
   }
 
-  private void checkForDuplicatedStepsInBackground(BackgroundTree tree) {
-    for (Map.Entry<String, List<StepTree>> entry : buildStepsBySentenceMap(tree.steps()).entrySet()) {
-      if (entry.getValue().size() > 1) {
-        PreciseIssue issue = addPreciseIssue(entry.getValue().get(0), "Remove this duplicated step.");
-        for (int i = 1; i < entry.getValue().size(); i++) {
-          issue.secondary(entry.getValue().get(i), "Duplicate");
-        }
-      }
-    }
+  private void checkForDuplicatedStepsInBackground() {
+    backgroundStepsBySentence
+      .entrySet()
+      .stream()
+      .filter(sentence -> sentence.getValue().size() > 1)
+      .forEach(sentence -> createIssue(sentence.getValue()));
   }
 
   private void checkForDuplicatedStepsInScenario(BasicScenarioTree tree) {
-    for (Map.Entry<String, List<StepTree>> entry : buildStepsBySentenceMap(tree.steps()).entrySet()) {
-      if (entry.getValue().size() > 1 || backgroundStepsBySentence.keySet().contains(entry.getKey())) {
-        PreciseIssue issue = addPreciseIssue(entry.getValue().get(0), "Remove this duplicated step.");
-        for (int i = 1; i < entry.getValue().size(); i++) {
-          issue.secondary(entry.getValue().get(i), "Duplicate");
-        }
-        if (backgroundStepsBySentence.get(entry.getKey()) != null) {
-          for (int i = 0; i < backgroundStepsBySentence.get(entry.getKey()).size(); i++) {
-            issue.secondary(backgroundStepsBySentence.get(entry.getKey()).get(i), "Duplicate");
-          }
-        }
-      }
-    }
+    getStepsBySentence(tree.steps())
+      .entrySet()
+      .stream()
+      .filter(sentence -> sentence.getValue().size() > 1 || backgroundStepsBySentence.keySet().contains(sentence.getKey()))
+      .forEach(sentence -> createIssue(
+        sentence.getValue(),
+        backgroundStepsBySentence.get(sentence.getKey())));
   }
 
-  private Map<String, List<StepTree>> buildStepsBySentenceMap(List<StepTree> steps) {
+  private Map<String, List<StepTree>> getStepsBySentence(List<StepTree> steps) {
     Map<String, List<StepTree>> stepsBySentence = new HashMap<>();
 
     for (StepTree step : steps) {
@@ -106,6 +100,25 @@ public class DuplicatedStepsCheck extends DoubleDispatchVisitorCheck {
     }
 
     return stepsBySentence;
+  }
+
+  private void createIssue(List<StepTree> duplicatedSteps) {
+    createIssue(duplicatedSteps, null);
+  }
+
+  private void createIssue(List<StepTree> duplicatedSteps, @Nullable List<StepTree> duplicatedStepsInBackground) {
+    Preconditions.checkElementIndex(0, duplicatedSteps.size());
+
+    PreciseIssue issue = addPreciseIssue(duplicatedSteps.get(0), "Remove this duplicated step.");
+    addSecondaryLocation(issue, duplicatedSteps.stream().skip(1).collect(Collectors.toList()));
+
+    if (duplicatedStepsInBackground != null) {
+      addSecondaryLocation(issue, duplicatedStepsInBackground);
+    }
+  }
+
+  private void addSecondaryLocation(PreciseIssue issue, List<StepTree> secondaryLocations) {
+    secondaryLocations.forEach(s -> issue.secondary(s, "Duplicate"));
   }
 
 }

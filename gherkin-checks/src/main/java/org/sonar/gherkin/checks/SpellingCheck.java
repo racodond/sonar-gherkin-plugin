@@ -132,7 +132,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
 
     JLanguageTool jLanguageTool = new JLanguageTool(dictionary);
 
-    Arrays.stream(rulesToIgnore.split(",")).forEach(r -> jLanguageTool.disableRule(r));
+    Arrays.stream(rulesToIgnore.split(",")).forEach(jLanguageTool::disableRule);
 
     jLanguageTool.getAllActiveRules()
       .stream()

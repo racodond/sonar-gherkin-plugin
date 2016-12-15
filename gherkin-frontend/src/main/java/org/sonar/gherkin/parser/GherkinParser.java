@@ -27,6 +27,7 @@ import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 public class GherkinParser extends ActionParser<Tree> {
 
@@ -44,7 +45,7 @@ public class GherkinParser extends ActionParser<Tree> {
     if (!parent.isLeaf()) {
       Lists.newArrayList(parent.childrenIterator())
         .stream()
-        .filter(nextTree -> nextTree != null)
+        .filter(Objects::nonNull)
         .forEach(nextTree -> {
           nextTree.setParent(parent);
           createParentLink(nextTree);
