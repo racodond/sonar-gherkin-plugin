@@ -2,7 +2,7 @@
  @tag
 @abc
   # Noncompliant [[sc=3;ec=10]] {{Indent this token at column 1 (currently indented at column 3).}}
-  Feature:  My feature indentation default KO
+  Feature: My feature indentation default KO
     # Noncompliant [[sc=5;ec=14]] {{Indent this token at column 3 (currently indented at column 5).}}
     Blabla...
   Blabla...
@@ -60,22 +60,19 @@
        | 1    |
       | 2    |
 
-  # Noncompliant [[sc=14;ec=49]] {{Indent this token at column 13 (currently indented at column 14).}}
-  Scenario:  Scenario 3 - indentation default KO
+  Scenario: Scenario 3 - indentation default KO
     Blabla...
     Given Blabla given...
     When Blabla when
     Then Blabla then...
 
-  # Noncompliant [[sc=23;ec=58]] {{Indent this token at column 21 (currently indented at column 23).}}
-  Scenario Outline:   Scenario 4 - indentation default KO
+  Scenario Outline: Scenario 4 - indentation default KO
     Blabla...
     Given Blabla given...
     When Blabla when...<data>
     Then Blabla then...
 
-    # Noncompliant [[sc=16;ec=54]] {{Indent this token at column 15 (currently indented at column 16).}}
-    Examples:  Blabla examples indentation default KO
+    Examples: Blabla examples indentation default KO
       | data |
       | 1    |
       | 2    |

@@ -63,7 +63,8 @@ public class GherkinRulingTest {
       .setProperty("dump.old", FileLocation.of("src/test/expected").getFile().getAbsolutePath())
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
-      .setProperty("sonar.cpd.skip", "true");
+      .setProperty("sonar.cpd.skip", "true")
+      .setProperty("sonar.exclusions", "custom/spelling/spelling-fr.feature,custom/indentation/indentation-custom-ok.feature,custom/indentation/indentation-custom-ko.feature");
     orchestrator.executeBuild(build);
 
     assertThat(Files.toString(litsDifferencesFile, StandardCharsets.UTF_8)).isEmpty();

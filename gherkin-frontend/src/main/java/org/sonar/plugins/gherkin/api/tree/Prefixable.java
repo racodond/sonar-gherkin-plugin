@@ -19,11 +19,10 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-import javax.annotation.Nullable;
+public interface Prefixable {
 
-public interface ExamplesTree extends Tree, Taggable, Nameable, Descriptionable, Prefixable {
+  PrefixTree prefix();
 
-  @Nullable
-  TableTree table();
+  SyntaxToken colon();
 
 }

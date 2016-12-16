@@ -180,7 +180,7 @@
       </dependency>
       <dependency>
         <groupId>org.languagetool</groupId>
-        <artifactId>language-en</artifactId>
+        <artifactId>language-all</artifactId>
         <version>3.5</version>
       </dependency>
       <dependency>

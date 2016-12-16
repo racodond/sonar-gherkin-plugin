@@ -27,10 +27,18 @@ import static org.fest.assertions.Assertions.assertThat;
 public class SpellingCheckTest {
 
   @Test
-  public void should_find_some_spelling_mistakes_and_raise_some_issues() {
+  public void should_find_some_spelling_mistakes_and_raise_some_issues_default_en_US_language() {
     SpellingCheck check = new SpellingCheck();
     check.setWordsToIgnore("blabla,toto");
     GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("spelling/spelling.feature"));
+  }
+
+  @Test
+  public void should_find_some_spelling_mistakes_and_raise_some_issues_french() {
+    SpellingCheck check = new SpellingCheck();
+    check.setWordsToIgnore("blabla,toto");
+    check.setLanguage("fr");
+    GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("spelling/spelling-fr.feature"));
   }
 
   @Test
@@ -45,13 +53,16 @@ public class SpellingCheckTest {
   public void should_throw_an_illegal_state_exception_as_the_language_parameter_is_not_valid() {
     try {
       SpellingCheck check = new SpellingCheck();
-      check.setLanguage("en_NZ");
+      check.setLanguage("abc");
 
       GherkinCheckVerifier.issues(check, CheckTestUtils.getTestFile("spelling/spelling.feature")).noMore();
 
     } catch (IllegalStateException e) {
       assertThat(e.getMessage()).isEqualTo("Check gherkin:spelling (Spelling mistakes should be fixed): "
-        + "language parameter \"en_NZ\" is not valid. Allowed values are 'en_US' and 'en_GB'.");
+        + "language parameter \"abc\" is not valid. Allowed values are: ast-ES, be-BY, br-FR, ca-ES, ca-ES-valencia, "
+        + "da-DK, de, de-AT, de-CH, de-DE, de-DE-x-simple-language, el-GR, en, en-AU, en-CA, en-GB, en-NZ, en-US, "
+        + "en-ZA, eo, es, fa, fr, gl-ES, is-IS, it, ja-JP, km-KH, lt-LT, ml-IN, nl, pl-PL, pt, pt-BR, pt-PT, "
+        + "ro-RO, ru-RU, sk-SK, sl-SI, sv, ta-IN, tl-PH, uk-UA, zh-CN");
     }
   }
 

@@ -60,22 +60,19 @@
             | 2    |
 
 
-    # Noncompliant [[sc=16;ec=50]] {{Indent this token at column 15 (currently indented at column 16).}}
-    Scenario:  Scenario 3 - indentation custom KO
+    Scenario: Scenario 3 - indentation custom KO
         Blabla...
         Given Blabla given...
         When Blabla when
         Then Blabla then...
 
-    # Noncompliant [[sc=25;ec=60]] {{Indent this token at column 23 (currently indented at column 25).}}
-    Scenario Outline:   Scenario 4 - indentation custom KO
+    Scenario Outline: Scenario 4 - indentation custom KO
         Blabla...
         Given Blabla given...
         When Blabla when...<data>
         Then Blabla then...
 
-        # Noncompliant [[sc=20;ec=58]] {{Indent this token at column 19 (currently indented at column 20).}}
-        Examples:  Blabla examples indentation custom KO
+        Examples: Blabla examples indentation custom KO
             | data |
             | 1    |
             | 2    |

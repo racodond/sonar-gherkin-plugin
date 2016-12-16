@@ -19,10 +19,5 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-public interface FeatureDeclarationTree extends Tree, Taggable, Nameable, Descriptionable {
-
-  PrefixTree prefix();
-
-  SyntaxToken colon();
-
+public interface FeatureDeclarationTree extends Tree, Taggable, Nameable, Descriptionable, Prefixable {
 }
