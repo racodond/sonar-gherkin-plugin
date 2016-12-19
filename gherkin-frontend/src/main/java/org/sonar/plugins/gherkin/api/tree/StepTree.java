@@ -24,20 +24,53 @@ import java.util.Set;
 
 public interface StepTree extends Tree {
 
-  enum StepType {
-    GIVEN,
-    WHEN,
-    THEN,
-    UNKNOWN
+  enum SemanticStepType {
+    GIVEN("Given"),
+    WHEN("When"),
+    THEN("Then"),
+    UNKNOWN("Unknown");
+
+    private String value;
+
+    SemanticStepType(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
+  enum SyntacticStepType {
+    GIVEN("Given"),
+    WHEN("When"),
+    THEN("Then"),
+    STAR("*"),
+    AND("And"),
+    BUT("But");
+
+    private String value;
+
+    SyntacticStepType(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 
   PrefixTree prefix();
 
   StepSentenceTree sentence();
 
-  StepType type();
+  SemanticStepType semanticType();
 
-  void setType(StepType type);
+  void setSemanticType(SemanticStepType type);
+
+  SyntacticStepType syntacticType();
+
+  void setSyntacticType(SyntacticStepType type);
 
   Set<String> variables();
 

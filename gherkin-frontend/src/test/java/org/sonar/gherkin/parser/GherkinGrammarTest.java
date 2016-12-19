@@ -28,7 +28,7 @@ public class GherkinGrammarTest {
   @Test(expected = RecognitionException.class)
   public void parse_error() throws Exception {
     GherkinParserBuilder
-      .createTestParser(Charsets.UTF_8, GherkinLexicalGrammar.GHERKIN_DOCUMENT)
+      .createTestParser(Charsets.UTF_8)
       .parse("blabla");
   }
 

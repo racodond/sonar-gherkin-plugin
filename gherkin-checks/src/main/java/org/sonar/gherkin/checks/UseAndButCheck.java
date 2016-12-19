@@ -57,21 +57,21 @@ public class UseAndButCheck extends DoubleDispatchVisitorCheck {
       return;
     }
 
-    StepTree.StepType previousStepType = steps.get(0).type();
+    StepTree.SemanticStepType previousStepType = steps.get(0).semanticType();
 
     for (int i = 1; i < steps.size(); i++) {
-      if (previousStepType != StepTree.StepType.UNKNOWN
-        && steps.get(i).type() != StepTree.StepType.UNKNOWN
-        && previousStepType == steps.get(i).type()
-        && !"And".equals(steps.get(i).prefix().text())
-        && !"But".equals(steps.get(i).prefix().text())) {
+      if (previousStepType != StepTree.SemanticStepType.UNKNOWN
+        && steps.get(i).semanticType() != StepTree.SemanticStepType.UNKNOWN
+        && previousStepType == steps.get(i).semanticType()
+        && steps.get(i).syntacticType() != StepTree.SyntacticStepType.AND
+        && steps.get(i).syntacticType() != StepTree.SyntacticStepType.BUT) {
 
         addPreciseIssue(
           steps.get(i).prefix(),
-          "Replace this redundant " + steps.get(i).prefix().text() + " prefix with And or But.");
+          "Replace this redundant " + steps.get(i).semanticType().getValue() + " prefix with And or But prefix.");
       }
-      
-      previousStepType = steps.get(i).type();
+
+      previousStepType = steps.get(i).semanticType();
     }
   }
 

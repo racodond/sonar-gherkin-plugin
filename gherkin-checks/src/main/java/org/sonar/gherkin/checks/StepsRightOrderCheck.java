@@ -53,32 +53,32 @@ public class StepsRightOrderCheck extends DoubleDispatchVisitorCheck {
 
   private void checkStepOrder(List<StepTree> steps) {
 
-    if (steps.size() < 2 || steps.stream().filter(s -> s.type() == StepTree.StepType.UNKNOWN).count() != 0) {
+    if (steps.size() < 2 || steps.stream().filter(s -> s.semanticType() == StepTree.SemanticStepType.UNKNOWN).count() != 0) {
       return;
     }
 
-    StepTree.StepType previousStepType = steps.get(0).type();
+    StepTree.SemanticStepType previousStepType = steps.get(0).semanticType();
 
     search:
     for (int i = 1; i < steps.size(); i++) {
 
-      switch (steps.get(i).type()) {
+      switch (steps.get(i).semanticType()) {
         case GIVEN:
-          if (previousStepType != StepTree.StepType.GIVEN) {
+          if (previousStepType != StepTree.SemanticStepType.GIVEN) {
             addPreciseIssue(steps.get(i).prefix(), "Unexpected Given step. Reorder the steps of this scenario.");
             break search;
           }
           break;
 
         case WHEN:
-          if (previousStepType != StepTree.StepType.GIVEN && previousStepType != StepTree.StepType.WHEN) {
+          if (previousStepType != StepTree.SemanticStepType.GIVEN && previousStepType != StepTree.SemanticStepType.WHEN) {
             addPreciseIssue(steps.get(i).prefix(), "Unexpected When step. Reorder the steps of this scenario.");
             break search;
           }
           break;
 
         case THEN:
-          if (previousStepType != StepTree.StepType.WHEN && previousStepType != StepTree.StepType.THEN) {
+          if (previousStepType != StepTree.SemanticStepType.WHEN && previousStepType != StepTree.SemanticStepType.THEN) {
             addPreciseIssue(steps.get(i).prefix(), "Unexpected Then step. Reorder the steps of this scenario.");
             break search;
           }
@@ -88,7 +88,7 @@ public class StepsRightOrderCheck extends DoubleDispatchVisitorCheck {
           break;
       }
 
-      previousStepType = steps.get(i).type();
+      previousStepType = steps.get(i).semanticType();
     }
   }
 

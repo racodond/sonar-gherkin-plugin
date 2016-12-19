@@ -40,6 +40,8 @@ public class GherkinDocumentTreeTest extends GherkinTreeTest {
 
     tree = checkParsed(new File("src/test/resources/parser/empty.feature"));
     assertThat(tree.feature()).isNull();
+    assertThat(tree.languageDeclaration()).isNull();
+    assertThat(tree.language()).isEqualTo("en");
 
     tree = checkParsed(new File("src/test/resources/parser/parse.feature"));
     assertThat(tree.hasByteOrderMark()).isEqualTo(false);
@@ -47,6 +49,8 @@ public class GherkinDocumentTreeTest extends GherkinTreeTest {
     assertThat(tree.feature().scenarioOutlines()).hasSize(1);
     assertThat(tree.feature().scenarios()).hasSize(2);
     assertThat(tree.feature().background()).isNotNull();
+    assertThat(tree.languageDeclaration()).isNull();
+    assertThat(tree.language()).isEqualTo("en");
 
     tree = checkParsed(new File("src/test/resources/parser/parse-bom.feature"));
     assertThat(tree.hasByteOrderMark()).isEqualTo(true);
@@ -54,6 +58,8 @@ public class GherkinDocumentTreeTest extends GherkinTreeTest {
     assertThat(tree.feature().scenarioOutlines()).hasSize(1);
     assertThat(tree.feature().scenarios()).hasSize(2);
     assertThat(tree.feature().background()).isNotNull();
+    assertThat(tree.languageDeclaration()).isNull();
+    assertThat(tree.language()).isEqualTo("en");
   }
 
   @Test
@@ -64,6 +70,7 @@ public class GherkinDocumentTreeTest extends GherkinTreeTest {
   private GherkinDocumentTree checkParsed(File file) throws Exception {
     GherkinDocumentTree tree = (GherkinDocumentTree) parser().parse(Files.toString(file, Charsets.UTF_8));
     assertThat(tree).isNotNull();
+    assertThat(tree.language()).isNotNull();
     return tree;
   }
 

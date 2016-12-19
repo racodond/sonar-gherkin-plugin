@@ -48,4 +48,10 @@ public class IndentationCheckTest {
     GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("indentation/indentation-custom-ko.feature"));
   }
 
+  @Test
+  public void should_raise_some_issues_about_single_whitespace() {
+    IndentationCheck check = new IndentationCheck();
+    GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("indentation/indentation-single-whitespace.feature"));
+  }
+
 }

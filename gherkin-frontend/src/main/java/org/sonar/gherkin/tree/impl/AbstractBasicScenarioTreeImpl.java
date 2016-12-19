@@ -20,6 +20,8 @@
 package org.sonar.gherkin.tree.impl;
 
 import com.google.common.collect.Iterators;
+import org.sonar.gherkin.parser.GherkinDialect;
+import org.sonar.gherkin.parser.GherkinDialectProvider;
 import org.sonar.plugins.gherkin.api.tree.*;
 
 import javax.annotation.Nullable;
@@ -41,8 +43,6 @@ public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implemen
     this.name = name;
     this.description = description;
     this.steps = steps != null ? steps : new ArrayList<>();
-
-    setStepTypes();
   }
 
   @Override
@@ -79,33 +79,60 @@ public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implemen
     return steps;
   }
 
-  private void setStepTypes() {
+  @Override
+  public void setStepTypes(String language) {
+    setSyntacticStepTypes(language);
+    setSemanticStepTypes();
+  }
+
+  private void setSemanticStepTypes() {
     for (int i = 0; i < steps.size(); i++) {
       StepTree currentStep = steps.get(i);
-      switch (currentStep.prefix().text()) {
-        case "Given":
-          currentStep.setType(StepTree.StepType.GIVEN);
+      switch (currentStep.syntacticType()) {
+        case GIVEN:
+          currentStep.setSemanticType(StepTree.SemanticStepType.GIVEN);
           break;
 
-        case "When":
-          currentStep.setType(StepTree.StepType.WHEN);
+        case WHEN:
+          currentStep.setSemanticType(StepTree.SemanticStepType.WHEN);
           break;
 
-        case "Then":
-          currentStep.setType(StepTree.StepType.THEN);
+        case THEN:
+          currentStep.setSemanticType(StepTree.SemanticStepType.THEN);
           break;
 
-        case "And":
-        case "But":
+        case AND:
+        case BUT:
           if (i > 0) {
-            currentStep.setType(steps.get(i - 1).type());
+            currentStep.setSemanticType(steps.get(i - 1).semanticType());
           } else {
-            currentStep.setType(StepTree.StepType.UNKNOWN);
+            currentStep.setSemanticType(StepTree.SemanticStepType.UNKNOWN);
           }
           break;
 
         default:
-          currentStep.setType(StepTree.StepType.UNKNOWN);
+          currentStep.setSemanticType(StepTree.SemanticStepType.UNKNOWN);
+      }
+    }
+  }
+
+  private void setSyntacticStepTypes(String language) {
+    GherkinDialect dialect = GherkinDialectProvider.getDialect(language);
+    String prefix;
+    for (StepTree currentStep : steps) {
+      prefix = currentStep.prefix().text();
+      if (dialect.getGivenStepKeywords().contains(prefix)) {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.GIVEN);
+      } else if (dialect.getWhenStepKeywords().contains(prefix)) {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.WHEN);
+      } else if (dialect.getThenStepKeywords().contains(prefix)) {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.THEN);
+      } else if (dialect.getButStepKeywords().contains(prefix)) {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.BUT);
+      } else if (dialect.getAndStepKeywords().contains(prefix)) {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.AND);
+      } else {
+        currentStep.setSyntacticType(StepTree.SyntacticStepType.STAR);
       }
     }
   }

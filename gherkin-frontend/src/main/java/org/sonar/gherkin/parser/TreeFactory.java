@@ -27,8 +27,8 @@ import java.util.List;
 
 public class TreeFactory {
 
-  public GherkinDocumentTree gherkinDocument(Optional<SyntaxToken> byteOrderMark, Optional<FeatureTree> feature, SyntaxToken eof) {
-    return new GherkinDocumentTreeImpl(byteOrderMark.orNull(), feature.orNull(), eof);
+  public GherkinDocumentTree gherkinDocument(Optional<SyntaxToken> byteOrderMark, Optional<SyntaxToken> language, Optional<FeatureTree> feature, SyntaxToken eof) {
+    return new GherkinDocumentTreeImpl(byteOrderMark.orNull(), language.orNull(), feature.orNull(), eof);
   }
 
   public FeatureTree feature(FeatureDeclarationTree featureDeclaration, Optional<BackgroundTree> background, Optional<List<BasicScenarioTree>> allScenarios) {

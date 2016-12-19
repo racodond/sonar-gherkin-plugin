@@ -19,7 +19,6 @@
  */
 package org.sonar.gherkin.parser;
 
-import com.google.common.annotations.VisibleForTesting;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 
 import java.nio.charset.Charset;
@@ -29,19 +28,26 @@ public class GherkinParserBuilder {
   private GherkinParserBuilder() {
   }
 
-  public static GherkinParser createParser(Charset charset) {
-    return createParser(charset, GherkinLexicalGrammar.GHERKIN_DOCUMENT);
+  public static GherkinParser createParser(Charset charset, String language) {
+    return createParser(charset, GherkinLexicalGrammar.GHERKIN_DOCUMENT, language);
   }
 
-  @VisibleForTesting
+  public static GherkinParser createTestParser(Charset charset, GrammarRuleKey rootRule, String language) {
+    return createParser(charset, rootRule, language);
+  }
+
   public static GherkinParser createTestParser(Charset charset, GrammarRuleKey rootRule) {
-    return createParser(charset, rootRule);
+    return createParser(charset, rootRule, GherkinDialectProvider.DEFAULT_LANGUAGE);
   }
 
-  private static GherkinParser createParser(Charset charset, GrammarRuleKey rootRule) {
+  public static GherkinParser createTestParser(Charset charset) {
+    return createParser(charset, GherkinLexicalGrammar.GHERKIN_DOCUMENT, GherkinDialectProvider.DEFAULT_LANGUAGE);
+  }
+
+  private static GherkinParser createParser(Charset charset, GrammarRuleKey rootRule, String language) {
     return new GherkinParser(
       charset,
-      GherkinLexicalGrammar.createGrammar(),
+      GherkinLexicalGrammar.createGrammar(language),
       GherkinGrammar.class,
       new TreeFactory(),
       new GherkinNodeBuilder(),

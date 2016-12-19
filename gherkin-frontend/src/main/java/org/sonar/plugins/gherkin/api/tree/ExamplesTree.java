@@ -21,11 +21,7 @@ package org.sonar.plugins.gherkin.api.tree;
 
 import javax.annotation.Nullable;
 
-public interface ExamplesTree extends Tree, Taggable, Nameable, Descriptionable {
-
-  PrefixTree prefix();
-
-  SyntaxToken colon();
+public interface ExamplesTree extends Tree, Taggable, Nameable, Descriptionable, Prefixable {
 
   @Nullable
   TableTree table();

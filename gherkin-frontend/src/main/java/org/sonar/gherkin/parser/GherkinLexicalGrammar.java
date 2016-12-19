@@ -23,8 +23,13 @@ import com.sonar.sslr.api.GenericTokenType;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public enum GherkinLexicalGrammar implements GrammarRuleKey {
   GHERKIN_DOCUMENT,
+
+  LANGUAGE,
 
   FEATURE,
   FEATURE_DECLARATION,
@@ -85,19 +90,27 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
   BOM,
   EOF;
 
-  public static LexerlessGrammarBuilder createGrammar() {
+  public static LexerlessGrammarBuilder createGrammar(String language) {
     LexerlessGrammarBuilder b = LexerlessGrammarBuilder.create();
-    syntax(b);
+    syntax(b, language);
     b.setRootRule(GHERKIN_DOCUMENT);
     return b;
   }
 
-  private static void syntax(LexerlessGrammarBuilder b) {
-
+  private static void syntax(LexerlessGrammarBuilder b, String language) {
     String whitespaceRegex = "(?<!\\\\)[\\s]*+";
     String whitespaceWithoutLineBreakRegex = "(?<!\\\\)[ \\t\\x0B\\f]*+";
     String whitespaceNotFollowedByLineBreakRegex = "(?<!\\\\)[ \\t\\x0B\\f]+(?!(\n|\r))";
     String trimmedSentence = "(\\S+|" + whitespaceNotFollowedByLineBreakRegex + ")+";
+
+    GherkinDialect dialect = GherkinDialectProvider.getDialect(language);
+
+    Set<String> featureKeywords = dialect.getFeatureKeywords();
+    Set<String> backgroundKeywords = dialect.getBackgroundKeywords();
+    Set<String> scenarioKeywords = dialect.getScenarioKeywords();
+    Set<String> scenarioOutlineKeywords = dialect.getScenarioOutlineKeywords();
+    Set<String> examplesKeywords = dialect.getExamplesKeywords();
+    Set<String> stepKeywords = dialect.getStepKeywords();
 
     b.rule(EOF).is(SPACING, b.token(GenericTokenType.EOF, b.endOfInput()));
     b.rule(BOM).is("\ufeff");
@@ -105,21 +118,55 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
     b.rule(TAG_PREFIX).is(SPACING, b.regexp("@"));
     b.rule(TAG_LITERAL).is(b.regexp("[^@\\s]+"));
 
-    b.rule(FEATURE_KEYWORD).is(SPACING, "Feature");
-    b.rule(BACKGROUND_KEYWORD).is(SPACING, "Background");
-    b.rule(SCENARIO_KEYWORD).is(SPACING, "Scenario");
-    b.rule(SCENARIO_OUTLINE_KEYWORD).is(SPACING, "Scenario Outline");
-    b.rule(EXAMPLES_KEYWORD).is(SPACING, "Examples");
-    b.rule(STEP_KEYWORD).is(SPACING, b.firstOf("Given", "When", "Then", "And", "But", "*"));
+    b.rule(FEATURE_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(featureKeywords)));
+    b.rule(BACKGROUND_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(backgroundKeywords)));
+    b.rule(SCENARIO_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(scenarioKeywords)));
+    b.rule(SCENARIO_OUTLINE_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(scenarioOutlineKeywords)));
+    b.rule(EXAMPLES_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(examplesKeywords)));
+    b.rule(STEP_KEYWORD).is(SPACING, b.regexp(convertListToRegexPattern(stepKeywords)));
 
     b.rule(COLON).is(":");
 
     b.rule(NAME_LITERAL).is(WHITESPACE_WITHOUT_LINE_BREAK, b.regexp(trimmedSentence));
-    b.rule(STEP_SENTENCE_LITERAL).is(SPACING, b.regexp("^(?!(Given|When|Then|And|But|\\*|Feature|Background|Scenario|Examples|@|\"\"\"|\\|))" + trimmedSentence));
 
-    b.rule(FEATURE_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@))" + trimmedSentence));
-    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|Given|When|Then|And|But|\\*|Examples|@))" + trimmedSentence));
-    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(SPACING, b.regexp("^(?!(Background|Scenario|@|\\|))" + trimmedSentence));
+    b.rule(STEP_SENTENCE_LITERAL).is(b.regexp(trimmedSentence));
+
+    b.rule(FEATURE_DESCRIPTION_SENTENCE).is(
+      SPACING,
+      b.regexp("^(?!("
+        + convertListToRegexPattern(backgroundKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioOutlineKeywords)
+        + "|@))"
+        + trimmedSentence));
+
+    b.rule(SCENARIO_DESCRIPTION_SENTENCE).is(
+      SPACING,
+      b.regexp("^(?!("
+        + convertListToRegexPattern(backgroundKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioOutlineKeywords)
+        + "|"
+        + convertListToRegexPattern(stepKeywords)
+        + "|"
+        + convertListToRegexPattern(examplesKeywords)
+        + "|@))"
+        + trimmedSentence));
+
+    b.rule(EXAMPLES_DESCRIPTION_SENTENCE).is(
+      SPACING,
+      b.regexp("^(?!("
+        + convertListToRegexPattern(backgroundKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioKeywords)
+        + "|"
+        + convertListToRegexPattern(scenarioOutlineKeywords)
+        + "|@|\\|))"
+        + trimmedSentence));
 
     b.rule(DOC_STRING_PREFIX).is(SPACING, "\"\"\"");
     b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, "\"\"\"");
@@ -127,6 +174,8 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
     b.rule(DOC_STRING_CONTENT_TYPE).is(b.regexp(".+"));
 
     b.rule(TABLE_DATA_ROW).is(SPACING, b.regexp("\\|.*\\|"));
+
+    b.rule(LANGUAGE).is(b.regexp(GherkinDialectProvider.LANGUAGE_DECLARATION_PATTERN.pattern()));
 
     b.rule(SPACING).is(
       b.skippedTrivia(b.regexp(whitespaceRegex)),
@@ -139,6 +188,13 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
 
     b.rule(SPACING_NO_COMMENTS).is(
       b.skippedTrivia(b.regexp(whitespaceRegex)));
+  }
+
+  private static String convertListToRegexPattern(Set<String> keywords) {
+    return keywords
+      .stream()
+      .map(k -> "* ".equals(k) ? "\\* " : k)
+      .collect(Collectors.joining("|"));
   }
 
 }

@@ -68,28 +68,8 @@
             </goals>
             <configuration>
               <shadedArtifactAttached>false</shadedArtifactAttached>
-              <minimizeJar>true</minimizeJar>
+              <minimizeJar>false</minimizeJar>
               <createDependencyReducedPom>false</createDependencyReducedPom>
-              <filters>
-                <filter>
-                  <artifact>cglib:cglib-nodep</artifact>
-                  <includes>
-                    <include>**</include>
-                  </includes>
-                </filter>
-                <filter>
-                  <artifact>org.languagetool:language-en</artifact>
-                  <includes>
-                    <include>**</include>
-                  </includes>
-                </filter>
-                <filter>
-                  <artifact>org.languagetool:languagetool-core</artifact>
-                  <includes>
-                    <include>**</include>
-                  </includes>
-                </filter>
-              </filters>
             </configuration>
           </execution>
         </executions>
@@ -108,8 +88,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>22000000</maxsize>
-                  <minsize>21000000</minsize>
+                  <maxsize>93000000</maxsize>
+                  <minsize>92800000</minsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

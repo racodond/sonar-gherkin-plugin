@@ -26,6 +26,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.gherkin.api.tree.*;
 import org.sonar.plugins.gherkin.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.gherkin.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
@@ -57,7 +58,6 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       Tree.Kind.SCENARIO,
       Tree.Kind.SCENARIO_OUTLINE,
       Tree.Kind.EXAMPLES,
-      Tree.Kind.STEP,
       Tree.Kind.FEATURE_PREFIX,
       Tree.Kind.BACKGROUND_PREFIX,
       Tree.Kind.SCENARIO_PREFIX,
@@ -65,8 +65,7 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       Tree.Kind.EXAMPLES_PREFIX,
       Tree.Kind.STEP_PREFIX,
       Tree.Kind.TABLE,
-      Tree.Kind.DOC_STRING,
-      Tree.Kind.NAME
+      Tree.Kind.DOC_STRING
     );
   }
 
@@ -80,15 +79,18 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       checkAllTagsIndentation(tree);
     }
 
+    if (tree instanceof Prefixable && tree instanceof Nameable) {
+      checkAllNamesIndentation(tree);
+    }
+
     if (tree instanceof PrefixTree) {
       checkAllPrefixesIndentation((PrefixTree) tree);
     } else if (tree.is(Tree.Kind.DOC_STRING)) {
-      checkDocStringsIndentation((DocStringTree) tree);
+      checkAllDocStringsIndentation((DocStringTree) tree);
     } else if (tree.is(Tree.Kind.TABLE)) {
       checkAllTablesIndentation((TableTree) tree);
-    } else if (tree.is(Tree.Kind.NAME)) {
-      checkNameIndentation((NameTree) tree);
     }
+
   }
 
   @VisibleForTesting
@@ -192,51 +194,19 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
     tree.rows().forEach(d -> checkIndentation(d, indentation * 3));
   }
 
-  private void checkDocStringsIndentation(DocStringTree tree) {
+  private void checkAllDocStringsIndentation(DocStringTree tree) {
     checkIndentation(tree.prefix(), indentation * 3);
     checkIndentation(tree.suffix(), indentation * 3);
   }
 
-  private void checkNameIndentation(NameTree tree) {
-    int expectedIndentation = -1;
+  private void checkAllNamesIndentation(Tree tree) {
+    NameTree nameTree = ((Nameable) tree).name();
+    SyntaxToken columnTree = ((Prefixable) tree).colon();
 
-    switch (tree.parent().getKind()) {
-      case FEATURE_DECLARATION:
-        if (((FeatureDeclarationTree) tree.parent()).prefix().keyword().column() == 0) {
-          expectedIndentation = 9;
-        }
-        break;
-
-      case BACKGROUND:
-        if (((BackgroundTree) tree.parent()).prefix().keyword().column() == indentation) {
-          expectedIndentation = indentation + 12;
-        }
-        break;
-
-      case SCENARIO:
-        if (((ScenarioTree) tree.parent()).prefix().keyword().column() == indentation) {
-          expectedIndentation = indentation + 10;
-        }
-        break;
-
-      case SCENARIO_OUTLINE:
-        if (((ScenarioOutlineTree) tree.parent()).prefix().keyword().column() == indentation) {
-          expectedIndentation = indentation + 18;
-        }
-        break;
-
-      case EXAMPLES:
-        if (((ExamplesTree) tree.parent()).prefix().keyword().column() == indentation * 2) {
-          expectedIndentation = indentation * 2 + 10;
-        }
-        break;
-
-      default:
-        throw new IllegalStateException("Unsupported NameTree: " + tree.toString());
-    }
-
-    if (expectedIndentation >= 0) {
-      checkIndentation(tree.value(), expectedIndentation);
+    if (nameTree != null
+      && columnTree.endColumn() + 1 != nameTree.value().column()) {
+      PreciseIssue issue = addPreciseIssue(nameTree, "Leave one single whitespace between the name and the column.");
+      issue.secondary(columnTree, "");
     }
   }
 

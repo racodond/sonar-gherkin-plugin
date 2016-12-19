@@ -143,7 +143,7 @@ public class SyntaxHighlighterVisitorTest {
 
   private void highlight(String string) throws Exception {
     inputFile.initMetadata(string);
-    Tree tree = GherkinParserBuilder.createParser(Charsets.UTF_8).parse(string);
+    Tree tree = GherkinParserBuilder.createTestParser(Charsets.UTF_8).parse(string);
     when(visitorContext.getTopTree()).thenReturn((GherkinDocumentTree) tree);
 
     Files.write(string, file, Charsets.UTF_8);

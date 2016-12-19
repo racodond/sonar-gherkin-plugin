@@ -70,7 +70,7 @@ public class AllStepTypesInScenarioCheck extends DoubleDispatchVisitorCheck {
     int thens = 0;
 
     for (StepTree step : Stream.concat(backgroundSteps.stream(), tree.steps().stream()).collect(Collectors.toList())) {
-      switch (step.type()) {
+      switch (step.semanticType()) {
         case GIVEN:
           givens++;
           break;

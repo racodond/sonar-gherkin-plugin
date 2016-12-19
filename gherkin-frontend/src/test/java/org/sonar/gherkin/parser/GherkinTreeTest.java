@@ -38,6 +38,10 @@ public abstract class GherkinTreeTest {
     parser = GherkinParserBuilder.createTestParser(Charsets.UTF_8, ruleKey);
   }
 
+  public GherkinTreeTest(GherkinLexicalGrammar ruleKey, String language) {
+    parser = GherkinParserBuilder.createTestParser(Charsets.UTF_8, ruleKey, language);
+  }
+
   public ActionParser<Tree> parser() {
     return parser;
   }

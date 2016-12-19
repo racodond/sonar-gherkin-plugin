@@ -47,7 +47,7 @@ public class GivenStepRegularExpressionCheck extends DoubleDispatchVisitorCheck 
 
   @Override
   public void visitStep(StepTree tree) {
-    if (tree.type() == StepTree.StepType.GIVEN
+    if (tree.semanticType() == StepTree.SemanticStepType.GIVEN
       && !tree.sentence().text().matches(regularExpression)) {
       addPreciseIssue(tree.sentence(), "Update the sentence to match the following regular expression: " + regularExpression);
     }

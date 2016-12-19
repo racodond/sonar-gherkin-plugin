@@ -5,13 +5,13 @@ Feature: My feature Steps right order
     Given I am a customer
     When I add a product to my cart
     Then I should see the product in my cart
-    # Noncompliant [[sc=5;ec=9]] {{Unexpected When step. Reorder the steps of this scenario.}}
+    # Noncompliant [[sc=5;ec=10]] {{Unexpected When step. Reorder the steps of this scenario.}}
     When I proceed to the order payment
     Then I should see the order total amount
 
   Scenario Outline: Scenario 2 Steps right order
     Given I am a customer
-    # Noncompliant [[sc=5;ec=9]] {{Unexpected Then step. Reorder the steps of this scenario.}}
+    # Noncompliant [[sc=5;ec=10]] {{Unexpected Then step. Reorder the steps of this scenario.}}
     Then I should see the product in my cart
     And I should see the order total amount <data>
     Examples:

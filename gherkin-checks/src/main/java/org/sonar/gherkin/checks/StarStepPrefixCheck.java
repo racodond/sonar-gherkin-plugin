@@ -21,7 +21,7 @@ package org.sonar.gherkin.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.plugins.gherkin.api.tree.StepPrefixTree;
+import org.sonar.plugins.gherkin.api.tree.StepTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -36,11 +36,11 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 public class StarStepPrefixCheck extends DoubleDispatchVisitorCheck {
 
   @Override
-  public void visitStepPrefix(StepPrefixTree tree) {
-    if ("*".equals(tree.text())) {
-      addPreciseIssue(tree, "Replace this star prefix with one of the Given/When/Then prefixes.");
+  public void visitStep(StepTree tree) {
+    if (tree.syntacticType() == StepTree.SyntacticStepType.STAR) {
+      addPreciseIssue(tree.prefix(), "Replace this star prefix with one of the Given/When/Then prefixes.");
     }
-    super.visitStepPrefix(tree);
+    super.visitStep(tree);
   }
 
 }

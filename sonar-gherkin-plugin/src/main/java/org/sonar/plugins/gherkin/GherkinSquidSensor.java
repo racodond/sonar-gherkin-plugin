@@ -37,6 +37,7 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.gherkin.checks.ParsingErrorCheck;
+import org.sonar.gherkin.parser.GherkinDialectProvider;
 import org.sonar.gherkin.parser.GherkinParserBuilder;
 import org.sonar.gherkin.visitors.CharsetAwareVisitor;
 import org.sonar.gherkin.visitors.GherkinVisitorContext;
@@ -54,11 +55,11 @@ import org.sonar.squidbridge.ProgressReport;
 import org.sonar.squidbridge.api.AnalysisException;
 
 import javax.annotation.Nullable;
-import java.io.File;
-import java.io.InterruptedIOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
 
 public class GherkinSquidSensor implements Sensor {
 
@@ -66,7 +67,6 @@ public class GherkinSquidSensor implements Sensor {
 
   private final FileSystem fileSystem;
   private final GherkinChecks checks;
-  private final ActionParser<Tree> parser;
   private final FilePredicate mainFilePredicate;
   private IssueSaver issueSaver;
   private RuleKey parsingErrorRuleKey = null;
@@ -81,8 +81,6 @@ public class GherkinSquidSensor implements Sensor {
     this.mainFilePredicate = fileSystem.predicates().and(
       fileSystem.predicates().hasType(Type.MAIN),
       fileSystem.predicates().hasLanguage(GherkinLanguage.KEY));
-
-    this.parser = GherkinParserBuilder.createParser(fileSystem.encoding());
 
     this.checks = GherkinChecks.createGherkinChecks(checkFactory)
       .addChecks(GherkinRulesDefinition.REPOSITORY_KEY, GherkinRulesDefinition.getChecks())
@@ -128,6 +126,7 @@ public class GherkinSquidSensor implements Sensor {
 
   private List<Issue> analyzeFile(SensorContext sensorContext, InputFile inputFile, List<TreeVisitor> visitors) {
     try {
+      ActionParser<Tree> parser = GherkinParserBuilder.createParser(fileSystem.encoding(), getFileLanguage(inputFile));
       GherkinDocumentTree gherkinDocument = (GherkinDocumentTree) parser.parse(new File(inputFile.absolutePath()));
       return scanFile(inputFile, gherkinDocument, visitors);
 
@@ -208,6 +207,19 @@ public class GherkinSquidSensor implements Sensor {
     Throwable cause = Throwables.getRootCause(e);
     if (cause instanceof InterruptedException || cause instanceof InterruptedIOException) {
       throw new AnalysisException("Analysis cancelled", e);
+    }
+  }
+
+  private String getFileLanguage(InputFile inputFile) {
+    try (BufferedReader br = new BufferedReader(new FileReader(inputFile.file()))) {
+      Matcher matcher = GherkinDialectProvider.LANGUAGE_DECLARATION_PATTERN.matcher(br.readLine());
+      if (matcher.find()) {
+        return matcher.group(1);
+      } else {
+        return GherkinDialectProvider.DEFAULT_LANGUAGE;
+      }
+    } catch (IOException e) {
+      throw new IllegalStateException("Cannot determine language of file " + inputFile.absolutePath(), e);
     }
   }
 

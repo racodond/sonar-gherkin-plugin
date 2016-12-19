@@ -17,21 +17,12 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.sonar.gherkin.checks;
+package org.sonar.plugins.gherkin.api.tree;
 
-import org.junit.Test;
-import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
+public interface Prefixable {
 
-public class AllStepTypesInScenarioCheckTest {
+  PrefixTree prefix();
 
-  @Test
-  public void test_without_background() {
-    GherkinCheckVerifier.verify(new AllStepTypesInScenarioCheck(), CheckTestUtils.getTestFile("all-step-types-in-scenario/without-background.feature"));
-  }
-
-  @Test
-  public void test_with_background() {
-    GherkinCheckVerifier.verify(new AllStepTypesInScenarioCheck(), CheckTestUtils.getTestFile("all-step-types-in-scenario/with-background.feature"));
-  }
+  SyntaxToken colon();
 
 }

@@ -51,7 +51,7 @@ public class OneSingleWhenPerScenarioCheck extends SubscriptionVisitorCheck {
   public void visitNode(Tree tree) {
     List<StepTree> whenSteps = ((BasicScenarioTree) tree).steps()
       .stream()
-      .filter(s -> s.type() == StepTree.StepType.WHEN)
+      .filter(s -> s.semanticType() == StepTree.SemanticStepType.WHEN)
       .collect(Collectors.toList());
 
     if (whenSteps.size() > 1) {

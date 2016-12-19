@@ -56,18 +56,17 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
 
   /**
    * Check issues
+   * Example:
+   * <pre>
+   * GherkinCheckVerifier.issues(new MyCheck(), myFile)
+   *   .next().atLine(2).withMessage("This is message for line 2.")
+   *   .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
+   *   .next().atLine(8)
+   *   .noMore();
+   * </pre>
    *
    * @param check Check to test
    * @param file  File to test
-   *              <p>
-   *              Example:
-   *              <pre>
-   *                             GherkinCheckVerifier.issues(new MyCheck(), myFile)
-   *                               .next().atLine(2).withMessage("This is message for line 2.")
-   *                               .next().atLine(3).withMessage("This is message for line 3.").withCost(2.)
-   *                               .next().atLine(8)
-   *                               .noMore();
-   *                           </pre>
    */
   public static CheckMessagesVerifier issues(GherkinCheck check, File file) {
     return issues(check, file, Charsets.UTF_8);
@@ -123,7 +122,7 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   public static void verify(GherkinCheck check, File file, Charset charset) {
-    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createParser(charset).parse(file);
+    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset).parse(file);
     GherkinVisitorContext context = new GherkinVisitorContext(propertiesTree, file);
 
     GherkinCheckVerifier checkVerifier = new GherkinCheckVerifier();

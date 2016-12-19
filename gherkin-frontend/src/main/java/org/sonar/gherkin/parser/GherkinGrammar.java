@@ -37,6 +37,7 @@ public class GherkinGrammar {
     return b.<GherkinDocumentTree>nonterminal(GherkinLexicalGrammar.GHERKIN_DOCUMENT).is(
       f.gherkinDocument(
         b.optional(b.token(GherkinLexicalGrammar.BOM)),
+        b.optional(b.token(GherkinLexicalGrammar.LANGUAGE)),
         b.optional(FEATURE()),
         b.token(GherkinLexicalGrammar.EOF)));
   }

@@ -23,9 +23,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.languagetool.JLanguageTool;
-import org.languagetool.language.AmericanEnglish;
-import org.languagetool.language.BritishEnglish;
-import org.languagetool.language.English;
+import org.languagetool.Languages;
 import org.languagetool.rules.spelling.SpellingCheckRule;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -53,11 +51,18 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   private static final String DEFAULT_WORDS_TO_IGNORE = "";
   private static final String DEFAULT_RULES_TO_IGNORE = "EN_QUOTES";
 
-  private static final String EN_US_LANGUAGE = "en_US";
-  private static final String EN_GB_LANGUAGE = "en_GB";
+  private static final String DEFAULT_LANGUAGE = "en-US";
+  private static final Set<String> SUPPORTED_LANGUAGES = ImmutableSet.of("ast-ES", "be-BY", "br-FR", "ca-ES",
+    "ca-ES-valencia", "da-DK", "de", "de-AT", "de-CH", "de-DE", "de-DE-x-simple-language", "el-GR", "en", "en-AU",
+    "en-CA", "en-GB", "en-NZ", "en-US", "en-ZA", "eo", "es", "fa", "fr", "gl-ES", "is-IS", "it", "ja-JP", "km-KH",
+    "lt-LT", "ml-IN", "nl", "pl-PL", "pt", "pt-BR", "pt-PT", "ro-RO", "ru-RU", "sk-SK", "sl-SI", "sv", "ta-IN",
+    "tl-PH", "uk-UA", "zh-CN");
 
-  private static final String DEFAULT_LANGUAGE = EN_US_LANGUAGE;
-  private static final Set<String> SUPPORTED_LANGUAGES = ImmutableSet.of(EN_US_LANGUAGE, EN_GB_LANGUAGE);
+  private static final String SUPPORTED_LANGUAGES_AS_STRING = "ast-ES, be-BY, br-FR, ca-ES, ca-ES-valencia, da-DK, "
+    + "de, de-AT, de-CH, de-DE, de-DE-x-simple-language, el-GR, en, en-AU, en-CA, en-GB, en-NZ, en-US, en-ZA, eo, "
+    + "es, fa, fr, gl-ES, is-IS, it, ja-JP, km-KH, lt-LT, ml-IN, nl, pl-PL, pt, pt-BR, pt-PT, ro-RO, ru-RU, sk-SK, "
+    + "sl-SI, sv, ta-IN, tl-PH, uk-UA, zh-CN";
+
   private JLanguageTool languageTool;
 
   @RuleProperty(
@@ -74,7 +79,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
 
   @RuleProperty(
     key = "language",
-    description = "The language to be applied by the spell checker. Supported values are: '" + EN_US_LANGUAGE + "', '" + EN_GB_LANGUAGE + "'.",
+    description = "The language of the feature files. Supported values are: " + SUPPORTED_LANGUAGES_AS_STRING,
     defaultValue = DEFAULT_LANGUAGE)
   private String language = DEFAULT_LANGUAGE;
 
@@ -106,8 +111,8 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
           token,
           m.getFromPos(),
           m.getToPos(),
-          "[" + m.getRule().getId() + "] " + m.getMessage()
-            + ". Suggested correction(s): " + m.getSuggestedReplacements() + "."));
+          "[" + m.getRule().getId() + "] " + m.getMessage() + "."
+            + (!m.getSuggestedReplacements().isEmpty() ? " Suggested correction(s): " + m.getSuggestedReplacements() + "." : "")));
 
     } catch (IOException e) {
       throw new IllegalStateException("Spell checker failed", e);
@@ -115,22 +120,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   }
 
   private JLanguageTool createLanguageTool() {
-    English dictionary;
-
-    switch (language) {
-      case EN_US_LANGUAGE:
-        dictionary = new AmericanEnglish();
-        break;
-
-      case EN_GB_LANGUAGE:
-        dictionary = new BritishEnglish();
-        break;
-
-      default:
-        throw new IllegalStateException("Unsupported spell check language: " + language);
-    }
-
-    JLanguageTool jLanguageTool = new JLanguageTool(dictionary);
+    JLanguageTool jLanguageTool = new JLanguageTool(Languages.getLanguageForShortName(language));
 
     Arrays.stream(rulesToIgnore.split(",")).forEach(jLanguageTool::disableRule);
 
@@ -152,7 +142,7 @@ public class SpellingCheck extends SubscriptionVisitorCheck {
   private String languageParamErrorMessage() {
     return CheckUtils.paramErrorMessage(
       this.getClass(),
-      "language parameter \"" + language + "\" is not valid. Allowed values are '" + EN_US_LANGUAGE + "' and '" + EN_GB_LANGUAGE + "'.");
+      "language parameter \"" + language + "\" is not valid. Allowed values are: " + SUPPORTED_LANGUAGES_AS_STRING);
   }
 
   @VisibleForTesting
