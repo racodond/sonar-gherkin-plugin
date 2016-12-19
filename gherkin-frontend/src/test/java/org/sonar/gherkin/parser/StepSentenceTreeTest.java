@@ -39,16 +39,6 @@ public class StepSentenceTreeTest extends GherkinTreeTest {
     checkParsed("abc\\\\n def \n", "abc\\\\n def");
   }
 
-  @Test
-  public void notStepSentence() throws Exception {
-    checkNotParsed("Given abc\n");
-    checkNotParsed("When abc\n");
-    checkNotParsed("Then abc\n");
-    checkNotParsed("And abc\n");
-    checkNotParsed("But abc\n");
-    checkNotParsed("* abc\n");
-  }
-
   private void checkParsed(String toParse, String expected) {
     SyntaxToken token = (SyntaxToken) parser().parse(toParse);
     assertThat(token).isNotNull();

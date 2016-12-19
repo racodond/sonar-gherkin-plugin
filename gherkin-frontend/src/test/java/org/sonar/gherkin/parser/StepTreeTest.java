@@ -34,40 +34,42 @@ public class StepTreeTest extends GherkinTreeTest {
   public void step() throws Exception {
     StepTree tree;
 
-    checkParsed("Given I am a customer", "Given", "I am a customer");
-    checkParsed(" Given I am a customer", "Given", "I am a customer");
-    checkParsed(" Given I am a customer ", "Given", "I am a customer ");
+    checkParsed("Given I am a customer", "Given ", "I am a customer");
+    checkParsed(" Given I am a customer", "Given ", "I am a customer");
+    checkParsed(" Given I am a customer ", "Given ", "I am a customer ");
 
-    checkParsed("When I add a product to my cart", "When", "I add a product to my cart");
-    checkParsed(" When I add a product to my cart", "When", "I add a product to my cart");
-    checkParsed(" When I add a product to my cart ", "When", "I add a product to my cart ");
+    checkParsed("When I add a product to my cart", "When ", "I add a product to my cart");
+    checkParsed(" When I add a product to my cart", "When ", "I add a product to my cart");
+    checkParsed(" When I add a product to my cart ", "When ", "I add a product to my cart ");
 
-    checkParsed("Then I should see the product in my cart", "Then", "I should see the product in my cart");
-    checkParsed(" Then I should see the product in my cart", "Then", "I should see the product in my cart");
-    checkParsed(" Then I should see the product in my cart ", "Then", "I should see the product in my cart ");
+    checkParsed("Then I should see the product in my cart", "Then ", "I should see the product in my cart");
+    checkParsed(" Then I should see the product in my cart", "Then ", "I should see the product in my cart");
+    checkParsed(" Then I should see the product in my cart ", "Then ", "I should see the product in my cart ");
 
-    checkParsed("* I should see the product in my cart", "*", "I should see the product in my cart");
-    checkParsed(" * I should see the product in my cart", "*", "I should see the product in my cart");
-    checkParsed(" * I should see the product in my cart ", "*", "I should see the product in my cart ");
+    checkParsed("* I should see the product in my cart", "* ", "I should see the product in my cart");
+    checkParsed(" * I should see the product in my cart", "* ", "I should see the product in my cart");
+    checkParsed(" * I should see the product in my cart ", "* ", "I should see the product in my cart ");
 
-    tree = checkParsed("Given I am a customer:\n\"\"\"\nblabla...\nblabla...\n\"\"\"", "Given", "I am a customer:");
+    tree = checkParsed("Given I am a customer:\n\"\"\"\nblabla...\nblabla...\n\"\"\"", "Given ", "I am a customer:");
     assertThat(tree.table()).isNull();
     assertThat(tree.docString()).isNotNull();
     assertThat(tree.docString().data()).hasSize(2);
 
-    tree = checkParsed("Given I am a customer:\n| abc |\n|2|", "Given", "I am a customer:");
+    tree = checkParsed("Given I am a customer:\n| abc |\n|2|", "Given ", "I am a customer:");
     assertThat(tree.table()).isNotNull();
     assertThat(tree.docString()).isNull();
     assertThat(tree.table().rows()).hasSize(2);
 
-    tree = checkParsed("Given a < b", "Given", "a < b");
+    tree = checkParsed("Given a < b", "Given ", "a < b");
     assertThat(tree.variables()).hasSize(0);
 
-    tree = checkParsed("Given blabla... <abc>zzz blabla...<def>", "Given", "blabla... <abc>zzz blabla...<def>");
+    tree = checkParsed("Given blabla... <abc>zzz blabla...<def>", "Given ", "blabla... <abc>zzz blabla...<def>");
     assertThat(tree.variables()).hasSize(2);
     assertThat(tree.variables().contains("abc")).isTrue();
     assertThat(tree.variables().contains("def")).isTrue();
     assertThat(tree.variables().contains("zzz")).isFalse();
+
+    checkParsed("Given  I am a customer", "Given ", " I am a customer");
   }
 
   @Test

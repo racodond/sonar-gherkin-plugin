@@ -29,33 +29,38 @@ public class StepPrefixTreeTest extends PrefixTreeTest {
 
   @Test
   public void stepPrefix() throws Exception {
-    checkParsed("Given", "Given");
-    checkParsed(" Given", "Given");
-    checkParsed("When", "When");
-    checkParsed(" When", "When");
-    checkParsed("Then", "Then");
-    checkParsed(" Then", "Then");
-    checkParsed("*", "*");
-    checkParsed(" *", "*");
-    checkParsed("And", "And");
-    checkParsed(" And", "And");
-    checkParsed("But", "But");
-    checkParsed(" But", "But");
+    checkParsed("Given ", "Given ");
+    checkParsed(" Given ", "Given ");
+    checkParsed("When ", "When ");
+    checkParsed(" When ", "When ");
+    checkParsed("Then ", "Then ");
+    checkParsed(" Then ", "Then ");
+    checkParsed("* ", "* ");
+    checkParsed(" * ", "* ");
+    checkParsed("And ", "And ");
+    checkParsed(" And ", "And ");
+    checkParsed("But ", "But ");
+    checkParsed(" But ", "But ");
   }
 
   @Test
   public void notStepPrefix() throws Exception {
-    checkNotParsed("given");
-    checkNotParsed("GIVEN");
-    checkNotParsed("when");
-    checkNotParsed("WHEN");
-    checkNotParsed("then");
-    checkNotParsed("THEN");
-    checkNotParsed("but");
-    checkNotParsed("BUT");
-    checkNotParsed("and");
-    checkNotParsed("AND");
-    checkNotParsed("blabla");
+    checkNotParsed("Given");
+    checkNotParsed("given ");
+    checkNotParsed("GIVEN ");
+    checkNotParsed("When");
+    checkNotParsed("when ");
+    checkNotParsed("WHEN ");
+    checkNotParsed("Then");
+    checkNotParsed("then ");
+    checkNotParsed("THEN ");
+    checkNotParsed("But");
+    checkNotParsed("but ");
+    checkNotParsed("BUT ");
+    checkNotParsed("And");
+    checkNotParsed("and ");
+    checkNotParsed("AND ");
+    checkNotParsed("blabla ");
   }
 
 }

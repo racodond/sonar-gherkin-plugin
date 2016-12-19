@@ -58,7 +58,6 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       Tree.Kind.SCENARIO,
       Tree.Kind.SCENARIO_OUTLINE,
       Tree.Kind.EXAMPLES,
-      Tree.Kind.STEP,
       Tree.Kind.FEATURE_PREFIX,
       Tree.Kind.BACKGROUND_PREFIX,
       Tree.Kind.SCENARIO_PREFIX,
@@ -90,8 +89,6 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       checkAllDocStringsIndentation((DocStringTree) tree);
     } else if (tree.is(Tree.Kind.TABLE)) {
       checkAllTablesIndentation((TableTree) tree);
-    } else if (tree.is(Tree.Kind.STEP)) {
-      checkAllStepSentencesIndentation((StepTree) tree);
     }
 
   }
@@ -210,13 +207,6 @@ public class IndentationCheck extends SubscriptionVisitorCheck {
       && columnTree.endColumn() + 1 != nameTree.value().column()) {
       PreciseIssue issue = addPreciseIssue(nameTree, "Leave one single whitespace between the name and the column.");
       issue.secondary(columnTree, "");
-    }
-  }
-
-  private void checkAllStepSentencesIndentation(StepTree tree) {
-    if (tree.prefix().keyword().endColumn() + 1 != tree.sentence().value().column()) {
-      PreciseIssue issue = addPreciseIssue(tree.sentence(), "Leave one single whitespace between the sentence and the prefix.");
-      issue.secondary(tree.prefix(), "");
     }
   }
 

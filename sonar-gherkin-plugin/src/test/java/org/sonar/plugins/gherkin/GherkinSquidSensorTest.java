@@ -83,6 +83,30 @@ public class GherkinSquidSensorTest {
   }
 
   @Test
+  public void should_execute_and_compute_valid_measures_on_UTF8_file_french() {
+    String relativePath = "my-feature-fr.feature";
+    inputFile(relativePath, Charsets.UTF_8);
+    createGherkinSquidSensor().execute(context);
+    assertMeasureFr("moduleKey:" + relativePath);
+  }
+
+  @Test
+  public void should_execute_and_compute_valid_measures_on_UTF8_with_BOM_file_french() {
+    String relativePath = "my-feature-bom-fr.feature";
+    inputFile(relativePath, Charsets.UTF_8);
+    createGherkinSquidSensor().execute(context);
+    assertMeasureFr("moduleKey:" + relativePath);
+  }
+
+  private void assertMeasureFr(String key) {
+    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(10);
+    assertThat(context.measure(key, CoreMetrics.STATEMENTS).value()).isEqualTo(6);
+    assertThat(context.measure(key, CoreMetrics.COMMENT_LINES).value()).isEqualTo(2);
+    assertThat(context.measure(key, CoreMetrics.FUNCTIONS).value()).isEqualTo(2);
+    assertThat(context.measure(key, CoreMetrics.CLASSES).value()).isEqualTo(1);
+  }
+
+  @Test
   public void should_execute_and_save_issues_on_UTF8_with_BOM_file() {
     inputFile("my-feature-bom.feature", Charsets.UTF_8);
 
@@ -102,6 +126,40 @@ public class GherkinSquidSensorTest {
   @Test
   public void should_execute_and_save_issues_on_UTF8_file() {
     inputFile("my-feature.feature", Charsets.UTF_8);
+
+    ActiveRules activeRules = (new ActiveRulesBuilder())
+      .create(RuleKey.of(GherkinRulesDefinition.REPOSITORY_KEY, CommentConventionCheck.class.getAnnotation(Rule.class).key()))
+      .activate()
+      .create(RuleKey.of(GherkinRulesDefinition.REPOSITORY_KEY, MissingNewlineAtEndOfFileCheck.class.getAnnotation(Rule.class).key()))
+      .activate()
+      .build();
+    checkFactory = new CheckFactory(activeRules);
+
+    createGherkinSquidSensor().execute(context);
+
+    assertThat(context.allIssues()).hasSize(3);
+  }
+
+  @Test
+  public void should_execute_and_save_issues_on_UTF8_with_BOM_file_french() {
+    inputFile("my-feature-bom-fr.feature", Charsets.UTF_8);
+
+    ActiveRules activeRules = (new ActiveRulesBuilder())
+      .create(RuleKey.of(GherkinRulesDefinition.REPOSITORY_KEY, CommentConventionCheck.class.getAnnotation(Rule.class).key()))
+      .activate()
+      .create(RuleKey.of(GherkinRulesDefinition.REPOSITORY_KEY, MissingNewlineAtEndOfFileCheck.class.getAnnotation(Rule.class).key()))
+      .activate()
+      .build();
+    checkFactory = new CheckFactory(activeRules);
+
+    createGherkinSquidSensor().execute(context);
+
+    assertThat(context.allIssues()).hasSize(3);
+  }
+
+  @Test
+  public void should_execute_and_save_issues_on_UTF8_file_french() {
+    inputFile("my-feature-fr.feature", Charsets.UTF_8);
 
     ActiveRules activeRules = (new ActiveRulesBuilder())
       .create(RuleKey.of(GherkinRulesDefinition.REPOSITORY_KEY, CommentConventionCheck.class.getAnnotation(Rule.class).key()))

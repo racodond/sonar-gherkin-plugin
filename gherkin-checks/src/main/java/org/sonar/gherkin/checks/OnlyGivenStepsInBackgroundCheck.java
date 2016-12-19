@@ -40,7 +40,7 @@ public class OnlyGivenStepsInBackgroundCheck extends DoubleDispatchVisitorCheck 
   public void visitBackground(BackgroundTree tree) {
     tree.steps()
       .stream()
-      .filter(s -> s.type() != StepTree.StepType.GIVEN)
+      .filter(s -> s.semanticType() != StepTree.SemanticStepType.GIVEN)
       .forEach(s -> addPreciseIssue(s, "Move this non-Given step out of Background."));
 
     super.visitBackground(tree);

@@ -112,7 +112,7 @@ public class DuplicatedScenarioNamesCheckTest {
 
   private void scanFile(GherkinCheck check, String fileName) {
     GherkinDocumentTree gherkinDocument = (GherkinDocumentTree) GherkinParserBuilder
-      .createParser(Charsets.UTF_8)
+      .createTestParser(Charsets.UTF_8)
       .parse(getTestFile(fileName));
 
     GherkinVisitorContext context = new GherkinVisitorContext(gherkinDocument, getTestFile(fileName));

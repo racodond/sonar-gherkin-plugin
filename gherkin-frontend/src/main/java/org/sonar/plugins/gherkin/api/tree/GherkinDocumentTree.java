@@ -28,4 +28,8 @@ public interface GherkinDocumentTree extends Tree {
   @Nullable
   FeatureTree feature();
 
+  SyntaxToken languageDeclaration();
+
+  String language();
+
 }

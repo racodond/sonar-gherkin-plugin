@@ -37,7 +37,7 @@ public class StepOfUnknownTypeCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitStep(StepTree tree) {
-    if (tree.type() == StepTree.StepType.UNKNOWN) {
+    if (tree.semanticType() == StepTree.SemanticStepType.UNKNOWN) {
       addPreciseIssue(tree.prefix(), "Update the prefix of this unknown type step.");
     }
     super.visitStep(tree);

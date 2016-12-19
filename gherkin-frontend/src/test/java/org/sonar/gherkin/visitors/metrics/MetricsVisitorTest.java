@@ -53,7 +53,7 @@ public class MetricsVisitorTest {
 
     TreeVisitorContext treeVisitorContext = mock(TreeVisitorContext.class);
     when(treeVisitorContext.getFile()).thenReturn(inputFile.file());
-    when(treeVisitorContext.getTopTree()).thenReturn((GherkinDocumentTree) GherkinParserBuilder.createParser(Charsets.UTF_8).parse(inputFile.file()));
+    when(treeVisitorContext.getTopTree()).thenReturn((GherkinDocumentTree) GherkinParserBuilder.createTestParser(Charsets.UTF_8).parse(inputFile.file()));
 
     metricsVisitor.scanTree(treeVisitorContext);
 

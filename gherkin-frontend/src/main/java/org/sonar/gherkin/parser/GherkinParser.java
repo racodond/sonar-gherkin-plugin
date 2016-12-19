@@ -21,6 +21,8 @@ package org.sonar.gherkin.parser;
 
 import com.google.common.collect.Lists;
 import com.sonar.sslr.api.typed.ActionParser;
+import org.sonar.plugins.gherkin.api.tree.BasicScenarioTree;
+import org.sonar.plugins.gherkin.api.tree.GherkinDocumentTree;
 import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
@@ -38,17 +40,39 @@ public class GherkinParser extends ActionParser<Tree> {
 
   @Override
   public Tree parse(File file) {
-    return createParentLink(super.parse(file));
+    Tree tree = super.parse(file);
+    addParentLink(tree);
+
+    if (tree.is(Tree.Kind.GHERKIN_DOCUMENT)) {
+      addStepType(tree, ((GherkinDocumentTree) tree).language());
+    }
+
+    return tree;
   }
 
-  private static Tree createParentLink(Tree parent) {
+  private static Tree addParentLink(Tree parent) {
     if (!parent.isLeaf()) {
       Lists.newArrayList(parent.childrenIterator())
         .stream()
         .filter(Objects::nonNull)
         .forEach(nextTree -> {
           nextTree.setParent(parent);
-          createParentLink(nextTree);
+          addParentLink(nextTree);
+        });
+    }
+    return parent;
+  }
+
+  private static Tree addStepType(Tree parent, String language) {
+    if (!parent.isLeaf()) {
+      Lists.newArrayList(parent.childrenIterator())
+        .stream()
+        .filter(Objects::nonNull)
+        .forEach(nextTree -> {
+          if (nextTree instanceof BasicScenarioTree) {
+            ((BasicScenarioTree) nextTree).setStepTypes(language);
+          }
+          addStepType(nextTree, language);
         });
     }
     return parent;

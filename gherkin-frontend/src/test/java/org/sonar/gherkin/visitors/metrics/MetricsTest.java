@@ -33,14 +33,14 @@ public class MetricsTest {
   @Test
   public void metrics_UTF8_file() {
     String path = "src/test/resources/metrics/metrics.feature";
-    Tree tree = GherkinParserBuilder.createParser(Charsets.UTF_8).parse(new File(path));
+    Tree tree = GherkinParserBuilder.createTestParser(Charsets.UTF_8).parse(new File(path));
     assertMetrics(tree);
   }
 
   @Test
   public void metrics_UTF8_file_with_BOM() {
     String path = "src/test/resources/metrics/metrics-bom.feature";
-    Tree tree = GherkinParserBuilder.createParser(Charsets.UTF_8).parse(new File(path));
+    Tree tree = GherkinParserBuilder.createTestParser(Charsets.UTF_8).parse(new File(path));
     assertMetrics(tree);
   }
 

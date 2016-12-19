@@ -25,4 +25,6 @@ public interface BasicScenarioTree extends Tree, Nameable, Descriptionable, Pref
 
   List<StepTree> steps();
 
+  void setStepTypes(String language);
+
 }

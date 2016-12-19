@@ -37,7 +37,8 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   private DocStringTree docString;
   private TableTree table;
   private Set<String> variables;
-  private StepType type;
+  private SemanticStepType semanticType;
+  private SyntacticStepType syntacticType;
 
   public StepTreeImpl(PrefixTree prefix, StepSentenceTree sentence, @Nullable Tree data) {
     this.prefix = prefix;
@@ -68,13 +69,23 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
   }
 
   @Override
-  public StepType type() {
-    return type;
+  public SyntacticStepType syntacticType() {
+    return syntacticType;
   }
 
   @Override
-  public void setType(StepType type) {
-    this.type = type;
+  public SemanticStepType semanticType() {
+    return semanticType;
+  }
+
+  @Override
+  public void setSyntacticType(SyntacticStepType type) {
+    this.syntacticType = type;
+  }
+
+  @Override
+  public void setSemanticType(SemanticStepType type) {
+    this.semanticType = type;
   }
 
   @Override

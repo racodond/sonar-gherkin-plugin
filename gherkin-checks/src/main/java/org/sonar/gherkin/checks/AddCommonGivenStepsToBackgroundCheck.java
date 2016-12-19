@@ -78,10 +78,10 @@ public class AddCommonGivenStepsToBackgroundCheck extends DoubleDispatchVisitorC
 
     search:
     for (int i = 0; i < allSteps.get(0).size(); i++) {
-      if (allSteps.get(0).get(i).type() == StepTree.StepType.GIVEN) {
+      if (allSteps.get(0).get(i).semanticType() == StepTree.SemanticStepType.GIVEN) {
         for (int j = 1; j < allSteps.size(); j++) {
           if (allSteps.get(j).size() <= i
-            || allSteps.get(j).get(i).type() != StepTree.StepType.GIVEN
+            || allSteps.get(j).get(i).semanticType() != StepTree.SemanticStepType.GIVEN
             || !allSteps.get(j).get(i).sentence().text().equals(allSteps.get(0).get(i).sentence().text())) {
             break search;
           }

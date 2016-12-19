@@ -28,49 +28,32 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class GherkinDocumentTreeTest extends GherkinTreeTest {
+public class GherkinDocumentTreeFrTest extends GherkinTreeTest {
 
-  public GherkinDocumentTreeTest() {
-    super(GherkinLexicalGrammar.GHERKIN_DOCUMENT);
+  public GherkinDocumentTreeFrTest() {
+    super(GherkinLexicalGrammar.GHERKIN_DOCUMENT, "fr");
   }
 
   @Test
-  public void gherkinDocument() throws Exception {
+  public void gherkinDocumentFr() throws Exception {
     GherkinDocumentTree tree;
 
-    tree = checkParsed(new File("src/test/resources/parser/empty.feature"));
-    assertThat(tree.feature()).isNull();
-    assertThat(tree.languageDeclaration()).isNull();
-    assertThat(tree.language()).isEqualTo("en");
-
-    tree = checkParsed(new File("src/test/resources/parser/parse.feature"));
+    tree = checkParsed(new File("src/test/resources/parser/parse-fr.feature"));
     assertThat(tree.hasByteOrderMark()).isEqualTo(false);
     assertThat(tree.feature()).isNotNull();
     assertThat(tree.feature().scenarioOutlines()).hasSize(1);
     assertThat(tree.feature().scenarios()).hasSize(2);
     assertThat(tree.feature().background()).isNotNull();
-    assertThat(tree.languageDeclaration()).isNull();
-    assertThat(tree.language()).isEqualTo("en");
-
-    tree = checkParsed(new File("src/test/resources/parser/parse-bom.feature"));
-    assertThat(tree.hasByteOrderMark()).isEqualTo(true);
-    assertThat(tree.feature()).isNotNull();
-    assertThat(tree.feature().scenarioOutlines()).hasSize(1);
-    assertThat(tree.feature().scenarios()).hasSize(2);
-    assertThat(tree.feature().background()).isNotNull();
-    assertThat(tree.languageDeclaration()).isNull();
-    assertThat(tree.language()).isEqualTo("en");
-  }
-
-  @Test
-  public void notGherkinDocument() throws Exception {
-    checkNotParsed(new File("src/test/resources/parser/two-backgrounds.feature"));
+    assertThat(tree.languageDeclaration()).isNotNull();
+    assertThat(tree.language()).isEqualTo("fr");
   }
 
   private GherkinDocumentTree checkParsed(File file) throws Exception {
     GherkinDocumentTree tree = (GherkinDocumentTree) parser().parse(Files.toString(file, Charsets.UTF_8));
     assertThat(tree).isNotNull();
+    assertThat(tree.languageDeclaration()).isNotNull();
     assertThat(tree.language()).isNotNull();
+    assertThat(tree.language()).isEqualTo("fr");
     return tree;
   }
 

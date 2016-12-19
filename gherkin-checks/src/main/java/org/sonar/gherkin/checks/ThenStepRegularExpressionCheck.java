@@ -47,7 +47,7 @@ public class ThenStepRegularExpressionCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitStep(StepTree tree) {
-    if (tree.type() == StepTree.StepType.THEN
+    if (tree.semanticType() == StepTree.SemanticStepType.THEN
       && !tree.sentence().text().matches(regularExpression)) {
       addPreciseIssue(tree.sentence(), "Update the sentence to match the following regular expression: " + regularExpression);
     }

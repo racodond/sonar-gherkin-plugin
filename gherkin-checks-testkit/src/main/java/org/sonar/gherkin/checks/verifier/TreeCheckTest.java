@@ -43,7 +43,7 @@ class TreeCheckTest {
   public static Collection<CheckMessage> getIssues(String relativePath, GherkinCheck check, Charset charset) {
     File file = new File(relativePath);
 
-    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createParser(charset).parse(file);
+    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset).parse(file);
     GherkinVisitorContext context = new GherkinVisitorContext(propertiesTree, file);
     List<Issue> issues = check.scanFile(context);
 

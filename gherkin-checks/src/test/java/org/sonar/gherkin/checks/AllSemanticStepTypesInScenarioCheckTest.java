@@ -22,7 +22,7 @@ package org.sonar.gherkin.checks;
 import org.junit.Test;
 import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
 
-public class AllStepTypesInScenarioCheckTest {
+public class AllSemanticStepTypesInScenarioCheckTest {
 
   @Test
   public void test_without_background() {
