@@ -40,6 +40,10 @@ public class GherkinParserBuilder {
     return createParser(charset, rootRule, GherkinDialectProvider.DEFAULT_LANGUAGE);
   }
 
+  public static GherkinParser createTestParser(Charset charset, String language) {
+    return createParser(charset, GherkinLexicalGrammar.GHERKIN_DOCUMENT, language);
+  }
+
   public static GherkinParser createTestParser(Charset charset) {
     return createParser(charset, GherkinLexicalGrammar.GHERKIN_DOCUMENT, GherkinDialectProvider.DEFAULT_LANGUAGE);
   }
