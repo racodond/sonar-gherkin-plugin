@@ -24,6 +24,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
+import org.sonar.gherkin.parser.GherkinDialectProvider;
 import org.sonar.gherkin.parser.GherkinParserBuilder;
 import org.sonar.gherkin.visitors.CharsetAwareVisitor;
 import org.sonar.gherkin.visitors.GherkinVisitorContext;
@@ -81,7 +82,19 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
     if (check instanceof CharsetAwareVisitor) {
       ((CharsetAwareVisitor) check).setCharset(charset);
     }
-    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, charset));
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, charset, GherkinDialectProvider.DEFAULT_LANGUAGE));
+  }
+
+  /**
+   * See {@link GherkinCheckVerifier#issues(GherkinCheck, File)}
+   *
+   * @param language Language of the file to test.
+   */
+  public static CheckMessagesVerifier issues(GherkinCheck check, File file, String language) {
+    if (check instanceof CharsetAwareVisitor) {
+      ((CharsetAwareVisitor) check).setCharset(Charsets.UTF_8);
+    }
+    return CheckMessagesVerifier.verify(TreeCheckTest.getIssues(file.getAbsolutePath(), check, Charsets.UTF_8, language));
   }
 
   /**
@@ -113,7 +126,7 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
    * </pre>
    */
   public static void verify(GherkinCheck check, File file) {
-    verify(check, file, Charsets.UTF_8);
+    verify(check, file, Charsets.UTF_8, GherkinDialectProvider.DEFAULT_LANGUAGE);
   }
 
   /**
@@ -122,7 +135,17 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
    * @param charset Charset of the file to test.
    */
   public static void verify(GherkinCheck check, File file, Charset charset) {
-    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset).parse(file);
+    verify(check, file, charset, GherkinDialectProvider.DEFAULT_LANGUAGE);
+  }
+
+  /**
+   * See {@link GherkinCheckVerifier#verify(GherkinCheck, File)}
+   *
+   * @param charset  Charset of the file to test.
+   * @param language Language of the file to test.
+   */
+  public static void verify(GherkinCheck check, File file, Charset charset, String language) {
+    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset, language).parse(file);
     GherkinVisitorContext context = new GherkinVisitorContext(propertiesTree, file);
 
     GherkinCheckVerifier checkVerifier = new GherkinCheckVerifier();
@@ -150,6 +173,15 @@ public class GherkinCheckVerifier extends SubscriptionVisitorCheck {
       Issue issue = actualIssues.next();
       throw new AssertionError("Unexpected issue at line " + line(issue) + ": \"" + message(issue) + "\"");
     }
+  }
+
+  /**
+   * See {@link GherkinCheckVerifier#verify(GherkinCheck, File)}
+   *
+   * @param language Language of the file to test.
+   */
+  public static void verify(GherkinCheck check, File file, String language) {
+    verify(check, file, Charsets.UTF_8, language);
   }
 
   private static Iterator<Issue> getActualIssues(GherkinCheck check, GherkinVisitorContext context) {

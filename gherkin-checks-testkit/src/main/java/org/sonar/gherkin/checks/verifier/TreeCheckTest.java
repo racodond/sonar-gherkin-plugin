@@ -40,10 +40,10 @@ class TreeCheckTest {
   private TreeCheckTest() {
   }
 
-  public static Collection<CheckMessage> getIssues(String relativePath, GherkinCheck check, Charset charset) {
+  public static Collection<CheckMessage> getIssues(String relativePath, GherkinCheck check, Charset charset, String language) {
     File file = new File(relativePath);
 
-    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset).parse(file);
+    GherkinDocumentTree propertiesTree = (GherkinDocumentTree) GherkinParserBuilder.createTestParser(charset, language).parse(file);
     GherkinVisitorContext context = new GherkinVisitorContext(propertiesTree, file);
     List<Issue> issues = check.scanFile(context);
 
