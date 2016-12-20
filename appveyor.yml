@@ -21,10 +21,10 @@ platform:
   - x64
 
 build_script:
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B
+  - mvn clean install -B -DskipTests=true -Dmaven.javadoc.skip=true
 
 test_script:
-  - mvn clean install -B
+  - mvn clean install -B -Djna.nosys=true
   - cd its
-  - mvn -B clean install -Dsonar.runtimeVersion=%SQ_VERSION%
+  - mvn clean install -B -Djna.nosys=true -Dsonar.runtimeVersion=%SQ_VERSION%
 
