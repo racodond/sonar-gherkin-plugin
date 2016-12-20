@@ -32,12 +32,12 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import java.util.Set;
 
 @Rule(
-  key = "defined-feature-language",
-  name = "Features should be written in the defined language",
+  key = "same-feature-language",
+  name = "Features should be written in the same language",
   priority = Priority.MAJOR,
   tags = {Tags.DESIGN})
 @SqaleConstantRemediation("30min")
-public class DefinedFeatureLanguageCheck extends DoubleDispatchVisitorCheck {
+public class SameFeatureLanguageCheck extends DoubleDispatchVisitorCheck {
 
   private static final String DEFAULT_LANGUAGE = GherkinDialectProvider.DEFAULT_LANGUAGE;
 

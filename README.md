@@ -49,7 +49,7 @@ Number of features.
  * Duplicated steps should be removed
  * End-line characters should be consistent
  * Examples data table should contain data at least two data rows
- * Features should be written in the defined language
+ * Features should be written in the same language
  * Features should have a description
  * Features should have a name
  * Features should have a unique name
