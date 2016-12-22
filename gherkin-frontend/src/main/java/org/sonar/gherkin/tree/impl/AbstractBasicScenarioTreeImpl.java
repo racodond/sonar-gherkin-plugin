@@ -118,18 +118,18 @@ public abstract class AbstractBasicScenarioTreeImpl extends GherkinTree implemen
 
   private void setSyntacticStepTypes(String language) {
     GherkinDialect dialect = GherkinDialectProvider.getDialect(language);
-    String prefix;
+    String stepPrefix;
     for (StepTree currentStep : steps) {
-      prefix = currentStep.prefix().text();
-      if (dialect.getGivenStepKeywords().contains(prefix)) {
+      stepPrefix = currentStep.prefix().text();
+      if (dialect.getGivenStepKeywords().contains(stepPrefix)) {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.GIVEN);
-      } else if (dialect.getWhenStepKeywords().contains(prefix)) {
+      } else if (dialect.getWhenStepKeywords().contains(stepPrefix)) {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.WHEN);
-      } else if (dialect.getThenStepKeywords().contains(prefix)) {
+      } else if (dialect.getThenStepKeywords().contains(stepPrefix)) {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.THEN);
-      } else if (dialect.getButStepKeywords().contains(prefix)) {
+      } else if (dialect.getButStepKeywords().contains(stepPrefix)) {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.BUT);
-      } else if (dialect.getAndStepKeywords().contains(prefix)) {
+      } else if (dialect.getAndStepKeywords().contains(stepPrefix)) {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.AND);
       } else {
         currentStep.setSyntacticType(StepTree.SyntacticStepType.STAR);

@@ -45,6 +45,9 @@ public class GherkinDialectProvider {
     }
   }
 
+  private GherkinDialectProvider() {
+  }
+
   public static GherkinDialect getDialect(String language) {
     Map<String, List<String>> map = DIALECTS.get(language);
     if (map == null) {
