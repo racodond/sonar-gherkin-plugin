@@ -37,7 +37,7 @@ public class GherkinGrammar {
     return b.<GherkinDocumentTree>nonterminal(GherkinLexicalGrammar.GHERKIN_DOCUMENT).is(
       f.gherkinDocument(
         b.optional(b.token(GherkinLexicalGrammar.BOM)),
-        b.optional(b.token(GherkinLexicalGrammar.LANGUAGE)),
+        b.optional(LANGUAGE_DECLARATION()),
         b.optional(FEATURE()),
         b.token(GherkinLexicalGrammar.EOF)));
   }
@@ -196,6 +196,11 @@ public class GherkinGrammar {
     return b.<TableTree>nonterminal(GherkinLexicalGrammar.TABLE).is(
       f.table(
         b.oneOrMore(b.token(GherkinLexicalGrammar.TABLE_DATA_ROW))));
+  }
+
+  public LanguageDeclarationTree LANGUAGE_DECLARATION() {
+    return b.<LanguageDeclarationTree>nonterminal(GherkinLexicalGrammar.LANGUAGE_DECLARATION).is(
+      f.languageDeclaration(b.token(GherkinLexicalGrammar.LANGUAGE)));
   }
 
 }

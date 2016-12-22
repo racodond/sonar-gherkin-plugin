@@ -64,6 +64,7 @@ public interface Tree {
     DESCRIPTION(DescriptionTree.class),
     TABLE(TableTree.class),
     DOC_STRING(DocStringTree.class),
+    LANGUAGE_DECLARATION(LanguageDeclarationTree.class),
     TOKEN(SyntaxToken.class),
     TRIVIA(SyntaxTrivia.class),
     SPACING(SyntaxSpacing.class);

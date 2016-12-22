@@ -19,16 +19,7 @@
  */
 package org.sonar.plugins.gherkin.api.tree;
 
-import javax.annotation.Nullable;
-
-public interface GherkinDocumentTree extends Tree {
-
-  boolean hasByteOrderMark();
-
-  @Nullable
-  FeatureTree feature();
-
-  LanguageDeclarationTree languageDeclaration();
+public interface LanguageDeclarationTree extends LiteralTree {
 
   String language();
 

@@ -27,7 +27,7 @@ import java.util.List;
 
 public class TreeFactory {
 
-  public GherkinDocumentTree gherkinDocument(Optional<SyntaxToken> byteOrderMark, Optional<SyntaxToken> language, Optional<FeatureTree> feature, SyntaxToken eof) {
+  public GherkinDocumentTree gherkinDocument(Optional<SyntaxToken> byteOrderMark, Optional<LanguageDeclarationTree> language, Optional<FeatureTree> feature, SyntaxToken eof) {
     return new GherkinDocumentTreeImpl(byteOrderMark.orNull(), language.orNull(), feature.orNull(), eof);
   }
 
@@ -113,6 +113,10 @@ public class TreeFactory {
 
   public TableTree table(List<SyntaxToken> rows) {
     return new TableTreeImpl(rows);
+  }
+
+  public LanguageDeclarationTree languageDeclaration(SyntaxToken languageDeclaration) {
+    return new LanguageDeclarationTreeImpl(languageDeclaration);
   }
 
 }

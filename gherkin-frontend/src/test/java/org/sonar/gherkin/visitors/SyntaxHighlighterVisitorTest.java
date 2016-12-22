@@ -136,6 +136,18 @@ public class SyntaxHighlighterVisitorTest {
   }
 
   @Test
+  public void language_declaration1() throws Exception {
+    highlight("# language: ru");
+    assertHighlighting(1, 0, 14, ANNOTATION);
+  }
+
+  @Test
+  public void language_declaration2() throws Exception {
+    highlight("#language: ru");
+    assertHighlighting(1, 0, 13, ANNOTATION);
+  }
+
+  @Test
   public void byte_order_mark() throws Exception {
     highlight("\ufeffFeature: my feature...");
     assertHighlighting(1, 0, 7, KEYWORD);

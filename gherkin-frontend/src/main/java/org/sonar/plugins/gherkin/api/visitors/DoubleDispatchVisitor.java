@@ -144,6 +144,10 @@ public abstract class DoubleDispatchVisitor implements TreeVisitor {
     scanChildren(tree);
   }
 
+  public void visitLanguageDeclaration(LanguageDeclarationTree tree) {
+    scanChildren(tree);
+  }
+
   public void visitToken(SyntaxToken token) {
     for (SyntaxTrivia syntaxTrivia : token.trivias()) {
       syntaxTrivia.accept(this);

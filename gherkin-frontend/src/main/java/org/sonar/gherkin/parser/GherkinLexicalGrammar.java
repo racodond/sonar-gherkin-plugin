@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public enum GherkinLexicalGrammar implements GrammarRuleKey {
   GHERKIN_DOCUMENT,
 
+  LANGUAGE_DECLARATION,
   LANGUAGE,
 
   FEATURE,

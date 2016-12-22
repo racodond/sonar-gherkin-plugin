@@ -44,17 +44,17 @@ public class SyntaxHighlighterVisitor extends SubscriptionVisitor {
 
   @Override
   public List<Tree.Kind> nodesToVisit() {
-    return ImmutableList.<Tree.Kind>builder()
-      .add(Tree.Kind.TAG)
-      .add(Tree.Kind.FEATURE_PREFIX)
-      .add(Tree.Kind.BACKGROUND_PREFIX)
-      .add(Tree.Kind.SCENARIO_PREFIX)
-      .add(Tree.Kind.SCENARIO_OUTLINE_PREFIX)
-      .add(Tree.Kind.EXAMPLES_PREFIX)
-      .add(Tree.Kind.STEP_PREFIX)
-      .add(Tree.Kind.NAME)
-      .add(Tree.Kind.TOKEN)
-      .build();
+    return ImmutableList.of(
+      Tree.Kind.TAG,
+      Tree.Kind.FEATURE_PREFIX,
+      Tree.Kind.BACKGROUND_PREFIX,
+      Tree.Kind.SCENARIO_PREFIX,
+      Tree.Kind.SCENARIO_OUTLINE_PREFIX,
+      Tree.Kind.EXAMPLES_PREFIX,
+      Tree.Kind.STEP_PREFIX,
+      Tree.Kind.NAME,
+      Tree.Kind.LANGUAGE_DECLARATION,
+      Tree.Kind.TOKEN);
   }
 
   @Override
@@ -77,7 +77,8 @@ public class SyntaxHighlighterVisitor extends SubscriptionVisitor {
       tokens.add(((TagTree) tree).value());
       code = TypeOfText.ANNOTATION;
 
-    } else if (tree.is(Tree.Kind.FEATURE_PREFIX,
+    } else if (tree.is(
+      Tree.Kind.FEATURE_PREFIX,
       Tree.Kind.BACKGROUND_PREFIX,
       Tree.Kind.SCENARIO_PREFIX,
       Tree.Kind.SCENARIO_OUTLINE_PREFIX,
@@ -90,6 +91,10 @@ public class SyntaxHighlighterVisitor extends SubscriptionVisitor {
     } else if (tree.is(Tree.Kind.NAME)) {
       tokens.add(((NameTree) tree).value());
       code = TypeOfText.STRING;
+
+    } else if (tree.is(Tree.Kind.LANGUAGE_DECLARATION)) {
+      tokens.add(((LanguageDeclarationTree) tree).value());
+      code = TypeOfText.ANNOTATION;
 
     } else if (tree.is(Tree.Kind.TOKEN)) {
       highlightComments((InternalSyntaxToken) tree);

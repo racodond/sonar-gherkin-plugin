@@ -21,64 +21,54 @@ package org.sonar.gherkin.tree.impl;
 
 import com.google.common.collect.Iterators;
 import org.sonar.gherkin.parser.GherkinDialectProvider;
-import org.sonar.plugins.gherkin.api.tree.*;
+import org.sonar.plugins.gherkin.api.tree.LanguageDeclarationTree;
+import org.sonar.plugins.gherkin.api.tree.SyntaxToken;
+import org.sonar.plugins.gherkin.api.tree.Tree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitor;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
+import java.util.regex.Matcher;
 
-public class GherkinDocumentTreeImpl extends GherkinTree implements GherkinDocumentTree {
+public class LanguageDeclarationTreeImpl extends GherkinTree implements LanguageDeclarationTree {
 
-  private final SyntaxToken byteOrderMark;
-  private final LanguageDeclarationTree languageDeclaration;
-  private final FeatureTree feature;
-  private final SyntaxToken eof;
+  private final SyntaxToken languageDeclaration;
 
-  public GherkinDocumentTreeImpl(@Nullable SyntaxToken byteOrderMark, @Nullable LanguageDeclarationTree languageDeclaration, @Nullable FeatureTree feature, SyntaxToken eof) {
-    this.byteOrderMark = byteOrderMark;
+  public LanguageDeclarationTreeImpl(SyntaxToken languageDeclaration) {
     this.languageDeclaration = languageDeclaration;
-    this.feature = feature;
-    this.eof = eof;
   }
 
   @Override
   public Kind getKind() {
-    return Kind.GHERKIN_DOCUMENT;
+    return Kind.LANGUAGE_DECLARATION;
   }
 
   @Override
   public Iterator<Tree> childrenIterator() {
-    return Iterators.forArray(byteOrderMark, languageDeclaration, feature, eof);
-  }
-
-  @Override
-  public boolean hasByteOrderMark() {
-    return byteOrderMark != null;
-  }
-
-  @Override
-  public LanguageDeclarationTree languageDeclaration() {
-    return languageDeclaration;
+    return Iterators.singletonIterator(languageDeclaration);
   }
 
   @Override
   public String language() {
-    if (languageDeclaration == null) {
-      return GherkinDialectProvider.DEFAULT_LANGUAGE;
-    } else {
-      return languageDeclaration.language();
+    Matcher matcher = GherkinDialectProvider.LANGUAGE_DECLARATION_PATTERN.matcher(languageDeclaration.text());
+    if (matcher.find()) {
+      return matcher.group(1);
     }
+    throw new IllegalStateException("Expected language to be explicitly defined in " + languageDeclaration.text());
   }
 
   @Override
-  @Nullable
-  public FeatureTree feature() {
-    return feature;
+  public SyntaxToken value() {
+    return languageDeclaration;
+  }
+
+  @Override
+  public String text() {
+    return languageDeclaration.text();
   }
 
   @Override
   public void accept(DoubleDispatchVisitor visitor) {
-    visitor.visitGherkinDocument(this);
+    visitor.visitLanguageDeclaration(this);
   }
 
 }
