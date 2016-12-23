@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class GherkinDialectProvider {
 
-  public static final Pattern LANGUAGE_DECLARATION_PATTERN = Pattern.compile("#\\s*language:\\s+([^\\s]+)\\s*");
+  public static final Pattern LANGUAGE_DECLARATION_PATTERN = Pattern.compile("\\s*#\\s*language\\s*:\\s*([-_a-zA-Z]+)\\s*");
   public static final String DEFAULT_LANGUAGE = "en";
 
   private static final Map<String, Map<String, List<String>>> DIALECTS;
