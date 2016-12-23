@@ -169,9 +169,9 @@ public enum GherkinLexicalGrammar implements GrammarRuleKey {
         + "|@|\\|))"
         + trimmedSentence));
 
-    b.rule(DOC_STRING_PREFIX).is(SPACING, "\"\"\"");
-    b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, "\"\"\"");
-    b.rule(DOC_STRING_DATA_ROW).is(SPACING_NO_COMMENTS, b.regexp("^(?!\"\"\").+"));
+    b.rule(DOC_STRING_PREFIX).is(SPACING, b.firstOf("\"\"\"", "```"));
+    b.rule(DOC_STRING_SUFFIX).is(SPACING_NO_COMMENTS, b.firstOf("\"\"\"", "```"));
+    b.rule(DOC_STRING_DATA_ROW).is(SPACING_NO_COMMENTS, b.regexp("^(?!(\"\"\"|```)).+"));
     b.rule(DOC_STRING_CONTENT_TYPE).is(b.regexp(".+"));
 
     b.rule(TABLE_DATA_ROW).is(SPACING, b.regexp("\\|.*\\|"));

@@ -36,6 +36,8 @@ public class DocStringTreeTest extends GherkinTreeTest {
 
     tree = checkParsed("\"\"\"\n\"\"\"");
     assertThat(tree.contentType()).isNull();
+    assertThat(tree.prefix().text()).isEqualTo("\"\"\"");
+    assertThat(tree.suffix().text()).isEqualTo("\"\"\"");
     assertThat(tree.data()).hasSize(0);
 
     tree = checkParsed(" \"\"\"\n \"\"\"");
@@ -63,6 +65,18 @@ public class DocStringTreeTest extends GherkinTreeTest {
     assertThat(tree.contentType()).isNotNull();
     assertThat(tree.contentType().text()).isEqualTo("type");
     assertThat(tree.data()).hasSize(2);
+
+    tree = checkParsed("```\n```");
+    assertThat(tree.contentType()).isNull();
+    assertThat(tree.prefix().text()).isEqualTo("```");
+    assertThat(tree.suffix().text()).isEqualTo("```");
+
+    tree = checkParsed("```string\nblabla...\nblabla...\n```");
+    assertThat(tree.contentType()).isNotNull();
+    assertThat(tree.contentType().text()).isEqualTo("string");
+    assertThat(tree.data()).hasSize(2);
+    assertThat(tree.prefix().text()).isEqualTo("```");
+    assertThat(tree.suffix().text()).isEqualTo("```");
   }
 
   @Test
