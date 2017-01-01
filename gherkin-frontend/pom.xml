@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>gherkin-frontend</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Frontend</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Frontend</name>
 
   <dependencies>
     <dependency>

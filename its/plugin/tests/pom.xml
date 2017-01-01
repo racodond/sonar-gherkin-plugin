@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>gherkin-its-plugin-tests</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Integration Tests :: Plugin :: Tests</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Integration Tests :: Plugin :: Tests</name>
 
   <dependencies>
     <dependency>

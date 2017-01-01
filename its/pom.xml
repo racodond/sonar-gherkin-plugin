@@ -6,14 +6,14 @@
   <parent>
     <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
     <artifactId>gherkin</artifactId>
-    <version>1.3</version>
+    <version>1.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>gherkin-its</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Integration Tests</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Integration Tests</name>
   <packaging>pom</packaging>
 
-  <description>Integration tests of the SonarQube Gherkin Analyzer</description>
+  <description>Integration tests of the SonarQube Cucumber Gherkin Analyzer</description>
   <inceptionYear>2016</inceptionYear>
   <organization>
     <name>David RACODON</name>

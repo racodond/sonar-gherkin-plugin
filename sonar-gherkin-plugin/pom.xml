@@ -12,8 +12,8 @@
   <artifactId>sonar-gherkin-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarQube Gherkin Analyzer :: SonarQube Plugin</name>
-  <description>Enables analysis of Cucumber Gherkin feature files.</description>
+  <name>SonarQube Cucumber Gherkin Analyzer :: SonarQube Plugin</name>
+  <description>Enables analysis of Cucumber Gherkin feature files</description>
   <url>https://github.com/racodond/sonar-gherkin-plugin</url>
 
   <properties>

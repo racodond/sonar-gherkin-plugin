@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>gherkin-its-ruling</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Integration Tests :: Ruling</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Integration Tests :: Ruling</name>
   <packaging>pom</packaging>
 
   <modules>

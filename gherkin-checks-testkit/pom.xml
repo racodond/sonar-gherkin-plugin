@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>gherkin-checks-testkit</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Check Test Toolkit</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Check Test Toolkit</name>
 
   <dependencies>
     <dependency>

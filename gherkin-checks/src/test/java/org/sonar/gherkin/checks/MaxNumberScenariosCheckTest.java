@@ -1,5 +1,5 @@
 /*
- * SonarQube Gherkin Analyzer
+ * SonarQube Cucumber Gherkin Analyzer
  * Copyright (C) 2016-2016 David RACODON
  * david.racodon@gmail.com
  *

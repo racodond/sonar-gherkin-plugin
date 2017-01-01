@@ -14,8 +14,8 @@
   <version>1.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarQube Gherkin Analyzer</name>
-  <description>Enables analysis of Cucumber Gherkin features files in SonarQube</description>
+  <name>SonarQube Cucumber Gherkin Analyzer</name>
+  <description>Enables analysis of Cucumber Gherkin feature files</description>
   <url>https://github.com/racodond/sonar-gherkin-plugin</url>
   <inceptionYear>2016</inceptionYear>
   <organization>
@@ -62,7 +62,7 @@
   </ciManagement>
 
   <properties>
-    <license.title>SonarQube Gherkin Analyzer</license.title>
+    <license.title>SonarQube Cucumber Gherkin Analyzer</license.title>
     <license.owner>David RACODON</license.owner>
     <license.mailto>david.racodon@gmail.com</license.mailto>
     <sonar.version>5.6</sonar.version>

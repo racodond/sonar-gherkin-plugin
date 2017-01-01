@@ -12,7 +12,7 @@
   <artifactId>gherkin-custom-rules-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarQube Gherkin Analyzer :: Integration Tests :: Plugin :: Plugins :: Custom Rules</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Integration Tests :: Plugin :: Plugins :: Custom Rules</name>
 
   <dependencies>
     <dependency>

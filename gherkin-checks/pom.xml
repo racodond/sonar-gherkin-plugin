@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>gherkin-checks</artifactId>
-  <name>SonarQube Gherkin Analyzer :: Checks</name>
+  <name>SonarQube Cucumber Gherkin Analyzer :: Checks</name>
 
   <dependencies>
     <dependency>
