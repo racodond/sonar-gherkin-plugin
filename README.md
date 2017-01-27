@@ -6,24 +6,50 @@ SonarQube Cucumber Gherkin Analyzer
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.racodond.sonarqube.plugin.gherkin:gherkin)](https://sonarqube.com/overview?id=com.racodond.sonarqube.plugin.gherkin%3Agherkin)
 
 ## Description
-This plugin enables code QA analysis of [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) within [SonarQube](http://www.sonarqube.org):
+This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) and:
 
- * Computes metrics: lines of code, comments lines, etc.
- * Performs more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
- * Provide the ability to write your own checks
+ * Computes metrics: lines of code, number of scenarios, etc.
+ * Checks various guidelines to find out code smells and potential bugs through more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
+ * Provides the ability to write your own checks
  
 ## Demo
- 
- * [Demo project](http://sonarqube.racodond.com/dashboard/index?id=gherkin-sample-project)
+ * [Simple Demo project](http://sonarqube.racodond.com/dashboard/index?id=gherkin-sample-project)
  * Real life project: [Diaspora](http://sonarqube.racodond.com/dashboard?id=diaspora)
 
 ## Usage
-
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
 1. Install the Cucumber Gherkin analyzer either by a [direct download](https://github.com/racodond/sonar-gherkin-plugin/releases) or through the [Update Center](http://docs.sonarqube.org/display/SONAR/Update+Center).
 1. [Install your favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that Java 8 is required to run an analysis.
 
 Plugin versions and compatibility with SonarQube versions: [http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix](http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix)
+
+### Maven
+
+It is likely that your feature files are not located in source code directories but in test directories. By default, SonarQube doesn't analyze those test directories. Thus, you have to explicitly tell SonarQube to also analyze the test directories containing your feature files.
+
+Let's say that the structure of your project is:
+```                
+pom.xml
+src
+  |-- main
+        |-- java
+        |-- resources
+  |-- test
+        |-- java
+        |-- resources
+              |-- features
+                    |-- my-feature.feature
+                    |-- my-other-feature.feature
+                                   
+                
+```         
+
+In you POM file, you would need to add:
+```             
+<properties>
+  <sonar.sources>pom.xml,src/main/java,src/main/resources,src/test/resources/features</sonar.sources>
+</properties>  
+```
 
 ## Metrics
 
@@ -37,65 +63,17 @@ Number of scenarios and scenario outlines.
 Number of features.
 
 
-## Available Checks
-
-### Standard
- * "FIXME" tags should be handled
- * "TODO" tags should be handled
- * All comments should be formatted consistently
- * And and But prefixes should be used instead of redundant Given/When/Then prefixes
- * Byte Order Mark (BOM) should not be used for UTF-8 files
- * Common Given steps should be added to Background
- * Duplicated steps should be removed
- * End-line characters should be consistent
- * Examples data table should contain data at least two data rows
- * Features should be written in the same language
- * Features should have a description
- * Features should have a name
- * Features should have a unique name
- * Features should not contain too many scenarios
- * Features that do not define any scenario should be removed
- * File names should comply with a naming convention
- * Files should contain an empty new line at the end
- * Files that do not define any feature should be removed
- * Gherkin parser failure
- * Given steps should follow a regular expression
- * Given/When/Then steps should be defined in the right order
- * Lines should not end with trailing whitespaces
- * Missing data table columns should be added
- * Non-Given steps should be moved out of Background
- * Only tags from the whitelist should be used
- * Scenarios should define at least one of each Given/When/Then step type
- * Scenarios should have a name
- * Scenarios should have a unique name
- * Scenarios should not contain too many steps
- * Scenarios that do not define any step should be removed
- * Source code should be properly indented
- * Spelling mistakes should be fixed
- * Star (*) step prefixes should not be used
- * Step sentences should not be too long
- * Steps of unknown type should not be used
- * Tabulation characters should not be used
- * Tags should be defined at the right level
- * Tags should comply with a naming convention
- * Tags should not be set on Examples
- * Then steps should follow a regular expression
- * There should be one single When step per scenario
- * Unused variables should be removed
- * Useless tags should be removed
- * When steps should follow a regular expression
- * Wording should remain at business level
-
- 
-### Template
-
- * Regular expression on comment
-
-
 ## Custom Checks
-
 You're thinking of new valuable rules? Version 1.0 or greater provides an API to write your own custom checks.
 A sample plugin with detailed explanations is available [here](https://github.com/racodond/sonar-gherkin-custom-rules-plugin).
 If your custom rules may benefit the community, feel free to create a pull request in order to make the rule available in the Cucumber Gherkin analyzer.
 
 You're thinking of new rules that may benefit the community but don't have the time or the skills to write them? Feel free to create an [issue](https://github.com/racodond/sonar-gherkin-plugin/issues) for your rules to be taken under consideration.
+
+
+## Contributing
+Any contribution is more than welcome!
+ 
+You feel like:
+* Adding a new check? Just [open an issue](https://github.com/racodond/sonar-gherkin-plugin/issues/new) to discuss the value of your check. Once validated, code, don't forget to add a lot of unit tests and open a PR.
+* Fixing some bugs or improving existing checks? Just open a PR.
