@@ -4,6 +4,8 @@ SonarQube Cucumber Gherkin Analyzer
 [![Build Status](https://api.travis-ci.org/racodond/sonar-gherkin-plugin.svg?branch=master)](https://travis-ci.org/racodond/sonar-gherkin-plugin)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/hhh9gsp77hatvai1/branch/master?svg=true)](https://ci.appveyor.com/project/racodond/sonar-gherkin-plugin/branch/master)
 [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.racodond.sonarqube.plugin.gherkin:gherkin)](https://sonarqube.com/overview?id=com.racodond.sonarqube.plugin.gherkin%3Agherkin)
+[![Twitter](https://img.shields.io/badge/Twitter-@racodond-blue.svg)](https://twitter.com/racodond)
+
 
 ## Description
 This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) and:
