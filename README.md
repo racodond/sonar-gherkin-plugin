@@ -11,22 +11,23 @@ SonarQube Cucumber Gherkin Analyzer
 This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) and:
 
  * Computes metrics: lines of code, number of scenarios, etc.
- * Checks various guidelines to find out code smells and potential bugs through more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
+ * Checks various guidelines to find out potential bugs and code smells through more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
  * Provides the ability to write your own checks
- 
+
+
 ## Demo
  * [Simple Demo project](http://sonarqube.racodond.com/dashboard/index?id=gherkin-sample-project)
  * Real life project: [Diaspora](http://sonarqube.racodond.com/dashboard?id=diaspora)
 
+
 ## Usage
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
-1. Install the Cucumber Gherkin analyzer either by a [direct download](https://github.com/racodond/sonar-gherkin-plugin/releases) or through the [Update Center](http://docs.sonarqube.org/display/SONAR/Update+Center).
-1. [Install your favorite analyzer](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.) and analyze your code. Note that Java 8 is required to run an analysis.
+1. Install the Cucumber Gherkin plugin either by a [direct download](https://github.com/racodond/sonar-gherkin-plugin/releases) or through the [Update Center](http://docs.sonarqube.org/display/SONAR/Update+Center). See [plugin compatibility with SonarQube versions](http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix).
+1. Install your [favorite scanner](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.)
+1. [Analyze your code](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis)
 
-Plugin versions and compatibility with SonarQube versions: [http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix](http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix)
 
 ### Maven
-
 It is likely that your feature files are not located in source code directories but in test directories. By default, SonarQube doesn't analyze those test directories. Thus, you have to explicitly tell SonarQube to also analyze the test directories containing your feature files.
 
 Let's say that the structure of your project is:
