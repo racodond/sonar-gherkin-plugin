@@ -3,9 +3,6 @@ language: java
 jdk:
   - oraclejdk8
 
-addons:
-  sonarqube: true
-
 env:
   global:
     - secure: "w+V2zF2MhDhsAXDhi1c9pAGznGjo6coWffYM0FMQJGYhMtULbww1Wf3YUATEQ8TOl8iGh4ZdX7ZVHNFqbyEBNYl90cdOlpBp9n/4ngZfkyctoZ8CbAcA8IpWWxA2iHhR5m7KUJTFtzXcySDLiudPKRZDgAXe+bf/XfYll1uOhpToT9kYOhTew/BWeYy7QC98ILAYlGf0Am1ItstZU7bV1xAtEem4Q7OEZxKrWZng+IJUxx59D2Nx2Ui95kdeehvODTlfj1ko3tSXAqD6/S+6NM0pQ2Rc0rWzE+RbTukYare15hm35NCxsIca3HRXCiE8XTH6rKXyI6GmsDVZ4ts3yRJbRkJGb6xiQLW/VXHN9kwYrYh5yMdH9jSpLJ+Qnwe7qkj8uHw38obREaK5Fs1CNYQTsFf5AHGK00Gp8wfrWQfO8LuB/0p+JWzhoj9zq9uo8ORZEt5Rra5qPvi9mtwZvmcjeMQ58FicDVAP4UOTUUVdlvVd2wN+xyOiOVWQJbEpma2zkr/unYfHjgtiLCLuagEC1J8zm2s0Vt+ucGI1MhaPssQpRTuTTmV5V6Mvs6ioT5lzyfrJ1iHBolynhOJ2FVCRQ1O7ztDtoCoaVJ05japAyTzjk+wtm07MGyKkqyUEAcxfV5eio24+CDF2T5CIJm9CnJFSINOOrrzWrTO1vcQ="
@@ -18,6 +15,5 @@ env:
 cache:
   directories:
     - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
 
 script: ./travis.sh
