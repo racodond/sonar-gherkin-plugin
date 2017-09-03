@@ -15,7 +15,7 @@ This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin fea
 
 ## Usage
 1. [Download and install](http://docs.sonarqube.org/display/SONAR/Setup+and+Upgrade) SonarQube
-1. Install the Cucumber Gherkin plugin either by a [direct download](https://github.com/racodond/sonar-gherkin-plugin/releases) or through the [Update Center](http://docs.sonarqube.org/display/SONAR/Update+Center). See [plugin compatibility with SonarQube versions](http://docs.sonarqube.org/display/PLUG/Plugin+Version+Matrix).
+1. Install the Cucumber Gherkin plugin by a [direct download](https://github.com/racodond/sonar-gherkin-plugin/releases). The  latest version is compatible with SonarQube 5.6+.
 1. Install your [favorite scanner](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis) (SonarQube Scanner, Maven, Ant, etc.)
 1. [Analyze your code](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code#AnalyzingSourceCode-RunningAnalysis)
 
