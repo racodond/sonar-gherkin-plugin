@@ -20,7 +20,6 @@
 package org.sonar.gherkin.checks;
 
 import java.io.File;
-import java.io.IOException;
 
 public class GenerateRuleDescriptionsBatch {
 
@@ -36,7 +35,7 @@ public class GenerateRuleDescriptionsBatch {
     generateRuleDescriptionsFromTemplates(TEMPLATE_DIRECTORY, TARGET_DIRECTORY);
   }
 
-  private static void generateRuleDescriptionsFromTemplates(String templateDirectoryPath, String targetDirectoryPath) throws IOException {
+  private static void generateRuleDescriptionsFromTemplates(String templateDirectoryPath, String targetDirectoryPath) {
     File[] files = new File(templateDirectoryPath).listFiles();
     for (File file : files) {
       RULE_DESCRIPTIONS_GENERATOR.generateHtmlRuleDescription(file.getPath(), targetDirectoryPath + file.getName());
