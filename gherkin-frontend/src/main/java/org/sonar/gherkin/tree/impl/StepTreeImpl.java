@@ -45,7 +45,7 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
     this.sentence = sentence;
 
     initData(data);
-    initVariables(sentence);
+    initVariables();
   }
 
   @Override
@@ -110,11 +110,18 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
     visitor.visitStep(this);
   }
 
-  private void initVariables(StepSentenceTree sentence) {
-    Pattern pattern = Pattern.compile("<(.+?)>");
-    Matcher matcher = pattern.matcher(sentence.text());
+  private void initVariables() {
     variables = new HashSet<>();
 
+    addVariablesFromText(sentence.text());
+
+    if (table != null) {
+      table.rows().stream().map(SyntaxToken::text).forEach(this::addVariablesFromText);
+    }
+  }
+
+  private void addVariablesFromText(String text) {
+    Matcher matcher = Pattern.compile("<(.+?)>").matcher(text);
     while (matcher.find()) {
       variables.add(matcher.group(1).trim());
     }
