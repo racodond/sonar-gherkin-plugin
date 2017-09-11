@@ -17,7 +17,6 @@ environment:
     - SQ_VERSION: "DEV"
 
 platform:
-  - x86
   - x64
 
 build_script:
