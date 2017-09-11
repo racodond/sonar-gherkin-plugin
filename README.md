@@ -9,7 +9,7 @@ SonarQube Cucumber Gherkin Analyzer
 This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) and:
 
  * Computes metrics: lines of code, number of scenarios, etc.
- * Checks various guidelines to find out potential bugs and code smells through more than [40 checks](http://sonarqube.racodond.com/coding_rules#languages=gherkin)
+ * Checks various guidelines to find out potential bugs and code smells through more than [40 checks](#available-rules)
  * Provides the ability to write your own checks
 
 
