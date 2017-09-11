@@ -47,7 +47,7 @@ public class UnusedVariableCheck extends DoubleDispatchVisitorCheck {
 
     Set<String> unusedVariables = new HashSet<>();
     if (table != null) {
-      unusedVariables = table.headers().stream().collect(Collectors.toSet());
+      unusedVariables = new HashSet<>(table.headers());
       unusedVariables.removeAll(tree.steps()
         .stream()
         .flatMap(s -> s.variables().stream())
