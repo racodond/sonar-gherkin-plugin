@@ -11,7 +11,7 @@
 
   <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
   <artifactId>gherkin</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.4</version>
   <packaging>pom</packaging>
 
   <name>SonarQube Cucumber Gherkin Analyzer</name>
