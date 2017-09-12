@@ -43,9 +43,7 @@ import java.util.stream.Collectors;
 public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
 
   private PrefixTree featurePrefix;
-
   private final Set<String> featureTags = new HashSet<>();
-
   private final List<TagTree> scenarioTagTrees = new ArrayList<>();
   private final List<Set<String>> scenarioTags = new ArrayList<>();
 
@@ -69,15 +67,21 @@ public class TagRightLevelCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScenario(ScenarioTree tree) {
-    scenarioTagTrees.addAll(tree.tags());
+    scenarioTagTrees.addAll(new ArrayList<>(tree.tags()));
     scenarioTags.add(tree.tags().stream().map(TagTree::text).collect(Collectors.toSet()));
     super.visitScenario(tree);
   }
 
   @Override
   public void visitScenarioOutline(ScenarioOutlineTree tree) {
-    scenarioTagTrees.addAll(tree.allTags());
-    scenarioTags.add(tree.allTags().stream().map(TagTree::text).collect(Collectors.toSet()));
+    List<TagTree> allTags = new ArrayList<>(tree.tags());
+    if (tree.examples().size() == 1) {
+      allTags.addAll(new ArrayList<>(tree.examples().get(0).tags()));
+    }
+
+    scenarioTagTrees.addAll(new ArrayList<>(allTags));
+    scenarioTags.add(allTags.stream().map(TagTree::text).collect(Collectors.toSet()));
+
     super.visitScenarioOutline(tree);
   }
 

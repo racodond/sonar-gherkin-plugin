@@ -93,7 +93,7 @@ public class GherkinGrammar {
         b.optional(NAME()),
         b.optional(SCENARIO_DESCRIPTION()),
         b.zeroOrMore(STEP()),
-        EXAMPLES()));
+        b.oneOrMore(EXAMPLES())));
   }
 
   public ExamplesTree EXAMPLES() {

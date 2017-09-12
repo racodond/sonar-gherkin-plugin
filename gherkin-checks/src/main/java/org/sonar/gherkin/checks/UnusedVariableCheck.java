@@ -21,6 +21,7 @@ package org.sonar.gherkin.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.plugins.gherkin.api.tree.ExamplesTree;
 import org.sonar.plugins.gherkin.api.tree.ScenarioOutlineTree;
 import org.sonar.plugins.gherkin.api.tree.TableTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
@@ -43,25 +44,34 @@ public class UnusedVariableCheck extends DoubleDispatchVisitorCheck {
   @Override
   public void visitScenarioOutline(ScenarioOutlineTree tree) {
 
-    TableTree table = tree.examples().table();
+    Set<String> allVariables = tree.steps()
+      .stream()
+      .flatMap(s -> s.variables().stream())
+      .collect(Collectors.toSet());
+
+    for (ExamplesTree examplesTree : tree.examples()) {
+      checkUnusedDataTableColumn(examplesTree, allVariables);
+    }
+
+    super.visitScenarioOutline(tree);
+  }
+
+  private void checkUnusedDataTableColumn(ExamplesTree examples, Set<String> allVariables) {
+    TableTree table = examples.table();
 
     Set<String> unusedVariables = new HashSet<>();
     if (table != null) {
       unusedVariables = new HashSet<>(table.headers());
-      unusedVariables.removeAll(tree.steps()
-        .stream()
-        .flatMap(s -> s.variables().stream())
-        .collect(Collectors.toSet()));
+      unusedVariables.removeAll(allVariables);
     }
 
     if (!unusedVariables.isEmpty()) {
       addPreciseIssue(
-        tree.examples().prefix(),
+        examples.prefix(),
         "Remove the following unused variable" + (unusedVariables.size() > 1 ? "s" : "") + ": "
           + unusedVariables.stream().sorted().collect(Collectors.joining(", ")));
     }
 
-    super.visitScenarioOutline(tree);
   }
 
 }

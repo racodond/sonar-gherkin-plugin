@@ -47,7 +47,7 @@ public class TreeFactory {
     return new ScenarioTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), steps.orNull());
   }
 
-  public ScenarioOutlineTree scenarioOutline(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps, ExamplesTree examples) {
+  public ScenarioOutlineTree scenarioOutline(Optional<List<TagTree>> tags, PrefixTree prefix, SyntaxToken colon, Optional<NameTree> name, Optional<DescriptionTree> description, Optional<List<StepTree>> steps, List<ExamplesTree> examples) {
     return new ScenarioOutlineTreeImpl(tags.orNull(), prefix, colon, name.orNull(), description.orNull(), steps.orNull(), examples);
   }
 

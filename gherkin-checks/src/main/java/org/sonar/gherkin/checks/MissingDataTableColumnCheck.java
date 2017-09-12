@@ -21,12 +21,14 @@ package org.sonar.gherkin.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.plugins.gherkin.api.tree.ExamplesTree;
 import org.sonar.plugins.gherkin.api.tree.ScenarioOutlineTree;
 import org.sonar.plugins.gherkin.api.tree.TableTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,32 +43,40 @@ public class MissingDataTableColumnCheck extends DoubleDispatchVisitorCheck {
 
   @Override
   public void visitScenarioOutline(ScenarioOutlineTree tree) {
-    TableTree table = tree.examples().table();
 
-    Set<String> missingColumns = tree.steps()
+    Set<String> allVariables = tree.steps()
       .stream()
       .flatMap(s -> s.variables().stream())
       .collect(Collectors.toSet());
 
+    for (ExamplesTree examplesTree : tree.examples()) {
+      checkMissingDataTableColumn(examplesTree, allVariables);
+    }
+
+    super.visitScenarioOutline(tree);
+  }
+
+  private void checkMissingDataTableColumn(ExamplesTree examples, Set<String> allVariables) {
+    Set<String> missingColumns = new HashSet<>(allVariables);
+    TableTree table = examples.table();
+
     if (table != null) {
-      missingColumns.removeAll(table.headers().stream().collect(Collectors.toSet()));
+      missingColumns.removeAll(new HashSet<>(table.headers()));
     }
 
     if (!missingColumns.isEmpty()) {
       if (table != null) {
         addPreciseIssue(
-          tree.examples().prefix(),
+          examples.prefix(),
           "Add the following missing data table column" + (missingColumns.size() > 1 ? "s" : "") + ": "
             + missingColumns.stream().sorted().collect(Collectors.joining(", ")));
       } else {
         addPreciseIssue(
-          tree.examples().prefix(),
+          examples.prefix(),
           "Add a data table with the following missing column" + (missingColumns.size() > 1 ? "s" : "") + ": "
             + missingColumns.stream().sorted().collect(Collectors.joining(", ")));
       }
     }
-
-    super.visitScenarioOutline(tree);
   }
 
 }

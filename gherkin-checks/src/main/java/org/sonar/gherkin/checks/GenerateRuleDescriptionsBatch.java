@@ -31,7 +31,7 @@ public class GenerateRuleDescriptionsBatch {
   private GenerateRuleDescriptionsBatch() {
   }
 
-  public static void main(String... args) throws Exception {
+  public static void main(String... args) {
     generateRuleDescriptionsFromTemplates(TEMPLATE_DIRECTORY, TARGET_DIRECTORY);
   }
 

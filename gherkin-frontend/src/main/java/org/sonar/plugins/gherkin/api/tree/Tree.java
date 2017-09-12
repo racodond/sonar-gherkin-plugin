@@ -43,7 +43,6 @@ public interface Tree {
   Kind getKind();
 
   enum Kind implements GrammarRuleKey {
-
     GHERKIN_DOCUMENT(GherkinDocumentTree.class),
     FEATURE(FeatureTree.class),
     FEATURE_DECLARATION(FeatureDeclarationTree.class),
