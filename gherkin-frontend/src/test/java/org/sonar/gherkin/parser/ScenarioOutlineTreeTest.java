@@ -37,74 +37,86 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     tree = checkParsed("Scenario Outline:\nExamples:");
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.name()).isNull();
     assertThat(tree.description()).isNull();
-    assertThat(tree.examples().table()).isNull();
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table()).isNull();
 
     tree = checkParsed("Scenario Outline: name...\nExamples:");
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.description()).isNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table()).isNull();
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table()).isNull();
 
     tree = checkParsed("Scenario Outline: name...\nExamples:");
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.description()).isNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table()).isNull();
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table()).isNull();
 
     tree = checkParsed("Scenario Outline: name...\nblabla...\nExamples:");
     assertThat(tree.steps()).hasSize(0);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table()).isNull();
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table()).isNull();
 
     tree = checkParsed("Scenario Outline: name...\nblabla...\nGiven blabla...\n\nExamples:");
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table()).isNull();
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table()).isNull();
 
     tree = checkParsed("Scenario Outline: name...\nblabla...\nGiven blabla...\n\nExamples:\n|d1|d2|");
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(0);
-    assertThat(tree.allTags()).hasSize(0);
     assertThat(tree.description()).isNotNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table().rows()).hasSize(1);
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table().rows()).hasSize(1);
 
     tree = checkParsed("@mytag\nScenario Outline: name...\nblabla...\nGiven blabla...\n\nExamples:\n|d1|d2|");
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(1);
-    assertThat(tree.allTags()).hasSize(1);
     assertThat(tree.description()).isNotNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table().rows()).hasSize(1);
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table().rows()).hasSize(1);
 
     tree = checkParsed("@mytag\nScenario Outline: name...\nblabla...\nGiven blabla...\n\n@mytag\nExamples:\n|d1|d2|");
     assertThat(tree.steps()).hasSize(1);
     assertThat(tree.tags()).hasSize(1);
-    assertThat(tree.allTags()).hasSize(2);
     assertThat(tree.description()).isNotNull();
     assertThat(tree.name()).isNotNull();
     assertThat(tree.name().text()).isEqualTo("name...");
-    assertThat(tree.examples().table().rows()).hasSize(1);
-    assertThat(tree.examples().tags()).hasSize(1);
+    assertThat(tree.examples()).hasSize(1);
+    assertThat(tree.examples().get(0).table().rows()).hasSize(1);
+    assertThat(tree.examples().get(0).tags()).hasSize(1);
+
+    tree = checkParsed("@mytag\nScenario Outline: name...\nblabla...\nGiven blabla...\n\n@mytag\nExamples:\n|d1|d2|\n@mytag @mytag1\nExamples:\n|d1|d2|\n|d1|d2|");
+    assertThat(tree.steps()).hasSize(1);
+    assertThat(tree.tags()).hasSize(1);
+    assertThat(tree.description()).isNotNull();
+    assertThat(tree.name()).isNotNull();
+    assertThat(tree.name().text()).isEqualTo("name...");
+    assertThat(tree.examples()).hasSize(2);
+    assertThat(tree.examples().get(0).table().rows()).hasSize(1);
+    assertThat(tree.examples().get(0).tags()).hasSize(1);
+    assertThat(tree.examples().get(1).table().rows()).hasSize(2);
+    assertThat(tree.examples().get(1).tags()).hasSize(2);
   }
 
   @Test
@@ -121,7 +133,6 @@ public class ScenarioOutlineTreeTest extends GherkinTreeTest {
     assertThat(tree.colon()).isNotNull();
     assertThat(tree.steps()).isNotNull();
     assertThat(tree.tags()).isNotNull();
-    assertThat(tree.allTags()).isNotNull();
     assertThat(tree.examples()).isNotNull();
     return tree;
   }

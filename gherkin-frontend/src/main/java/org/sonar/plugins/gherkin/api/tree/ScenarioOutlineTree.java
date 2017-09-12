@@ -23,9 +23,6 @@ import java.util.List;
 
 public interface ScenarioOutlineTree extends BasicScenarioTree, Taggable {
 
-  ExamplesTree examples();
-
-  // Tags defined at Scenario Outline level + tags defined at Examples level
-  List<TagTree> allTags();
+  List<ExamplesTree> examples();
 
 }
