@@ -60,7 +60,7 @@ public class AllowedTagsCheck extends DoubleDispatchVisitorCheck {
   public void visitTag(TagTree tree) {
 	  boolean valid = false;
 	  for (String allowedTag: listOfAllowedTags) {
-		  valid = tree.text().matches(allowedTag);
+		  valid = tree.text().matches(allowedTag) && !tree.text().contains("@");
 		  if (valid) {
 			  break;
 		  }
