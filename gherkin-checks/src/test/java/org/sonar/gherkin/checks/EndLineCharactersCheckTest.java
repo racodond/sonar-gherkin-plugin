@@ -21,6 +21,7 @@ package org.sonar.gherkin.checks;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
@@ -30,6 +31,9 @@ import java.io.File;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class EndLineCharactersCheckTest {
+
+  @Rule
+  public final TemporaryFolder tempFolder = new TemporaryFolder();
 
   private EndLineCharactersCheck check = new EndLineCharactersCheck();
 
@@ -113,15 +117,16 @@ public class EndLineCharactersCheckTest {
     }
   }
 
-  private static File getTestFileWithProperEndLineCharacters(String endLineCharacter) throws Exception {
-    TemporaryFolder temporaryFolder = new TemporaryFolder();
-    File testFile = temporaryFolder.newFile();
-    Files.write(
-      Files.toString(CheckTestUtils.getTestFile("end-line-characters.feature"), Charsets.UTF_8)
+  private File getTestFileWithProperEndLineCharacters(String endLineCharacter) throws Exception {
+    File testFile = tempFolder.newFile();
+    Files
+      .asCharSink(testFile, Charsets.UTF_8)
+      .write(Files
+        .asCharSource(CheckTestUtils.getTestFile("end-line-characters.feature"), Charsets.UTF_8)
+        .read()
         .replaceAll("\\r\\n", "\n")
         .replaceAll("\\r", "\n")
-        .replaceAll("\\n", endLineCharacter),
-      testFile, Charsets.UTF_8);
+        .replaceAll("\\n", endLineCharacter));
     return testFile;
   }
 
