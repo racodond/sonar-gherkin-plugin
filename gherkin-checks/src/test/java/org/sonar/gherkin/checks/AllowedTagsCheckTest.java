@@ -30,10 +30,17 @@ public class AllowedTagsCheckTest {
   }
 
   @Test
-  public void test_default_custom_white_list() {
+  public void test_custom_white_list() {
     AllowedTagsCheck check = new AllowedTagsCheck();
-    check.setAllowedTags("mytag,yourtag");
+    check.setAllowedTags("mytag;yourtag");
     GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("allowed-tags/allowed-tags-custom.feature"));
   }
 
+  @Test
+  public void test_composite_tag_white_list() {
+    AllowedTagsCheck check = new AllowedTagsCheck();
+    check.setAllowedTags("us:\\d+;uid:[a-zA-Z''-'\\s]{1,40}");
+    GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("allowed-tags/allowed-tags-composite.feature"));
+  }
+  
 }
