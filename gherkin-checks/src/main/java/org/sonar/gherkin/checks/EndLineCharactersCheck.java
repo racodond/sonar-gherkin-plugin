@@ -78,7 +78,7 @@ public class EndLineCharactersCheck extends DoubleDispatchVisitorCheck implement
 
   private boolean fileContainsIllegalEndLineCharacters() {
     try {
-      String fileContent = Files.toString(getContext().getFile(), charset);
+      String fileContent = Files.asCharSource(getContext().getFile(), charset).read();
       return "CR".equals(endLineCharacters) && Pattern.compile("(?s)\n").matcher(fileContent).find()
         || "LF".equals(endLineCharacters) && Pattern.compile("(?s)\r").matcher(fileContent).find()
         || "CRLF".equals(endLineCharacters) && Pattern.compile("(?s)(\r(?!\n)|(?<!\r)\n)").matcher(fileContent).find();

@@ -1,11 +1,11 @@
 # Maven
-target/
+target
 
 # IntelliJ IDEA
 *.iws
 *.iml
 *.ipr
-.idea/
+.idea
 
 # Eclipse
 .classpath
@@ -31,6 +31,7 @@ log.txt
 *~
 *versionsBackup
 
-.sonar/
-.sonarlint/
+.sonar
+.sonarlint
+.scannerwork
 sonarlint.json
