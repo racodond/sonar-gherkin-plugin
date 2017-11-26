@@ -40,26 +40,34 @@ import java.util.List;
 @SqaleConstantRemediation("5min")
 public class AllowedTagsCheck extends DoubleDispatchVisitorCheck {
 
-  private static final String DEFAULT = "smoke,nrt";
+  private static final String DEFAULT = "smoke;nrt";
   private List<String> listOfAllowedTags;
 
   @RuleProperty(
     key = "allowedTags",
     defaultValue = DEFAULT,
-    description = "Comma-separated list of allowed tags.")
+    description = "Semicolon-separated list of allowed tags.")
   private String allowedTags = DEFAULT;
 
   @Override
   public void visitGherkinDocument(GherkinDocumentTree tree) {
-    listOfAllowedTags = Lists.newArrayList(Splitter.on(",").split(allowedTags));
+    // use different separator e.g. ';' because ',' is used for regular expression repetitions {1,40}
+    listOfAllowedTags = Lists.newArrayList(Splitter.on(";").split(allowedTags));
     super.visitGherkinDocument(tree);
   }
 
   @Override
   public void visitTag(TagTree tree) {
-    if (!listOfAllowedTags.contains(tree.text())) {
-      addPreciseIssue(tree, "Remove this tag that is not in the whitelist.");
-    }
+	  boolean valid = false;
+	  for (String allowedTag: listOfAllowedTags) {
+		  valid = tree.text().matches(allowedTag) && !tree.text().contains("@");
+		  if (valid) {
+			  break;
+		  }
+	  }
+  	if (!valid) {
+  		addPreciseIssue(tree, "Remove this tag that is not in the whitelist.");			
+  	}
     super.visitTag(tree);
   }
 
