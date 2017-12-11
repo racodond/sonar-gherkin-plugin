@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
     <artifactId>gherkin-its-plugin-plugins</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.6</version>
   </parent>
 
   <artifactId>gherkin-custom-rules-plugin</artifactId>
