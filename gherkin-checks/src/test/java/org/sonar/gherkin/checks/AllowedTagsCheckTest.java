@@ -22,18 +22,41 @@ package org.sonar.gherkin.checks;
 import org.junit.Test;
 import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 public class AllowedTagsCheckTest {
 
   @Test
-  public void test_default_white_list() {
+  public void test_default_regular_expression() {
     GherkinCheckVerifier.verify(new AllowedTagsCheck(), CheckTestUtils.getTestFile("allowed-tags/allowed-tags-default.feature"));
   }
 
   @Test
-  public void test_default_custom_white_list() {
+  public void test_custom_regular_expression() {
     AllowedTagsCheck check = new AllowedTagsCheck();
-    check.setAllowedTags("mytag,yourtag");
+    check.setAllowedTags("mytag|yourtag");
     GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("allowed-tags/allowed-tags-custom.feature"));
+  }
+
+  @Test
+  public void test_composite_tags() {
+    AllowedTagsCheck check = new AllowedTagsCheck();
+    check.setAllowedTags("us:\\d+|uid:[a-zA-Z''-'\\s]{1,40}");
+    GherkinCheckVerifier.verify(check, CheckTestUtils.getTestFile("allowed-tags/allowed-tags-composite.feature"));
+  }
+
+  @Test
+  public void should_throw_an_illegal_state_exception_as_the_regular_expression_parameter_is_not_valid() {
+    try {
+      AllowedTagsCheck check = new AllowedTagsCheck();
+      check.setAllowedTags("(");
+
+      GherkinCheckVerifier.issues(check, CheckTestUtils.getTestFile("allowed-tags/allowed-tags-custom.feature")).noMore();
+
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Check gherkin:allowed-tags (Only tags matching a regular expression should be used): "
+        + "allowedTags parameter \"(\" is not a valid regular expression.");
+    }
   }
 
 }

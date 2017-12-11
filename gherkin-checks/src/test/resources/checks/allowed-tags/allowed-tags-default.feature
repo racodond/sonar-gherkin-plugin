@@ -1,9 +1,9 @@
-# Noncompliant [[sc=1;ec=7]] {{Remove this tag that is not in the whitelist.}}
+# Noncompliant [[sc=1;ec=7]] {{Remove this tag that does not match the regular expression: "smoke|nrt"}}
 @mytag
 Feature: My feature allowed tags default...
   Blabla...
 
-  # Noncompliant [[sc=3;ec=23]] {{Remove this tag that is not in the whitelist.}}
+  # Noncompliant [[sc=3;ec=23]] {{Remove this tag that does not match the regular expression: "smoke|nrt"}}
   @non-regression-test
   Scenario: Scenario 1 allowed tags default
     Given Blabla given...

@@ -20,47 +20,53 @@
 package org.sonar.gherkin.checks;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
-import org.sonar.plugins.gherkin.api.tree.GherkinDocumentTree;
 import org.sonar.plugins.gherkin.api.tree.TagTree;
 import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Rule(
   key = "allowed-tags",
-  name = "Only tags from the whitelist should be used",
+  name = "Only tags matching a regular expression should be used",
   priority = Priority.MINOR,
   tags = {Tags.TAG, Tags.CONVENTION})
 @SqaleConstantRemediation("5min")
 public class AllowedTagsCheck extends DoubleDispatchVisitorCheck {
 
-  private static final String DEFAULT = "smoke,nrt";
-  private List<String> listOfAllowedTags;
+  private static final String DEFAULT = "smoke|nrt";
 
   @RuleProperty(
     key = "allowedTags",
     defaultValue = DEFAULT,
-    description = "Comma-separated list of allowed tags.")
+    description = "The regular expression that tags should match. See " + CheckUtils.LINK_TO_JAVA_REGEX_PATTERN_DOC + " for detailed regular expression syntax.")
   private String allowedTags = DEFAULT;
 
   @Override
-  public void visitGherkinDocument(GherkinDocumentTree tree) {
-    listOfAllowedTags = Lists.newArrayList(Splitter.on(",").split(allowedTags));
-    super.visitGherkinDocument(tree);
+  public void visitTag(TagTree tree) {
+    if (!tree.text().matches(allowedTags)) {
+      addPreciseIssue(tree, "Remove this tag that does not match the regular expression: \"" + allowedTags + "\"");
+    }
+    super.visitTag(tree);
   }
 
   @Override
-  public void visitTag(TagTree tree) {
-    if (!listOfAllowedTags.contains(tree.text())) {
-      addPreciseIssue(tree, "Remove this tag that is not in the whitelist.");
+  public void validateParameters() {
+    try {
+      Pattern.compile(allowedTags);
+    } catch (PatternSyntaxException exception) {
+      throw new IllegalStateException(paramErrorMessage(), exception);
     }
-    super.visitTag(tree);
+  }
+
+  private String paramErrorMessage() {
+    return CheckUtils.paramErrorMessage(
+      this.getClass(),
+      "allowedTags parameter \"" + allowedTags + "\" is not a valid regular expression.");
   }
 
   @VisibleForTesting
