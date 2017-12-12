@@ -118,6 +118,10 @@ public class StepTreeImpl extends GherkinTree implements StepTree {
     if (table != null) {
       table.rows().stream().map(SyntaxToken::text).forEach(this::addVariablesFromText);
     }
+
+    if (docString != null) {
+      docString.data().stream().map(SyntaxToken::text).forEach(this::addVariablesFromText);
+    }
   }
 
   private void addVariablesFromText(String text) {

@@ -71,7 +71,6 @@ public class UnusedVariableCheck extends DoubleDispatchVisitorCheck {
         "Remove the following unused variable" + (unusedVariables.size() > 1 ? "s" : "") + ": "
           + unusedVariables.stream().sorted().collect(Collectors.joining(", ")));
     }
-
   }
 
 }

@@ -82,6 +82,17 @@ public class StepTreeTest extends GherkinTreeTest {
     assertThat(tree.variables().contains("ghi")).isTrue();
     assertThat(tree.variables().contains("zzz")).isFalse();
 
+    tree = checkParsed("Given blabla...\n" +
+        "  \"\"\"\n" +
+        "  {\n" +
+        "    \"code\":\"79365\",\n" +
+        "    \"price\":<value>\n" +
+        "  }\n" +
+        "  \"\"\"",
+      "Given ", "blabla...");
+    assertThat(tree.variables()).hasSize(1);
+    assertThat(tree.variables().contains("value")).isTrue();
+
     checkParsed("Given  I am a customer", "Given ", " I am a customer");
   }
 
