@@ -18,6 +18,5 @@ env:
 cache:
   directories:
     - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
 
 script: ./travis.sh
