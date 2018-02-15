@@ -26,9 +26,12 @@ import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.sonarsource.analyzer.commons.ProfileGenerator;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -42,8 +45,11 @@ public class GherkinRulingTest {
     .build();
 
   @Before
-  public void setUp() throws Exception {
-    ProfileGenerator.generateProfile(orchestrator);
+  public void setUp() {
+    ProfileGenerator.RulesConfiguration rulesConfiguration = new ProfileGenerator.RulesConfiguration();
+    Set<String> excludedRules = Collections.emptySet();
+    File profile = ProfileGenerator.generateProfile(orchestrator.getServer().getUrl(), "gherkin", "gherkin", rulesConfiguration, excludedRules);
+    orchestrator.getServer().restoreProfile(FileLocation.of(profile));
   }
 
   @Test
@@ -53,8 +59,6 @@ public class GherkinRulingTest {
     orchestrator.getServer().associateProjectToQualityProfile("project", "gherkin", "rules");
     SonarScanner build = SonarScanner.create(FileLocation.of("../projects").getFile())
       .setProjectKey("project")
-      .setProjectName("project")
-      .setProjectVersion("1.0")
       .setLanguage("gherkin")
       .setSourceDirs("./")
       .setSourceEncoding("UTF-8")
@@ -64,7 +68,6 @@ public class GherkinRulingTest {
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.cpd.skip", "true")
-
       .setProperty("sonar.exclusions",
         "custom/spelling/spelling-fr.feature,"
           + "custom/indentation/indentation-custom-ok.feature,"
@@ -72,7 +75,7 @@ public class GherkinRulingTest {
       );
     orchestrator.executeBuild(build);
 
-    assertThat(Files.toString(litsDifferencesFile, StandardCharsets.UTF_8)).isEmpty();
+    assertThat(Files.asCharSource(litsDifferencesFile, StandardCharsets.UTF_8).read()).isEmpty();
   }
 
 }
