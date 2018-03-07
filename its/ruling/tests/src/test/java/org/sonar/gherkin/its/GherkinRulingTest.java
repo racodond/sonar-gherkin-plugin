@@ -19,6 +19,7 @@
  */
 package org.sonar.gherkin.its;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
@@ -30,7 +31,6 @@ import org.sonarsource.analyzer.commons.ProfileGenerator;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -47,7 +47,7 @@ public class GherkinRulingTest {
   @Before
   public void setUp() {
     ProfileGenerator.RulesConfiguration rulesConfiguration = new ProfileGenerator.RulesConfiguration();
-    Set<String> excludedRules = Collections.emptySet();
+    Set<String> excludedRules = ImmutableSet.of("spelling");
     File profile = ProfileGenerator.generateProfile(orchestrator.getServer().getUrl(), "gherkin", "gherkin", rulesConfiguration, excludedRules);
     orchestrator.getServer().restoreProfile(FileLocation.of(profile));
   }
