@@ -9,8 +9,8 @@
     <version>41</version>
   </parent>
 
-  <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
-  <artifactId>gherkin</artifactId>
+  <groupId>com.vibrent</groupId>
+  <artifactId>gherkin-custom</artifactId>
   <version>1.8-SNAPSHOT</version>
   <packaging>pom</packaging>
 
