@@ -19,25 +19,14 @@
  */
 package org.sonar.gherkin.checks;
 
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.plugins.gherkin.api.tree.FeatureDeclarationTree;
-import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.junit.Test;
+import org.sonar.gherkin.checks.verifier.GherkinCheckVerifier;
 
-@Rule(
-  key = "missing-feature-description",
-  name = "Features should have a description",
-  priority = Priority.MAJOR,
-  tags = {Tags.DESIGN})
-@SqaleConstantRemediation("10min")
-public class MissingFeatureDescriptionCheck extends DoubleDispatchVisitorCheck {
+public class OneSingleThenPerScenarioCheckTest {
 
-  @Override
-  public void visitFeatureDeclaration(FeatureDeclarationTree tree) {
-    if (tree.description() == null) {
-      addPreciseIssue(tree.prefix(), "Add a description to this feature.");
-    }
+  @Test
+  public void test() {
+    GherkinCheckVerifier.verify(new OneSingleThenPerScenarioCheck(), CheckTestUtils.getTestFile("one-single-then-per-scenario.feature"));
   }
 
 }

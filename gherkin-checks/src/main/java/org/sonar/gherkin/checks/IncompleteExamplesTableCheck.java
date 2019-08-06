@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "incomplete-examples-table",
   name = "Examples data tables should contain data at least two data rows",
-  priority = Priority.CRITICAL,
+  priority = Priority.MAJOR,
   tags = {Tags.BUG})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault

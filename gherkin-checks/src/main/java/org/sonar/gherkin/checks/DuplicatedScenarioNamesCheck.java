@@ -38,7 +38,7 @@ import java.util.Map;
 @Rule(
   key = "duplicated-scenario-names",
   name = "Scenarios should have a unique name",
-  priority = Priority.MAJOR,
+  priority = Priority.CRITICAL,
   tags = {Tags.PITFALL, Tags.READABILITY})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault

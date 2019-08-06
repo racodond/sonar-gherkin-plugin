@@ -36,7 +36,7 @@ import java.util.Map;
 @Rule(
   key = "duplicated-feature-names",
   name = "Features should have a unique name",
-  priority = Priority.MAJOR,
+  priority = Priority.CRITICAL,
   tags = {Tags.PITFALL, Tags.DESIGN})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault

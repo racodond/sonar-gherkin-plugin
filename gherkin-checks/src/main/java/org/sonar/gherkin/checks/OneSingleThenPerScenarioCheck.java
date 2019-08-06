@@ -19,31 +19,47 @@
  */
 package org.sonar.gherkin.checks;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.plugins.gherkin.api.tree.BackgroundTree;
+import org.sonar.plugins.gherkin.api.tree.BasicScenarioTree;
 import org.sonar.plugins.gherkin.api.tree.StepTree;
-import org.sonar.plugins.gherkin.api.visitors.DoubleDispatchVisitorCheck;
+import org.sonar.plugins.gherkin.api.tree.Tree;
+import org.sonar.plugins.gherkin.api.visitors.SubscriptionVisitorCheck;
+import org.sonar.plugins.gherkin.api.visitors.issue.PreciseIssue;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Rule(
-  key = "only-given-steps-in-background",
-  name = "Then steps should be moved out of Background",
-  priority = Priority.CRITICAL,
+  key = "one-single-then-per-scenario",
+  name = "There should be one single Then step per scenario",
+  priority = Priority.MAJOR,
   tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault
-public class OnlyGivenStepsInBackgroundCheck extends DoubleDispatchVisitorCheck {
+public class OneSingleThenPerScenarioCheck extends SubscriptionVisitorCheck {
 
   @Override
-  public void visitBackground(BackgroundTree tree) {
-    tree.steps()
+  public List<Tree.Kind> nodesToVisit() {
+    return ImmutableList.of(Tree.Kind.SCENARIO, Tree.Kind.SCENARIO_OUTLINE);
+  }
+
+  @Override
+  public void visitNode(Tree tree) {
+    List<StepTree> thenSteps = ((BasicScenarioTree) tree).steps()
       .stream()
       .filter(s -> s.semanticType() == StepTree.SemanticStepType.THEN)
-      .forEach(s -> addPreciseIssue(s, "Move this Then step out of Background."));
+      .collect(Collectors.toList());
 
-    super.visitBackground(tree);
+    if (thenSteps.size() > 1) {
+      PreciseIssue issue = addPreciseIssue(thenSteps.get(0), "Merge all the Then steps or split the scenario up in multiple scenarios.");
+      for (int i = 1; i < thenSteps.size(); i++) {
+        issue.secondary(thenSteps.get(i), "Then step");
+      }
+    }
   }
 
 }

@@ -34,7 +34,7 @@ import java.util.regex.PatternSyntaxException;
 @Rule(
   key = "S1578",
   name = "File names should comply with a naming convention",
-  priority = Priority.MINOR,
+  priority = Priority.CRITICAL,
   tags = {Tags.CONVENTION})
 @SqaleConstantRemediation("5min")
 @ActivatedByDefault

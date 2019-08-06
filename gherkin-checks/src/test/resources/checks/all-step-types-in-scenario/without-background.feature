@@ -15,7 +15,6 @@ Feature: My feature all step types without background
       | 1      |
       | 2      |
 
-  # Noncompliant [[sc=3;ec=11]] {{Add at least one When step.}}
   Scenario: Scenario 3 all step types without background
     Given Blabla when...
     Then Blabla then...

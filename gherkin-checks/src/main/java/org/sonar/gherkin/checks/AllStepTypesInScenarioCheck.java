@@ -85,8 +85,8 @@ public class AllStepTypesInScenarioCheck extends DoubleDispatchVisitorCheck {
       }
     }
 
-    if (whens == 0) {
-      addPreciseIssue(tree.prefix(), "Add at least one When step.");
+    if (givens + whens < 1) {
+      addPreciseIssue(tree.prefix(), "Add at least one Given or When step.");
     }
 
     if (thens == 0) {

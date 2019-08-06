@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @Rule(
   key = "duplicated-steps",
   name = "Duplicated steps should be removed",
-  priority = Priority.CRITICAL,
+  priority = Priority.MAJOR,
   tags = {Tags.DESIGN})
 @SqaleConstantRemediation("15min")
 @ActivatedByDefault

@@ -30,7 +30,7 @@ public class OnlyGivenStepsInBackgroundCheckTest {
   }
 
   @Test
-  public void should_raise_an_issue_because_background_contains_non_given_steps() {
+  public void should_raise_an_issue_because_background_contains_then_steps() {
     GherkinCheckVerifier.verify(new OnlyGivenStepsInBackgroundCheck(), CheckTestUtils.getTestFile("only-given-steps-in-background/not-only-given.feature"));
   }
 

@@ -31,7 +31,7 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 @Rule(
   key = "step-sentence-length",
   name = "Step sentences should not be too long",
-  priority = Priority.MAJOR,
+  priority = Priority.MINOR,
   tags = {Tags.DESIGN})
 @SqaleConstantRemediation("10min")
 @ActivatedByDefault
