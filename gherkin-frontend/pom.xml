@@ -5,7 +5,7 @@
 
   <parent>
     <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
-    <artifactId>gherkin</artifactId>
+    <artifactId>vibrent.gherkin</artifactId>
     <version>1.8-SNAPSHOT</version>
   </parent>
 

@@ -10,13 +10,13 @@
   </parent>
 
   <groupId>com.racodond.sonarqube.plugin.gherkin</groupId>
-  <artifactId>gherkin</artifactId>
+  <artifactId>vibrent.gherkin</artifactId>
   <version>1.8-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarQube Cucumber Gherkin Analyzer</name>
-  <description>Enables analysis of Cucumber Gherkin feature files</description>
-  <url>https://github.com/racodond/sonar-gherkin-plugin</url>
+  <name>Custom Vibrent SonarQube Cucumber Gherkin Analyzer</name>
+  <description>Enables analysis of Cucumber Gherkin feature files for the Vibrent Research Project</description>
+  <url>https://github.com/Coveros/sonar-gherkin-plugin</url>
   <inceptionYear>2016</inceptionYear>
   <organization>
     <name>David RACODON</name>
@@ -36,6 +36,12 @@
       <name>David RACODON</name>
       <email>david.racodon@gmail.com</email>
       <url>https://www.linkedin.com/pub/david-racodon/11/62/283</url>
+    </developer>
+    <developer>
+      <id>jeff.voight</id>
+      <name>Jeffrey Voight</name>
+      <email>jeff.voight@coveros.com</email>
+      <url>https://www.coveros.com</url>
     </developer>
   </developers>
 

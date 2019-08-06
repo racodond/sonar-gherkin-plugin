@@ -40,7 +40,8 @@ import java.util.regex.PatternSyntaxException;
 @ActivatedByDefault
 public class FileNameCheck extends DoubleDispatchVisitorCheck {
 
-  private static final String DEFAULT = "^[a-z][-A-Za-z0-9]*\\.feature$";
+  //private static final String DEFAULT = "^[a-z][-A-Za-z0-9]*\\.feature$";
+  private static final String DEFAULT = "^ac-\\d{5,6}\\.feature$";
 
   @RuleProperty(
     key = "format",
