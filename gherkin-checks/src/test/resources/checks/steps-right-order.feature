@@ -9,16 +9,6 @@ Feature: My feature Steps right order
     When I proceed to the order payment
     Then I should see the order total amount
 
-  Scenario Outline: Scenario 2 Steps right order
-    Given I am a customer
-    # Noncompliant [[sc=5;ec=10]] {{Unexpected Then step. Reorder the steps of this scenario.}}
-    Then I should see the product in my cart
-    And I should see the order total amount <data>
-    Examples:
-      | data |
-      | 1    |
-      | 2    |
-
   Scenario: Scenario 3 Steps right order
     Given I am a customer
     When I add a product to my cart

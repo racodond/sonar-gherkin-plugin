@@ -77,13 +77,6 @@ public class StepsRightOrderCheck extends DoubleDispatchVisitorCheck {
           }
           break;
 
-        case THEN:
-          if (previousStepType != StepTree.SemanticStepType.WHEN && previousStepType != StepTree.SemanticStepType.THEN) {
-            addPreciseIssue(steps.get(i).prefix(), "Unexpected Then step. Reorder the steps of this scenario.");
-            break search;
-          }
-          break;
-
         default:
           break;
       }
