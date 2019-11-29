@@ -8,7 +8,13 @@
 
 
 
-## SonarQube Cucumber Gherkin Analyzer
+# SonarQube Cucumber Gherkin Analyzer
+
+## Disclaimer
+I don't want to keep maintaining this plugin. Feel free to ping me if you want to take over.
+
+
+## Description
 This [SonarQube](http://www.sonarqube.org) plugin analyzes [Cucumber Gherkin feature files](https://cucumber.io/docs/reference#gherkin) and:
 
  * Computes metrics: lines of code, number of scenarios, etc.
